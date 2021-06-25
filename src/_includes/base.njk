@@ -32,7 +32,7 @@
 		<div class="container container--item">
 				{% include "postDate.njk" %}
 				<h1>{{ title }}</h1>
-				<p class="header-meta">{{ itemCategory | safe }} <a href="/{{ item.feedTitle | slug }}/">All from {{ item.feedTitle }}</a> <strong><a href="{{ link }}">View <span class="inclusively-hidden">{{ title }}</span> on {{ item.siteUrl | domain }}</a></strong></p>
+				<p class="header-meta">{{ itemCategory | safe }} <a href="/{{ item.feedTitle | slug | url }}/">All from {{ item.feedTitle }}</a> <strong><a href="{{ link }}">View <span class="inclusively-hidden">{{ title }}</span> on {{ item.siteUrl | domain }}</a></strong></p>
 			{% elseif not page.fileSlug %}
 		<div class="container container--home">
 				<h1>{{ meta.siteTitle }}</h1>

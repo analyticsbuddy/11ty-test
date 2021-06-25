@@ -9,11 +9,11 @@
   {% for item in feed.items | limit(3) %}
     <li>
       {% include "postDate.njk" %}
-      <a href="/{{ item.feedTitle | slug }}/{{ item.title | slug }}/">{{ item.title }}</a>
+      <a href="/{{ item.feedTitle | slug | url }}/{{ item.title | slug }}/">{{ item.title }}</a>
     </li>
   {% endfor %}
   </ul>
   <footer class="background-primary">
-    <small><a href="/{{ feed.feedTitle | slug }}/">View all from {{ feed.siteUrl | domain }}</a></small>
+    <small><a href="/{{ feed.feedTitle | slug | url }}/">View all from {{ feed.siteUrl | domain }}</a></small>
   </footer>
 </li>
