@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>A couple of ways to highlight code syntax in Apple Keynote slides</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>May 23, 2021</strong></small>
+
+				<h1>A couple of ways to highlight code syntax in Apple Keynote slides</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/copy-paste-from-vscode-to-keynote/">View <span class="inclusively-hidden">A couple of ways to highlight code syntax in Apple Keynote slides</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p><a href="https://www.apple.com/keynote/">Apple Keynote</a> doesn&rsquo;t come with code syntax highlighting built in. I <em>really</em> wish it did, and hope that Apple would at some point add this feature, especially considering how many developers and engineers use Keynote to create talk slides.</p>
+<p>Seven years ago, I used to take screenshots of code snippets to include them in my presentations. That was <em>very</em> impractical. If I wanted to make changes to the code, I&rsquo;d have to rewrite it, take a screenshot again, and copy-paste it into Keynote once again. That soon became tiring and highly ineffective.</p>
+<p>Today, I know of two quick and easy ways to include &ldquo;real&rdquo; syntax highlighted code in Keynote. This post is me dumping my thoughts into my own &ldquo;<a href="https://www.wizardingworld.com/writing-by-jk-rowling/pensieve">Pensieve</a>&quot;—<em>this blog!</em>—for my future self to reference, and for anyone else who might find these tips useful.</p>
+<h2 id="copy-pasting-formatted-code-from-vs-code">Copy-pasting formatted code from VS Code</h2>
+<p>A few years ago I learned that copying code from <a href="https://code.visualstudio.com/">VS Code</a> to Keynote would preserve the formatting of the pasted code, i.e. I could include real code (text) snippets in my slides with syntax highlighting applied to them. That was a game changer! Shortly after learning that, I installed VS Code on my machine and used it solely for that purpose for quite a while (before I eventually made the complete switch from <a href="https://www.sublimetext.com/">Sublime Text</a>).</p>
+<p>To ensure code snippets in my slides have proper and accessible contrast, I typically enable VS Code&rsquo;s High Contrast theme when I&rsquo;m writing code for my presentations. (I&rsquo;ve used the High Contrast theme for daily coding sessions as well for years.)</p>
+<p><em>Today</em>, I learned that this VS Code feature is actually a setting (<code>editor.copyWithSyntaxHighlighting</code>) that can be enabled and disabled in VS Code editor settings. I learned this after <a href="https://twitter.com/SaraSoueidan/status/1396493483943337984?s=20">asking</a> for suggestions for alternative ways to highlight code in Keynote after noticing that the code I was copying from VS Code was no longer preserving its formatting. (Thanks to <a href="https://twitter.com/aaronbassett">Aaron Bassett</a> for <a href="https://twitter.com/aaronbassett/status/1396495691929821185?s=20">the tip</a>). Turns out the setting wasn&rsquo;t enabled after the last fresh install I did.</p>
+<p>If you search for <code>copyWithSyntaxHighlighting</code> in VS Code settings, you can find the option that enables/disables it and turn it on/off:</p>
+<img src="../../images/vscode-sh.png" alt="The option in VS Code settings that controls whether syntax highlighting should be copied into the clipboard">
+<p>Alternatively, you can manually set the value to <code>true</code> or <code>false</code> in your user Settings file.</p>
+<h2 id="using-the-slides-code-highlighter-web-app">Using the Slides Code Highlighter Web app</h2>
+<p>If you don&rsquo;t use VS Code and don&rsquo;t want to install it for the sole purpose of copy-pasting code snippets into Keynote, you can use <a href="https://romannurik.github.io/SlidesCodeHighlighter/">Slides Code Highlighter</a> tool by <a href="https://twitter.com/romannurik">Roman Nurik</a>, kindly <a href="https://twitter.com/addyosmani/status/1396494912019861508?s=20">shared by Addy Osmani</a> today.</p>
+<img src="../../images/slides-code-highlighter.png" alt="The Slides Code Highlighter Web app">
+<hr>
+<p>There are <a href="https://twitter.com/jamie_gaskins/status/1396494700874539013?s=20">other</a> <a href="https://twitter.com/frontstuff_io/status/1396498521356918784?s=20">approaches</a> to go around this, and probably more that I may not be aware of, but the above two approaches are simple and fast enough to work for me for now.</p>
+<p>Of course, none of these approaches are as convenient as having built-in syntax highlighting in Keynote. Maybe, someday, Apple will add this feature. Until then, we can only make do with what we got.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

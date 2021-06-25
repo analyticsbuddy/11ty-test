@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Component-level art direction with CSS Container Queries</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>May 9, 2021</strong></small>
+
+				<h1>Component-level art direction with CSS Container Queries</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/component-level-art-direction-with-container-queries-and-picture/">View <span class="inclusively-hidden">Component-level art direction with CSS Container Queries</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p><a href="https://www.oddbird.net/2021/04/05/containerqueries/">Container Queries</a> (CQ) allow us to change the styles of a component so it responds to the size of its nearest container. With CQ, we can change how an element looks based on where on a page it is placed and how much horizontal space it occupies.</p>
+<p>A lot about a design pattern could change based on how much space it&rsquo;s got. So Container Queries can be used to do more than just shift elements around in a layout. <small>(Have you <em>seen</em> <a href="https://twitter.com/jh3yy/status/1390798974756560904">Jhey</a>&rsquo;s <a href="https://codepen.io/jh3y/pen/qBrEMEe">demo</a> yet?!)</small> But we can only <strong>take full advantage of the potential Container Queries offer us if we can use them <em>everywhere</em> a typical viewport media query can be used</strong>.</p>
+<p>Now that we got Container Queries in CSS, I want them in HTML, too. More specifically, I can see them coming in more handy if they were available in HTML to change an image&rsquo;s <code>source</code> inside <code>&lt;picture&gt;</code>, just like viewport-based media queries currently are. This would enable us to art-direct images instead of cropping them to fit in a layout.</p>
+<hr>
+<p>Images are typically designed to adapt to layout changes much like other UI elements are. It&rsquo;s possibly even more relevant for images to change with a layout than other UI elements because of their nature as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element">replaced elements</a>.</p>
+<p>Take the typical card component for example. Assuming the card&rsquo;s layout doesn&rsquo;t change, and assuming the image will always be stacked on top of the content, then it&rsquo;s usually a good idea to change the aspect ratio and orientation of the image between narrow and wide layouts. A landscape photo might look good in a wide layout, but a portrait photo would suit a narrower layout better.</p>
+<p>Using a combination of <code>object-fit</code> and <code>aspect-ratio</code> today, we can fit any image inside a container with an aspect ratio that we specify in our CSS. And with container queries at hand, we can create a more flexible implementation, where the image adapts to the size of the card itself, independent of the size of the viewport. This is already a big improvement to the viewport-based implementation.</p>
+<p>Using the <code>aspect-ratio</code> property in the following demo I have changed the aspect ratio of the image based on the width of the card component. And <code>object-fit</code> is used to crop and scale the image to fit within the bounds of its container in all three cases (because the default aspect ratio of the image doesn&rsquo;t match any of the aspect ratios I&rsquo;ve specified in the CSS).</p>
+<p class="codepen" data-height="530" data-theme-id="3617" data-default-tab="result" data-user="SaraSoueidan" data-slug-hash="MWpwvbB" data-editable="true" style="height: 530px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="MWpwvbB">
+  <span>See the Pen <a href="https://codepen.io/SaraSoueidan/pen/MWpwvbB">
+  MWpwvbB</a> by Sara Soueidan (<a href="https://codepen.io/SaraSoueidan">@SaraSoueidan</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<p>Since the demo is using Container Queries which are currently only supported in Chrome Canary behind a flag, you may only see one aspect ratio on all three card variations. Here is a screenshot of what the image looks like for 3 different card widths:</p>
+<figure>
+    <img src="../../images/card-image-aspectratio-objectfit-demo-screenshot.png" alt="A screenshot of the demo using the aspect-ratio and object-fit properties to scale and crop an image in a card component. The aspect ratio of the image responds to the size of the component, and the image is scaled to fit inside its container.">
+</figure>
+<p>This is a pretty flexible approach for adapting images in card (or other) components. It is particularly useful when we&rsquo;re dealing with images that a user might upload via a CMS and whose aspect ratios we don&rsquo;t know. Specifying an aspect ratio in CSS and cropping and scaling an image to fit within it is a solid approach to handle such images.</p>
+<p>But cropping and scaling an image is not <em>always</em> the best approach, though, because not all images can or should be cropped. Sometimes cropping an image straight-up ruins it.</p>
+<p>Take a portrait of a person, for example. Cropping it to any aspect ratio other than the one it was taken in would ruin it. And yet on the other hand, keeping the default aspect ratio might not be possible because of design and layout requirements (e.g. the image needs to be one in landscape mode in wider layouts otherwise it would be too tall).</p>
+<figure>
+    <img src="../../images/cropped-portrait-screenshot.png" alt="A screenshot of a demo using the aspect-ratio and object-fit properties to scale and crop a a portrait of an Egyptian child used in a card component. The aspect ratio of the image responds to the size of the component, and the image is scaled to fit inside its container. Unless the aspect ratio is tall enough, the portrait gets cropped in an undesirable way.">
+</figure>
+<p>So if we have control over what image(s) to use, the better alternative is to use is to change the image entirely in this case. If I were using a portrait of a person on the site, I might want to use two different shots of that person—one for landscape and another for portrait layouts.</p>
+<p>To switch between different images we can use the HTML <code>&lt;picture&gt;</code> element. There are <a href="https://dev.opera.com/articles/responsive-images/">many ways</a>  <code>&lt;picture&gt;</code> can be used to serve responsive images. For art direction, the syntax might look like this:</p>
+<pre class="language-html"><code>&lt;picture&gt;
+	&lt;source
+		media="(min-width: 1024px)"
+		srcset="desk--wide.jpg"&gt;
+	&lt;img
+		src="desk--portrait.jpg" alt="My desk setup"&gt;
+&lt;/picture&gt;
+</code></pre>
+<p>You can see the above code in action on my <a href="https://sarasoueidan.com/desk">Desk page</a>. And here is a screenshot of the Desk page showing two different photos of my desk setup on narrower and wider screens:</p>
+<figure>
+    <img src="../../images/desk-narrow-and-wide.png" alt="A screenshot of the Desk page showing two different photos of my desk setup on narrower and wider screens.">
+</figure>
+<div class="note"><small><strong>Accessibility considerations:</strong> We currently don't have a way to change the content of the <code>alt</code> attribute when the image source changes. Or, if we look at it differently, we don't have a separate <code>alt</code> attribute for every image <code>source</code> we define in our <code>&lt;picture&gt;</code>. So if you're changing the <em>content</em> of the image, you need to keep that in mind. If your art-directed image is pure decoration, or if your image layout changes (landscape to portrait) but the core of the content is the same, then this shouldn't be an issue. But keep in mind that you may want to avoid art-direction if the content of the image changes and it doesn't match the description provided in the <code>alt</code> atribute anymore.</small></div>
+<p>But here&rsquo;s the thing: the images you specify in <code>&lt;picture&gt;</code> respond to the size of the viewport, not the component they are embedded in. The image on my Desk page changes when the size of <em>the viewport</em> hits 1024px. And that&rsquo;s fine for this particular use case. But if we&rsquo;re art-directing images inside components, we&rsquo;ll want them to respond to the component&rsquo;s size, not the viewport. After all, this is the kind of responsive behavior that we&rsquo;ve needed for so long and that Container Queries now provides us with. The next step is, hopefully, Container Queries in HTML.</p>
+<div class="note">
+    <strong>Update:</strong> It has been brought to my attention shortly after publishing this article that this features request <a href="https://github.com/w3c/csswg-drafts/issues/5889">has been made and discussed</a> back in January. For more information about the discussion involved in making something like this work (or not!), refer to the <a href="https://github.com/w3c/csswg-drafts/issues/5889">open issue on Github</a>.
+</div>
+<hr>
+<p>There is a way we can currently use Container Queries to art direct images in a component, but those images would need to be <em>embedded in the CSS</em>, as background images.</p>
+<pre class="language-css"><code>
+.card__media {
+	aspect-ratio: 2 / 3;
+	background-image: url("https://assets.codepen.io/9674/desk--portrait.jpg");
+	background-size: 100% auto;
+}
+<p>.container {
+contain: layout inline-size;
+}</p>
+<p>@container (min-width: 480px) {</p>
+<pre><code>.card__media {
+	aspect-ratio: 16 / 9;
+	background-image: url(&quot;https://assets.codepen.io/9674/desk--wide.jpg&quot;);
+}
+</code></pre>
+<p>}
+</code></pre></p>
+<p>In other words, the images need to be non-semantic, decoration images. If your image is part of your semantic content, it can&rsquo;t respond to the container query just yet. And of course, since the image is a background image, we&rsquo;ll need to use the <code>aspet-ratio</code> on the element that image is applied to, otherwise it would collapse. Here&rsquo;s a live demo again using Container Queries, so it will only currently work in Canary:</p>
+<p class="codepen" data-height="523" data-theme-id="3617" data-default-tab="result" data-user="SaraSoueidan" data-slug-hash="qBrdPvV" style="height: 523px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Component-level art-direction using CSS Container Queries">
+  <span>See the Pen <a href="https://codepen.io/SaraSoueidan/pen/qBrdPvV">
+  Component-level art-direction using CSS Container Queries</a> by Sara Soueidan (<a href="https://codepen.io/SaraSoueidan">@SaraSoueidan</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+&nbsp;
+<p>And a screenshot of the result:</p>
+<img src="../../images/art-directing-bg-images-with-cq.png" alt="a screenshot of the demo using Container Queries to change the (background) image used on a card component.">
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>We&rsquo;re only scratching the surface of what Container Queries make possible. I can imagine Container Queries coming handy even in quick prototyping-in-the-browser work, as well as more specific use cases. And I&rsquo;m sure more smart people will come up with even more use cases as they push the limits of what&rsquo;s currently possible.</p>
+<p>Let&rsquo;s continue pushing the Web forward.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

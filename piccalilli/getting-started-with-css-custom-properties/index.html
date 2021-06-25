@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Getting started with CSS Custom Properties</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 22, 2021</strong></small>
+
+				<h1>Getting started with CSS Custom Properties</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/piccalilli/">All from Piccalilli</a> <strong><a href="https://piccalil.li/tutorial/getting-started-with-css-custom-properties/">View <span class="inclusively-hidden">Getting started with CSS Custom Properties</span> on piccalil.li</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>Say you’ve got some CSS like this:</p>
+<pre><code class="language-css">h1 {
+  background: goldenrod;
+}
+<p>p {
+color: goldenrod;
+}</p>
+<p>.my-element {
+border: 1px dotted goldenrod;
+}
+</code></pre></p>
+<p>There’s a lot of repetition in there, but how do you improve that with native CSS? You can use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/--*">CSS Custom Properties</a>—also known as CSS variables—to abstract and tokenise your CSS to make your code more manageable.</p>
+<pre><code class="language-css">:root {
+  --primary: goldenrod;
+}
+<p>h1 {
+background: var(--primary);
+}</p>
+<p>p {
+color: var(--primary);
+}</p>
+<p>.my-element {
+border: 1px dotted var(--primary);
+}
+</code></pre></p>
+<p>In this tutorial, we’re going to get a grip of the basics of custom properties and learn some of the extremely cool and helpful stuff they can do and how they can help your projects.</p>
+<h2>The basics</h2>
+<p>Let’s start right from the top and look at some basics. A custom property is just like a normal CSS property and value pair: a declaration. These declarations are defined inside a CSS rule.</p>
+<pre><code class="language-css">:root {
+  --text-color: rebeccapurple;
+}
+</code></pre>
+<fyi-unit>
+<p>What the heck is a <code>:root</code>? It is a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:root">pseudo-class which represents the root of the document tree</a>, which most of the time means the <code>&lt;html&gt;</code> element. If you are in a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM">Custom Element, using the shadow DOM</a>, though: the <code>:root</code> will represent the root of the shadow DOM instead of the <code>&lt;html&gt;</code> element.</p>
+</fyi-unit>
+<p>Once a custom property is defined, you can grab the value of it, using the <code>var()</code> function. This will retrieve the <strong>current computed value of the property</strong>, which we’ll cover in more detail, later in this tutorial.</p>
+<p>With the combination of a declared custom property and the <code>var()</code> function, we can use them in our CSS to apply values, like this:</p>
+<pre><code class="language-css">:root {
+  --text-color: rebeccapurple;
+}
+<p>h1 {
+color: var(--text-color);
+}
+</code></pre></p>
+<p><code-pen title="Getting started with custom properties: 1" id="mdRQrJm"></code-pen></p>
+<h2>Fallbacks</h2>
+<p>If a custom property value hasn’t been defined or it is invalid, the initial or inherited value will be used instead. This can result in some pretty lousy looking user interfaces, so a good shout is to provide a fallback to the <code>var()</code> function.</p>
+<pre><code class="language-css">h1 {
+  color: var(--text-color, royalblue);
+}
+</code></pre>
+<p>By passing a second, fallback value, the <code>&lt;h1&gt;</code> will be <code>royalblue</code> if the <code>--text-color</code> custom property has not been defined.</p>
+<p>Fallbacks are handy as heck, but they aren’t used by browsers that don’t support custom properties. For the <a href="https://caniuse.com/css-variables">microscopic share of browsers that don’t support custom properties</a>, you can use custom properties as a progressive enhancement, like this.</p>
+<pre><code class="language-css">h1 {
+	color: royalblue;
+  color: var(--text-color, royalblue);
+}
+</code></pre>
+<p>We still have to pass a fallback to the <code>var()</code> function because as we just learned, an invalid value—which includes undefined custom properties—will result in the <code>initial</code> or inherited value being used.</p>
+<p><code-pen title="Getting started with custom properties: 2" id="LYxXRex"></code-pen></p>
+<h2>Custom properties are computed</h2>
+<p>Once you set a value for a custom property, it can be changed in context and just like any other declaration—a property and value pair—it will be affected by specificity and the cascade.</p>
+<p>Take the first example as a context:</p>
+<pre><code class="language-css">:root {
+  --text-color: rebeccapurple;
+}
+<p>h1 {
+color: var(--text-color);
+}
+</code></pre></p>
+<p>If this <code>&lt;h1&gt;</code> was inside an <code>&lt;article&gt;</code> with a class of <code>.colour-change</code>, which has a CSS rule, declaring a value for <code>--text-color</code>: that value would be applied.</p>
+<pre><code class="language-css">:root {
+  --text-color: rebeccapurple;
+}
+<p>h1 {
+color: var(--text-color);
+}</p>
+<p>article.colour-change {
+--text-color: seagreen;
+}
+</code></pre></p>
+<p>This CSS is applied because <code>.article.colour-change</code> has a higher specificity than <code>:root</code>.</p>
+<p><code-pen title="Getting started with custom properties: 3" id="XWpyjYm"></code-pen></p>
+<h2>You can set custom properties with JavaScript</h2>
+<p>This ability to contextually override a custom property makes them incredibly useful for interactive states and generally writing <em>less CSS</em>. The previous demo used a toggled CSS class to contextually set a custom property value, but you can also set them inside your JavaScript:</p>
+<pre><code class="language-js">const article = document.querySelector('article');
+const button = document.querySelector('button');
+<p>button.addEventListener('click', (evt) =&gt; {
+article.style.setProperty('--text-color', 'tomato');
+});
+</code></pre></p>
+<p><code-pen title="Getting started with custom properties: 4" id="ExZONmv"></code-pen></p>
+<p>The <code>&lt;article&gt;</code> gets the value for <code>--text-color</code> applied in its <code>style</code> attribute, which gives it a <em>way higher</em> specificity than <code>:root</code>.</p>
+<h2>Wrapping up</h2>
+<p>This quick intro to Custom Properties has hopefully given you the knowledge and confidence to explore them further. If you want to learn more about them, I recommend the following resources:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">MDN: Using Custom Properties</a></li>
+<li><a href="https://piccalil.li/tutorial/fluid-typography-with-css-clamp">Piccalilli: Fluid typography with CSS clamp</a></li>
+<li><a href="https://every-layout.dev/rudiments/modular-scale/">Every Layout: Modular scale</a></li>
+<li><a href="https://piccalil.li/tutorial/get-css-custom-property-value-with-javascript">Piccalilli: Get a CSS Custom Property value with JavaScript</a></li>
+<li><a href="https://utopia.fyi/blog/fluid-custom-properties">Utopia: Fluid Custom Properties</a></li>
+<li><a href="https://css-tricks.com/everything-need-know-css-variables/">CSS-Tricks: Everything you need to know about CSS Variables</a></li>
+<li><a href="https://piccalil.li/quick-tip/flow-utility">Piccalilli: Flow CSS utility</a></li>
+</ul>
+<p>Until next time, take it easy 👋</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

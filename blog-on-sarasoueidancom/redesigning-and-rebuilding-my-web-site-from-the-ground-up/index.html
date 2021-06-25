@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>🛠 Redesigning and rebuilding my Web site from the ground up</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 1, 2021</strong></small>
+
+				<h1>🛠 Redesigning and rebuilding my Web site from the ground up</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/redesign/">View <span class="inclusively-hidden">🛠 Redesigning and rebuilding my Web site from the ground up</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p class="deck">It’s about time my Web site got a complete makeover. It’s going to be more than just a fresh coat of paint. It’s going to be a complete rebuild + redesign.</p>
+<p>I’m going to rebuild this Web site from the ground up, starting with a fresh, clean slate—an empty repository, with nothing imported from the old one other than some content, such as my blog posts, list of past speaking engagements, and smilar content that will not change in the future. And some images, of course. OK maybe a few other content elements. But you get the point. <strong>A new start. A new Web site.</strong></p>
+<h2 id="why-start-fresh">Why start fresh?</h2>
+<p>Because I haven’t updated the code on this Web site in <em>years</em>.</p>
+<p>I’ve been teaching best practices in front-end development for years, while also letting my Web site fall behind on all of them. I haven’t been making time to update this site much aside from adding articles and speaking engagement updates. My first CSS Grids application was on this Web site when CSS Grid was still a new technology, not yet supported by all browsers. That was probably the last major CSS update I did on this site.</p>
+<p>Refactoring the current code would take more time than rewriting the whole thing from scratch. The markup needs a fresh start. So does the CSS. And I like fresh, clean starts. I enjoy starting from zero. And I feel like the site is at a point where it would benefit more from a clean start than a refactor.</p>
+<p>But why am I writing about this? Why didn’t I just rebuild and redesign this site and just deploy it live, announcing the update when it&rsquo;s done? Because this time around, I am going to go about doing that in the open&hellip;</p>
+<h2 id="the-smallopensmall-plan">The <small>(Open)</small> Plan</h2>
+<p>I am going to rebuild this Web site in public. While I do that, I will be documenting the process of building it from scratch, sharing a behind-the-scenes look at my work. If you <a href="https://github.com/SaraSoueidan/sarasoueidan.dev">follow along on Github</a>, you may see this Web site come to life one small feature at a time. One small piece of code at a time. I have a plan for how I&rsquo;m going to approach doing it in a way that works for me, and is a little more useful for anyone who follows along.</p>
+<p>Why? For no reason other than trying out something new. And several people have expressed their interest in my dev process. While I do feel nervous about it, I think the benefits of doing this in the open outweight the disadvantages.</p>
+<p>The new site will live in <a href="https://github.com/SaraSoueidan/sarasoueidan.dev">its own new repository</a>, separate from the current Web site’s repository.</p>
+<p>While it is work in progress, it will live on <a href="https://sarasoueidan.dev">sarasoueidan.dev</a>. So this Web site you’re on right now will still be here while the new one comes to life. Once the new site is done, it will replace this one on the dot com domain.</p>
+<h3 id="timeline">Timeline</h3>
+<p>Since the current site will be live throughout the entire process, there is no pressure to get the new site done quickly. I will dedicate a few hours per week, mostly over the weekend, to work on it. I don&rsquo;t have a deadline in mind. And I don’t want to create a deadline because I don&rsquo;t want this work to affect the time and effort I dedicate for my client work. So, no pressure on what will be finished when! It may take a couple of weeks or a couple of months. Maybe more. Maybe less. I am constantly reminding myself that this is my Web site, and I have full autonomy to decide when and how it will get done. “Unhurried Development”, as <a href="https://twitter.com/bnijenhuis/status/1377613671132770305?s=20">Bernard calls it</a>.</p>
+<p>At this point, all I’m planning to do is document the process of building this site from scratch, blogging (hopefully) consistently, in small bursts, as I share the process from start to “finish”.</p>
+<!-- I'm thinking of this process as a small “story”, with posts created along a(n indefinite) timeline.  -->
+<h3 id="process">Process</h3>
+<p>All the work on the new site will, naturally, happen in a repository which will be hosted on Github and deployed to Netlify. My favorite part of this entire plan has to be the part where <strong>I use Github Issues as a blog.</strong> <em>Kind of</em>.</p>
+<p>For every new feature (or set of features) I want to add to the site—no matter how small, like adding a Favicon, for example—<strong>I will open a new issue and create a corresponding branch where the work on that feature will happen.</strong></p>
+<p>I will basically produce <strong>a(n) infrequent stream of short &ldquo;blog posts&rdquo; in the form of Github issues.</strong> The live code for each issue/feature will live in the issue’s corresponding branch.
+As someone who tends to do multiple things at once, this will take a lot of organization and discipline, and that’s the challenging part for me.</p>
+<p>So, each issue corresponding to a feature will be where I dump my brain about everything related to adding that feature. I will document learnings, resources, links, etc. along the way. I will write about the thought process, decisions, and struggles if any (kinda like what I did with <a href="https://sarasoueidan.com/blog/glyphhanger/">the Glyphhanger article</a>). So, if you&rsquo;re at all interested, you will <em>really</em> be able to follow along with me as I do this. You&rsquo;ll be able to read (some of) my thoughts, and learn from them if you want. You&rsquo;ll not just have code to look at, but you’ll get the entire behind-the-scenes of it.</p>
+<h5 id="a-note-on-copyrights">A Note on copyrights</h5>
+<p>At this point it is important to note that <strong>this opennnes does not mean that I am making the entire repo/site available to copy-paste.</strong> It is still <strong><em>not</em> OK to steal other people’s work</strong> just because it is out in the open. This Web site has lived in a private repository since the very beginning. And for good reasons. I can’t count the number of times people have asked to use my Web site’s design for their own Web sites. I’ve even seen individuals copy-paste some of my content (like the contents of my Hire Me page) and use it on their own Web sites. While this is a great testament of the work I’m putting out here, it is not acceptable and I am <em>not</em> OK with my content and design being ripped off like that.</p>
+<p>On the other hand, <em>the front-end code</em> I will write to create the site will be open and publicly available for anyone to use, as long as it does not include the actual content it hosts and is built around.</p>
+<p>Speaking of content&hellip;</p>
+<h3 id="new-content--styles">New content &amp; Styles</h3>
+<p>I want to add content. Lots of it! And I’m not just talking about new articles. I’m talking about new <em>types</em> of content. And I want to remove and archive other content.</p>
+<p>As for the design, it will change but not drastically. I quite like a lot about the simplicity of the current design, and will mostly be working on adding more personal touches, similar to what I did with <a href="https://sarasoueidan.com/blog/horizontal-rules">the horizontal rule styles</a>. The underlying CSS, however, will be completely rewritten.</p>
+<p>I want to create a new <a href="https://alistapart.com/article/content-out-layout/">layout around the content</a>—not the other way around. I’m rethinking the content, structure, and architecture, from the ground up. In fact, I will be thinking less about the design and more about content architecture during the process, and am planning to get a functional site up well before any design is applied to the content.</p>
+<h3 id="new-static-site-generator-ssg">New Static Site Generator (SSG)</h3>
+<p>After a few years with Hugo, I’m making the switch to Eleventy.
+The current state of things is a little less flexible than what I would like it to be. <a href="https://gohugo.io/">Hugo</a>’s structure limits my ability to do things with the content that I am planning to do. Thus, I’ll finally be making the switch to <a href="http://11ty.dev/">Eleventy</a>. <small>(So you can expect quite a few Eleventy content/articles in the future.)</small></p>
+<p>I&rsquo;m not new to Eleventy, mind you. I&rsquo;ve used it to build a few client Web sites before, including the <a href="https://khanacademy2018annualreport.superfriendly.work/">2018 Khan Academy Annual Report</a>.</p>
+<p>For the past few years, I&rsquo;ve been using and loving Hugo a lot. But Hugo is an opinionated SSG. And for the past few years, that opinionation has worked for me quite well. But at some point, I needed a little more flexibility as I want to get a little more creative, particularly with a few layouts. Sometimes I want a page to use a special or unique layout, and Hugo doesn&rsquo;t make this very easy to do. Eleventy, on the other hand, does.</p>
+<p>Hugo is also opinionated in the folder structure it expects. While that structure has suited me very well—in fact, I’ll be using some of the same structure in the new setup—I also want a little more flexibility in the way I organize and create my collections. The new content and layout structure I have in mind needs a more flexible SSG, and Eleventy is <em>just</em> right for that!</p>
+<h2 id="whats-next">What’s next?</h2>
+<p>I don&rsquo;t want to worry too much about what comes <em>after</em>. Do I turn the process into a series of edited blog posts? Do I just import the Github issues into my blog? Do I create a small video course in which I go over everything? Do I create a case study talk? I don&rsquo;t know. Maybe. Possibly. Probably. But to be frank, I don’t want to think about that part too much. I want to focus on now, and what I want to do next, and worry less about what comes after.</p>
+<p>You’re welcome to join me on this journey. If you’d like, of course. No pressure.</p>
+<p>Thank you for reading.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Animating Underlines</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Mar 24, 2021</strong></small>
+
+				<h1>Animating Underlines</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/css-in-real-life/">All from CSS In Real Life</a> <strong><a href="https://css-irl.info/animating-underlines/">View <span class="inclusively-hidden">Animating Underlines</span> on css-irl.info</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>I recently gave my <a href="https://michellebarker.co.uk/">personal website</a> a makeover and included a few cool little CSS tricks. Over the next few posts I’ll share some of these. The first one is all about underlines. Hover over any of the links in the body copy on the site and you’ll notice the underline transitions downwards. On the web it’s pretty common to seeing animated underline effects using pseudo-elements and/or borders. Try hovering on the examples in this demo.</p>
+<p class="codepen" data-height="355" data-theme-id="dark" data-default-tab="result" data-user="michellebarker" data-slug-hash="MWJajOb" style="height: 355px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Animated with pseudo elements">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/MWJajOb">
+  Animated with pseudo elements</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+<p>These work great for single, short lines of text (such as navigation links), but not for multi-line text. We can animate an underline on multi-line text with clever use of linear gradients, along with <code>background-size</code> and <code>background-position</code>. Here’s an example, and <a href="https://nickymeuleman.netlify.app/blog/css-animated-wrapping-underline">a great article about how to implement this technique</a>.</p>
+<p class="codepen" data-height="407" data-theme-id="dark" data-default-tab="css,result" data-user="michellebarker" data-slug-hash="BapoQNj" style="height: 407px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Animated underline with background">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/BapoQNj">
+  Animated underline with background</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+<p>This approach has its limitations, however: it requires the text to be an inline element, so it works well for anchor links in a paragraph of text, say. But if you wanted an animated underline on a heading element you’d likely need to modify the markup to add a <code>&lt;span&gt;</code> inside the element, which is not always an option.</p>
+<h2>“Real” underlines</h2>
+<p>With some of the newer <code>text-decoration-</code> properties, we can animate the <em>actual</em> underlines — far superior to just letting our underlines blink in and out of existence on hover. Any by animating real underlines, we can retain the nice feature that most browsers give us, where the underline skips the text’s descenders (the default for the <code>text-decoration-skip-ink</code> property).</p>
+<p>For the most basic example, we can implement a fade-in effect. We can’t animate the opacity of a text underline, but we <em>can</em> animate it from transparent to our desired colour. Firstly we set the <code>text-decoration-style</code> property to <code>underline</code>. Here I’m using the shorthand <code>text-decoration</code> to specify the <code>text-decoration-thickness</code> and <code>text-decoration-color</code> at the same time. We can set the colour to a transparent value. Then on hover, we can transition it to an opaque value:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">a</span> <span class="token punctuation">{</span><br />  <span class="token property">text-decoration</span><span class="token punctuation">:</span> underline 0.15em <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">transition</span><span class="token punctuation">:</span> text-decoration-color 300ms<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">a:hover</span> <span class="token punctuation">{</span><br />  <span class="token property">text-decoration-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 1<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<p class="codepen" data-height="393" data-theme-id="dark" data-default-tab="css,result" data-user="michellebarker" data-slug-hash="VwPvPMp" style="height: 393px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Simple fade underline animation">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/VwPvPMp">
+  Simple fade underline animation</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+<p>That’s better than the default, but fairly basic. Even better, we can transition the <code>text-underline-offset</code> property, which is relatively new but has widespread browser support. Here’s how I’m using it on my own site:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">a</span> <span class="token punctuation">{</span><br />  <span class="token property">text-decoration</span><span class="token punctuation">:</span> underline 0.15em <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 1<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">text-underline-offset</span><span class="token punctuation">:</span> 0.2em<span class="token punctuation">;</span><br />  <span class="token property">transition</span><span class="token punctuation">:</span> text-decoration-color 300ms<span class="token punctuation">,</span> text-underline-offset 300ms<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">a:hover</span> <span class="token punctuation">{</span><br />  <span class="token property">text-decoration-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 1<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">text-underline-offset</span><span class="token punctuation">:</span> 0.4em<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<h3>Units</h3>
+<p>As a side note, I like using <em>em</em> units for these values because they are relative to the font size, which means if we have text that is larger or smaller the underline will scale proportionally.</p>
+<h3>Browser support</h3>
+<p>The above works great...in Firefox. Right now, no other browsers appear to support transitioning or animating <code>text-underline-offset</code>. (The same applies to <code>text-decoration-thickness</code>, which can also allow for some interesting effects.) But luckily, there is an alternative approach to animating these properties...</p>
+<h2>Houdini to the rescue</h2>
+<p>Without getting into the fine technical details, <a href="https://developer.mozilla.org/en-US/docs/Web/Houdini">CSS Houdini</a> is a set of low-level APIs that expose parts of the browser’s CSS rendering engine to developers. It allows us to register a custom property and animate it with CSS. Previously developers needed to register the property in Javascript, but now it’s possibly to do it <em>entirely</em> with CSS, using <code>@property</code>. Una has a <a href="https://web.dev/at-property/">great article explaining exactly how to use it</a> and some of the things that are possible.</p>
+<p>For our purposes, we can register a property called <code>--offset</code>, which we’ll use for the <code>text-underline-offset</code> value.</p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@property</span> --offset</span> <span class="token punctuation">{</span><br />  <span class="token property">syntax</span><span class="token punctuation">:</span> <span class="token string">'&lt;length>'</span><span class="token punctuation">;</span><br />  <span class="token property">inherits</span><span class="token punctuation">:</span> false<span class="token punctuation">;</span><br />  <span class="token property">initial-value</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<p>It’s important to set an initial value, otherwise it won’t work. For some reason ems don’t seem to work as an initial value, although I’m not sure why.</p>
+<p>Then, instead of transitioning <code>text-underline-offset</code>, we transition the custom property itself:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">a</span> <span class="token punctuation">{</span><br />  <span class="token property">transition</span><span class="token punctuation">:</span> --offset 300ms<span class="token punctuation">,</span> text-decoration-color 300ms<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">a:hover,<br />a:focus</span> <span class="token punctuation">{</span><br />  <span class="token property">--offset</span><span class="token punctuation">:</span> 0.4em<span class="token punctuation">;</span><br />  <span class="token property">text-decoration-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 1<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<h2>Testing for support</h2>
+<p>Unfortunately, transitioning custom properties with Houdini is not supported in Firefox or Safari – so we’re back to the previous problem of having a solution with limited browser support! But never fear, we <em>can</em> implement a cross-browser solution — with belt and braces!</p>
+<p>We can use a feature query to detect whether a browser does not support Houdini (this query relates to the Paint API). For browsers that don’t support Houdini, we’ll instead transition the <code>text-underline-offset</code> property — which, luckily, works in Firefox and Safari!</p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@supports</span> <span class="token keyword">not</span> <span class="token punctuation">(</span><span class="token property">background</span><span class="token punctuation">:</span> <span class="token function">paint</span><span class="token punctuation">(</span>something<span class="token punctuation">)</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token selector">a</span> <span class="token punctuation">{</span><br />    <span class="token property">transition</span><span class="token punctuation">:</span> text-underline-offset 400ms<span class="token punctuation">,</span> text-decoration-color 400ms<span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token selector">a:hover,<br />  a:focus</span> <span class="token punctuation">{</span><br />    <span class="token property">text-underline-offset</span><span class="token punctuation">:</span> 0.4em<span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Here’s the solution in full:</p>
+<p class="codepen" data-height="441" data-theme-id="dark" data-default-tab="css,result" data-user="michellebarker" data-slug-hash="mdRyYVP" style="height: 441px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Underlines (Chrome solution with Houdini)">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/mdRyYVP">
+  Underlines (Chrome solution with Houdini)</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

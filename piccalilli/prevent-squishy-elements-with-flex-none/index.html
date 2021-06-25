@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Prevent squishy elements with flex none</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 15, 2021</strong></small>
+
+				<h1>Prevent squishy elements with flex none</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/piccalilli/">All from Piccalilli</a> <strong><a href="https://piccalil.li/quick-tip/prevent-squishy-elements-with-flex-none/">View <span class="inclusively-hidden">Prevent squishy elements with flex none</span> on piccalil.li</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>You can prevent elements like <code>&lt;svg&gt;</code> icons getting squished in a flexbox context by setting <code>flex</code> to <code>none</code>.</p>
+<pre><code class="language-css">.no-squish {
+  flex: none;
+}
+</code></pre>
+<p>This is really handy if you have a supporting icon because the default behaviour of a flex parent is to not wrap, which means elements will be forced to shrink as space runs out.</p>
+<p>Setting <code>flex</code> to <code>none</code> gives you an inflexible item that can’t grow or shrink, based on the flex rules set on the parent, so it’s ideal for extrinsically sized elements, like icons.</p>
+<p><code-pen id="xxgzOxZ" title="Flex none demo"></code-pen></p>
+<fyi-unit>
+<p>You can’t resize embedded CodePens, but toggle the HTML or CSS tabs on and off and you’ll see the effect.</p>
+</fyi-unit>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

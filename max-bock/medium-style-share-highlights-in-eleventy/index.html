@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Medium-Style Share Highlights in Eleventy</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 13, 2021</strong></small>
+
+				<h1>Medium-Style Share Highlights in Eleventy</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/max-bock/">All from Max Böck</a> <strong><a href="https://mxb.dev/blog/medium-share-highlight-eleventy/">View <span class="inclusively-hidden">Medium-Style Share Highlights in Eleventy</span> on mxb.dev</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p class="lead">I took a stab at building <a href="https://github.com/maxboeck/eleventy-plugin-share-highlight">a plugin</a> for Eleventy that lets me highlight selected pieces of text and provide users with an easy way to share them.</p>
+<p>This feature was first made popular by <a href="https://medium.com/">Medium</a>, where authors can pick a “top highlight” in a post and hovering it will show a tooltip with sharing options. I wanted something like this for independent blogging too, so I came up with a custom solution.</p>
+<p>Here’s how that looks in action:</p>
+<p><share-highlight aria-label="Share this"><mark>Here’s some highlighted text you can share! You shouldn’t though, this is obviously just a demo. Lorem Ipsum Dolor to you, friend!</mark></share-highlight></p>
+<h2 id="h-how-it-works"><a class="heading-anchor" href="#h-how-it-works" aria-hidden="true">#</a> How it works</h2>
+<p>The base of this feature is a <code>&lt;mark&gt;</code> tag wrapped in a custom <code>&lt;share-highlight&gt;</code> element.</p>
+<p>If the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share">Web Share API</a> is supported (currently in Safari, Edge and Android Chrome), clicking the element will bring up your share options and insert the quoted text and a link to the current page. You can share it on any platform that registers as a share target.</p>
+<figure>
+    <img src="https://mxb.dev/blog/medium-share-highlight-eleventy/share_options.jpg" alt="screenshot of the share options menu in Android">
+    <figcaption>Here's how sharing looks in Android Chrome</figcaption>
+</figure>
+<p>If the API is not supported, the component will fall back to sharing on Twitter via <a href="https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent">tweet intent URL</a>. The tooltip will show the Twitter icon and clicking the highlight opens a new tab with a pre-filled tweet:</p>
+<figure>
+    <img src="https://mxb.dev/blog/medium-share-highlight-eleventy/tweet.jpg" alt="screenshot of a pre-filled tweet to a blogpost, with the highlighted text as a quote">
+    <figcaption>Sharing to Twitter as a Fallback</figcaption>
+</figure>
+<h2 id="h-how-to-use-it"><a class="heading-anchor" href="#h-how-to-use-it" aria-hidden="true">#</a> How to use it</h2>
+<p>If you want to use this on your own site, follow these steps. (keep in mind that this is an early version though, and there are probably  still some <a href="#h-accessibility-considerations">issues to sort out</a>.)</p>
+<ol>
+<li>Download the plugin with NPM by running <code>npm i eleventy-plugin-share-highlight --save</code> on the command line in your project’s root folder (where the package.json file is).</li>
+<li>Add the plugin to your <code>.eleventy.js</code> configuration file:</li>
+</ol>
+<pre class="language-js"><code class="language-js"><span class="token comment">// .eleventy.js</span><br><span class="token keyword">const</span> pluginShareHighlight <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'eleventy-plugin-share-highlight'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">eleventyConfig</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    eleventyConfig<span class="token punctuation">.</span><span class="token function">addPlugin</span><span class="token punctuation">(</span>pluginShareHighlight<span class="token punctuation">,</span> <span class="token punctuation">{</span><br>        <span class="token comment">// optional: define the tooltip label.</span><br>        <span class="token comment">// will be "Share this" if omitted.</span><br>        label<span class="token operator">:</span> <span class="token string">"Teilen"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token punctuation">}</span></code></pre>
+<ol start="3">
+<li>This will register the <code>highlight</code> shortcode. You can use it in your templates or markdown files like this:</li>
+</ol>
+<pre class="language-md"><code class="language-md"><span class="token comment">&lt;!-- blogpost.md --></span><br>{% highlight %}Here's some highlighted text you can share!{% endhighlight %}</code></pre>
+<p>This will highlight the containing text in a <code>&lt;mark&gt;</code> tag and wrap it in the custom element <code>&lt;share-highlight&gt;</code>. So the output HTML will look something like this:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>share-highlight</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Share this<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mark</span><span class="token punctuation">></span></span>Here's some highlighted text you can share!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mark</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>share-highlight</span><span class="token punctuation">></span></span></code></pre>
+<p>If Javascript or Custom Elements are not supported, or if your post is displayed e.g. in an RSS reader, the <code>&lt;mark&gt;</code> tag will still be valid and give the highlighted text the correct semantics.</p>
+<ol start="4">
+<li>To further enhance that with the instant sharing function, you need to add the <a href="https://github.com/maxboeck/eleventy-plugin-share-highlight/blob/main/share-highlight.js">custom element definition</a> first. Depending on your setup, you can either include that as part of a bundle by importing it directly:</li>
+</ol>
+<pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token string">'eleventy-plugin-share-highlight/share-highlight'</span></code></pre>
+<p>…or <a href="https://github.com/maxboeck/eleventy-plugin-share-highlight/blob/main/share-highlight.js">copy the file</a> and add it directly to your HTML with something like:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/js/share-highlight.js<span class="token punctuation">"</span></span> <span class="token attr-name">async</span> <span class="token attr-name">defer</span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span></code></pre>
+<ol start="5">
+<li>To style the highlight, add <a href="https://github.com/maxboeck/eleventy-plugin-share-highlight/blob/main/styles.css">this piece of CSS</a> and customize it to match your design:</li>
+</ol>
+<pre class="language-css"><code class="language-css"><span class="token comment">/* general styles for text highlight */</span><br><span class="token selector">mark</span> <span class="token punctuation">{</span><br>    <span class="token property">background-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><span class="token comment">/* styling if webcomponent is supported */</span><br><span class="token selector">share-highlight</span> <span class="token punctuation">{</span><br>    <span class="token comment">/* default state */</span><br>    <span class="token property">--share-highlight-text-color</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span><br>    <span class="token property">--share-highlight-bg-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span><br>    <span class="token comment">/* hover/focus state */</span><br>    <span class="token property">--share-highlight-text-color-active</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span><br>    <span class="token property">--share-highlight-bg-color-active</span><span class="token punctuation">:</span> orange<span class="token punctuation">;</span><br>    <span class="token comment">/* tooltip */</span><br>    <span class="token property">--share-highlight-tooltip-text-color</span><span class="token punctuation">:</span> white<span class="token punctuation">;</span><br>    <span class="token property">--share-highlight-tooltip-bg-color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<h2 id="h-accessibility-considerations"><a class="heading-anchor" href="#h-accessibility-considerations" aria-hidden="true">#</a> Accessibility Considerations</h2>
+<p>This is my first Eleventy plugin and also my first web component. I’m fairly confident that the Eleventy part is sound, but I don’t have much experience with web components, and I have some concerns.</p>
+<p>My biggest issue with this is accessibility. I want the element to be keyboard-accessible, so I made it focusable and added keyboard listeners to trigger it with the Enter key. The tooltip label also doubles as the <code>aria-label</code> property for the component, but I don’t quite know how screenreaders handle custom elements with no inherent semantics.</p>
+<p>I guess the cleanest option would be to use an actual <code>&lt;button&gt;</code> to trigger the share action, but I also need the element to be inline-level, so the highlighting doesn’t break text flow.</p>
+<p>If you know your way around webcomponents and have a suggestion on how to improve this thing, please feel free to <a href="https://github.com/maxboeck/eleventy-plugin-share-highlight">submit a PR</a>!</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

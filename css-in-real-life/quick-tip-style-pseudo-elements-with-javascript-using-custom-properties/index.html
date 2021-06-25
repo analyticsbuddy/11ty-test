@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quick Tip: Style Pseudo-elements with Javascript Using Custom Properties</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Mar 28, 2021</strong></small>
+
+				<h1>Quick Tip: Style Pseudo-elements with Javascript Using Custom Properties</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/css-in-real-life/">All from CSS In Real Life</a> <strong><a href="https://css-irl.info/quick-tip-style-pseudo-elements-with-javascript-using-custom-properties/">View <span class="inclusively-hidden">Quick Tip: Style Pseudo-elements with Javascript Using Custom Properties</span> on css-irl.info</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>In Javascript we have a few ways of selecting elements, but we can’t directly target <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements">pseudo-elements</a>. Something like this, for instance, won’t work, and will return <code>null</code>:</p>
+<pre class="language-js"><code class="language-js">document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.my-element::after'</span><span class="token punctuation">)</span></code></pre>
+<p>That can make it tricky to apply styles to pseudo-elements with JS. If we want to dynamically calculate the height of an element and apply it with JS, we can do it like so:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.my-element'</span><span class="token punctuation">)</span><br /><br />element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token function">someFunctionToCalculateHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>But how do we do this with a pseudo-element? Luckily, CSS custom properties can help.</p>
+<p>We can instead assign a custom property for the height in our CSS:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">.my-element::after</span> <span class="token punctuation">{</span><br />  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--height<span class="token punctuation">,</span> 0<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Here I’m providing a default (or fallback) value of 0 for the custom property. It’s a good idea to provide a default if we’re relying on the custom property being defined in JS (if we want it to be anything other than the property’s default value).</p>
+<p>Then we can set the value in JS:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.my-element'</span><span class="token punctuation">)</span><br /><br />element<span class="token punctuation">.</span>style<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">'--height'</span><span class="token punctuation">,</span> <span class="token function">someFunctionToCalculateHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>Here’s a simple demo (and yes, I know the JS in this example is unecessary as it could easily be achieved with CSS alone — it’s merely to illustrate the concept!):</p>
+<p class="codepen" data-height="405" data-theme-id="dark" data-default-tab="js,result" data-user="michellebarker" data-slug-hash="LYxZJZp" style="height: 405px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Style pseudo-element with custom property">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/LYxZJZp">
+  Style pseudo-element with custom property</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

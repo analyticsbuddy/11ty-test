@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Define delay for each property in the transition shorthand</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 21, 2021</strong></small>
+
+				<h1>Define delay for each property in the transition shorthand</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/piccalilli/">All from Piccalilli</a> <strong><a href="https://piccalil.li/quick-tip/define-delay-for-each-property-in-the-transition-shorthand/">View <span class="inclusively-hidden">Define delay for each property in the transition shorthand</span> on piccalil.li</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>If you have a few properties that change with a <code>transition</code>, you can define a <code>transition-delay</code> for each of them, using the <code>transition</code> shorthand and separating each property with a comma.</p>
+<pre><code class="language-css">button:hover {
+  transition: background 200ms linear, color 200ms linear 200ms,
+    transform 500ms cubic-bezier(0.4, 0, 0.7, 1.8) 300ms, border-color 300ms cubic-bezier(
+        0.4,
+        0,
+        0,
+        1.1
+      ) 600ms;
+}
+</code></pre>
+<p>The order looks like this:</p>
+<pre><code class="language-text">/* With timing function */
+transition: property duration timingFunction delay;
+transition: color 200ms linear 200ms;
+<p>/* Without timing function */
+transition: property duration delay;
+transition: color 200ms 200ms;
+</code></pre></p>
+<p>You can make some pretty cool state changes by adding some space between each change.</p>
+<p><code-pen title="Demo: separate delays for each transitioned property" id="bGgQExO"></code-pen></p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

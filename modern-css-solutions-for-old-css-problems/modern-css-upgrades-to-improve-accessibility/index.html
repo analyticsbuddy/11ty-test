@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Modern CSS Upgrades To Improve Accessibility</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 9, 2021</strong></small>
+
+				<h1>Modern CSS Upgrades To Improve Accessibility</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/modern-css-solutions-for-old-css-problems/">All from Modern CSS Solutions for Old CSS Problems</a> <strong><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">View <span class="inclusively-hidden">Modern CSS Upgrades To Improve Accessibility</span> on moderncss.dev</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>Accessibility is a critical skill for developers doing work at any point in the stack. For front-end tasks, modern CSS provides capabilities we can leverage to make layouts more accessibly inclusive for users of all abilities across any device.</p>
+<p>This post will cover a range of topics:</p>
+<ul>
+<li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#focus-visibility">Focus Visibility</a></li>
+<li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#focus-vs-source-order">Focus vs. Source Order</a></li>
+<li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#desktop-zoom-and-reflow">Desktop Zoom and Reflow</a></li>
+<li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#sizing-interactive-targets">Sizing Interactive Targets</a></li>
+<li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#respecting-color-and-contrast-settings">Respecting Color and Contrast Settings</a></li>
+<li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#accessibility-learning-resources">Accessibility Learning Resources</a></li>
+</ul>
+<div class="tdbc-card tdbc-card--teaser tdbc-card--ad">
+	<div class="tdbc-card__content">
+		&nbsp;
+	</div>
+</div>
+<h2 id="what-does-accessible-mean">What Does &quot;Accessible&quot; Mean?<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#what-does-accessible-mean">#</a></h2>
+<p>Accessible websites are ones that are created without barriers for users of various abilities to access content or perform actions. An internationally agreed-upon standard called the <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines</a> - or WCAG - provides success criteria to help guide you towards creating accessible experiences.</p>
+<p>Common accessibility barriers include:</p>
+<ul>
+<li>inability to see content or distinguish interface elements due to poor color contrast</li>
+<li>reduced or removed access to non-text content such as within images or charts due to failing to provide alternative text</li>
+<li>trapping keyboard users due to not managing focus for interactive elements</li>
+<li>causing headaches or worse for users with vestibular disorders due to motion and flashing/blinking animations</li>
+<li>preventing users of assistive technology such as screen readers from performing actions due to failure to make custom controls accommodate expected patterns</li>
+<li>limiting common assistive technology navigation methods due to not using semantic HTML, including heading hierarchy and landmark elements</li>
+</ul>
+<p><a href="https://www.w3.org/WAI/WCAG22/Understanding/understanding-techniques">Success criteria</a> &quot;are designed to be broadly applicable to current and future web technologies, including dynamic applications, mobile, digital television, etc.&quot; We are going to examine a few success criteria and how modern CSS helps provide accessible solutions.</p>
+<h2 id="focus-visibility">Focus Visibility<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#focus-visibility">#</a></h2>
+<p>An all too common violation that I have done myself in the past is to remove <code>:focus</code> outlines on links, buttons, and other interactive controls. Without providing an alternative <code>:focus</code> style, this is immediately a violation of the <a href="https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance-minimum.html">WCAG Success Criterion 2.4.11: Focus Appearance</a>.</p>
+<p>Frequently, the reason this is removed is due to feeling the native browser style is not attractive or doesn't fit in with the design choices of the site. But with modern CSS, we have a new property that can help make outlines more appealing.</p>
+<p>Using <code>outline-offset</code>, we can provide a positive value to position the outline away from the element. For the offset, we'll use the <code>em</code> unit to position the outline relative to the element based on its <code>font-size</code>.</p>
+<blockquote>
+<p>Bonus: We're setting the <code>outline-width</code> value using the <code>max()</code> function to ensure it doesn't shrink below a computed value of <code>1px</code> while allowing it to also be relatively sized using <code>em</code>.</p>
+</blockquote>
+<p><em>Select the demo button to display the <code>:focus</code> outline</em>.</p>
+<details open="">
+  <summary>CSS for "Focus Styles With Positive `outline-offset`"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">button:focus</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">max</span><span class="token punctuation">(</span>1px<span class="token punctuation">,</span> 0.1em<span class="token punctuation">)</span> solid currentColor<span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> 0.25em<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.outline-offset-866 {
+  color: purple;
+  line-height: 1;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+<p>.outline-offset-866:focus {
+outline: max(1px, 0.1em) solid currentColor;
+outline-offset: 0.25em;
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content tdbc-demo--place-center">
+<p><button type="button" class="outline-offset-866">Demo Button</button></p>
+</div>
+</div>
+<p>Alternatively, set <code>outline-offset</code> using a negative value to inset the outline from the element's perimeter.</p>
+<details open="">
+  <summary>CSS for "Focus Styles With Negative `outline-offset`"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">button:focus</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">max</span><span class="token punctuation">(</span>1px<span class="token punctuation">,</span> 0.1em<span class="token punctuation">)</span> dashed currentColor<span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> -0.25em<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.outline-offset-127 {
+  background-color: purple;
+  color: white;
+  padding: 0.5em;
+  border-radius: 4px;
+  line-height: 1;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+<p>.outline-offset-127:focus {
+outline: max(1px, 0.1em) dashed currentColor;
+outline-offset: -0.25em;
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content tdbc-demo--place-center">
+<p><button type="button" class="outline-offset-127">Demo Button</button></p>
+</div>
+</div>
+<p>There is also a new pseudo-class that you can consider using in some circumstances. The <code>:focus-visible</code> pseudo-class will display an outline (or user-defined style) only when the device/browser (user agent) determines it needs to be visible. Typically this means it will appear for keyboard users upon <code>tab</code> key interaction but not for mouse users.</p>
+<p>Using this update, our button styles will <em>likely</em> only show when you keyboard tab into the button.</p>
+<details open="">
+  <summary>CSS for "Focus Styles With Negative `outline-offset`"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">button:focus</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">button:focus-visible</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">max</span><span class="token punctuation">(</span>1px<span class="token punctuation">,</span> 0.1em<span class="token punctuation">)</span> dashed currentColor<span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> -0.25em<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.outline-offset-837 {
+  background-color: blue;
+  color: white;
+  padding: 0.5em;
+  border-radius: 4px;
+  line-height: 1;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+<p>.outline-offset-837:focus {
+outline: none;
+}</p>
+<p>.outline-offset-837:focus-visible {
+outline: max(1px, 0.1em) dashed currentColor;
+outline-offset: -0.25em;
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content tdbc-demo--place-center">
+<p><button type="button" class="outline-offset-837">Demo Button</button></p>
+</div>
+</div>
+<p>Note that <a href="https://caniuse.com/css-focus-visible"><code>:focus-visible</code> support</a> is still rolling out to all browsers, notably missing from Safari. If you would like to try using it, here is an example of including it as a progressive enhancement.</p>
+<p>We're taking advantage of the fact that a browser that doesn't understand <code>:focus-visible</code> will throw away the rule that removes the outline for <code>:focus</code>. Meaning, the first rule for <code>button:focus</code> will apply to browsers that don't support <code>:focus-visible</code>, and the second two rules will apply when <code>:focus-visible</code> is supported. Interestingly, the <code>:focus:not(:focus-visible)</code> gives a false impression that <code>:focus-visible</code> is working in Safari <em>and even</em> Internet Explorer 11.</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">button:focus</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">max</span><span class="token punctuation">(</span>1px<span class="token punctuation">,</span> 0.1em<span class="token punctuation">)</span> dashed currentColor<span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> -0.25em<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">button:focus:not(:focus-visible)</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">button:focus-visible</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">max</span><span class="token punctuation">(</span>1px<span class="token punctuation">,</span> 0.1em<span class="token punctuation">)</span> dashed currentColor<span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> -0.25em<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<blockquote class="promo"><p><em>Hey there!</em> Register for my CSS workshop in July with Smashing Conference: <a href="https://smashingconf.com/online-workshops/workshops/stephanie-eckles">Level-Up With Modern&nbsp;CSS</a></p></blockquote>
+<h2 id="focus-vs-source-order">Focus vs. Source Order<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#focus-vs-source-order">#</a></h2>
+<p>Another focus related criterion is <a href="https://www.w3.org/WAI/WCAG21/Understanding/focus-order">Success Criterion 2.4.3: Focus Order</a>. For both visual and non-visual users, the focus order - which is typically initiated by keyboard tabbing - should proceed logically. Particularly for visual users, the focus order should follow an expected path which <em>usually</em> means following source order.</p>
+<p>From the criterion documentation linked previously:</p>
+<blockquote>
+<p>&quot;<em>For example, a screen reader user interacts with the programmatically determined reading order, while a sighted keyboard user interacts with the visual presentation of the Web page. Care should be taken so that the focus order makes sense to both of these sets of users and does not appear to either of them to jump around randomly.</em>&quot;</p>
+</blockquote>
+<p>Modern CSS technically provides layout properties to re-arrange visual order into something different than source order. The impact of this is potentially failing the focus order success criterion <em>if</em> there are focusable elements that are being re-arranged into a surprising order.</p>
+<p>If you are able, browse the following demo using your tab key and take notice of what you <em>expected</em> to happen versus what <em>actually</em> happened. When you're finished, or if a tab key is not presently an available input for you, check the box to reveal the tab order.</p>
+<style>
+[class*="source-order"] {
+  color: #222;
+}
+<p>.source-order-36 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-gap: 1rem;
+list-style: none;
+}</p>
+<p>.source-order-36 li {
+padding: 1rem;
+text-align: center;
+}</p>
+<p>.source-order-36 li a {
+display: grid;
+place-content: center;
+color: inherit;
+}</p>
+<p>.source-order__label-36 {
+font-weight: bold;
+}</p>
+<p>.source-order__label-36,
+.source-order__checkbox-36 {
+display: inline-block;
+margin-top: 0.5rem;
+margin-left: 0.5rem;
+margin-bottom: 1.5rem;
+}</p>
+<p>.source-order__checkbox-36:checked ~ ol {
+list-style: decimal;
+list-style-position: inside;
+}</p>
+<p>.source-order-36 li:nth-child(2) {
+grid-column: 3;
+grid-row: 2;
+}</p>
+<p>.source-order-36 li:nth-child(5) {
+grid-column: 2;
+grid-row: 1;
+}</p>
+<p>.source-order-36 li:nth-child(7) {
+grid-column: 1;
+grid-row: 1;
+}</p>
+<p>.source-order-36 li:nth-child(3) {
+grid-column: 1;
+grid-row: 3;
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content">
+<label class="source-order__label-36" for="source-order-36">Reveal order</label>
+<input class="source-order__checkbox-36" type="checkbox" id="source-order-36" />
+<ol class="source-order-36">
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link</a></li>
+</ol>
+</div>
+</div>
+<p>The goal of this section is more to provide awareness of this criterion when you consider how to solve layout challenges. Upcoming in CSS grid is a native &quot;masonry&quot; solution. Unfortunately, it may negatively impact the expected focus order. Similar issues can be created when assigning specific grid areas that don't match source order, as well as customizing item order in flexbox using the <code>order</code> property.</p>
+<p>A recent challenge I faced was a list of navigation links that was requested to break into columns. And in this case, the logical tab order would be down one column before moving on to the next column. The catch was that it was a list of items for a single topic, so semantically it would not be ideal to break it into a list per column. Breaking into multiple lists would also misrepresent the number of items for the single topic for users of assistive tech like screen readers which announce the number of items in a list.</p>
+<p>Using the following set of CSS grid properties, I was able to arrive at a non-list-breaking solution:</p>
+<details false="">
+  <summary>CSS for "List Focus Order Solution With CSS Grid"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">ul</span> <span class="token punctuation">{</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token property">grid-column-gap</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span><br />  <span class="token property">grid-row-gap</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span><br />  <span class="token comment">/* Causes items to be ordered into columns */</span><br />  <span class="token property">grid-auto-flow</span><span class="token punctuation">:</span> column<span class="token punctuation">;</span><br />  <span class="token comment">/* # required to prevent a column per link */</span><br />  <span class="token property">grid-template-rows</span><span class="token punctuation">:</span> <span class="token function">repeat</span><span class="token punctuation">(</span>3<span class="token punctuation">,</span> 1fr<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token comment">/* Size the columns */</span><br />  <span class="token property">grid-auto-columns</span><span class="token punctuation">:</span> <span class="token function">minmax</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 1fr<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.grid-list-focus-order-943 {
+  list-style: none;
+  padding: 2rem;
+  display: grid;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-columns: minmax(0, 33%);
+}
+<p>.grid-list-focus-order-943 a {
+color: blue;
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="grid-list-focus-order-943">
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 1</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 2</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 3</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 4</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 5</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 6</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 7</a></li>
+  <li><a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">Link 8</a></li>
+</ul>
+</div>
+</div>
+<p>The caution here is to be mindful of the space necessary to accommodate the content. In a navigation scenario, content is usually fairly tightly controlled, so this can be a reasonable solution.</p>
+<blockquote>
+<p>Manuel Matuzovic has an excellent and more thorough <a href="https://www.matuzo.at/blog/the-dark-side-of-the-grid-part-2/">guide to considerations of CSS Grid layout and altering source order</a>.</p>
+</blockquote>
+<h2 id="desktop-zoom-and-reflow">Desktop Zoom and Reflow<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#desktop-zoom-and-reflow">#</a></h2>
+<p>You've tested across viewport sizes using browser dev tools as well as on real mobile devices, and you're happy with your site's responsive behavior. But you're probably missing one test point: desktop zoom.</p>
+<p>In <a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#wcag-success-criterion-1410---reflow">the previous tutorial</a>, we started to look at <a href="https://www.w3.org/WAI/WCAG22/Understanding/reflow.html">WCAG Success Criterion 1.4.10 - Reflow</a>.</p>
+<blockquote>
+<p>Reflow is the term for supporting desktop zoom up to 400%. On a 1280px wide resolution at 400%, the viewport content is equivalent to 320 CSS pixels wide. The intent of a user with this setting is to trigger content to <em>reflow</em> into a single column for ease of reading.</p>
+</blockquote>
+<p>As also noted in the previous tutorial, typically zoom begins to trigger responsive behavior that you may have set using media queries. But there is currently no zoom media query. Consequently, the aspect ratio of a desktop zoomed to 400% can cause <em>reflow</em> issues with your content.</p>
+<p>Some examples of possible issues:</p>
+<ul>
+<li>sticky navigation that covers half <em>or more</em> of the viewport</li>
+<li>contained scroll areas that assume a mobile portrait aspect ratio become unscrollable/cut-off</li>
+<li>unwanted results when using <a href="https://moderncss.dev/generating-font-size-css-rules-and-creating-a-fluid-type-scale/">fluid typography</a> techniques</li>
+<li>overflow or overlap issues that cut-off content</li>
+<li>margin and padding spacing appearing too large relative to the content size</li>
+</ul>
+<p>Without a zoom media query, it can be difficult to devise zoom solutions that are independent of device size assumptions.</p>
+<p>However, with modern CSS functions like <code>min()</code> and <code>max()</code>, we have tools to resolve some zoom instances without detracting from the original intent of our assumed mobile design.</p>
+<blockquote class="promo"><p><strong>Would you like CSS tips in your inbox?</strong> <a href="https://moderncss.dev/newsletter/">Join my newsletter</a> for article updates, CSS tips, and front-end resources!</p></blockquote>
+<p>We previously looked at <a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#wcag-success-criterion-1410---reflow">using <code>min</code> to adjust a grid column</a> that contained an avatar in a way that worked for small, large, and zoomed viewports.</p>
+<p>Let's look at resolving vertical spacing. A common practice is for designers to create a pixel ramp for spacing, perhaps based on an 8px unit. So you would perhaps create spacing utilities that look like:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">.margin-top-xs</span> <span class="token punctuation">{</span><br />  <span class="token property">margin-top</span><span class="token punctuation">:</span> 8px<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.margin-top-sm</span> <span class="token punctuation">{</span><br />  <span class="token property">margin-top</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.margin-top-md</span> <span class="token punctuation">{</span><br />  <span class="token property">margin-top</span><span class="token punctuation">:</span> 32px<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.margin-top-lg</span> <span class="token punctuation">{</span><br />  <span class="token property">margin-top</span><span class="token punctuation">:</span> 64px<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.margin-top-xl</span> <span class="token punctuation">{</span><br />  <span class="token property">margin-top</span><span class="token punctuation">:</span> 128px<span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<p>And so on to accommodate for the full range of your ramp. This is usually fine across a standard range of devices. But consider that the <code>xl</code> value of <code>128px</code> on a desktop zoomed to 400% becomes <em>half the viewport height</em>.</p>
+<p>Instead, we can update the upper end of the range to add in <code>min()</code> to select the <em>lowest computed value</em>. This means that for non-zoomed viewports, <code>128px</code> will be used. And for 400% zoomed viewports, an alternative viewport unit value may be used.</p>
+<p>If you are using a desktop, try out zooming to see the effect on the space between the demo elements:</p>
+<details open="">
+  <summary>CSS for "Resolving Margin Spacing For Zoom"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">section + section</span> <span class="token punctuation">{</span><br />  <span class="token property">margin-top</span><span class="token punctuation">:</span> <span class="token function">min</span><span class="token punctuation">(</span>128px<span class="token punctuation">,</span> 15vh<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.zoom-margin-spacing-668 {
+  min-height: 150px;
+  padding: 1rem;
+  margin: 0 1rem;
+  outline: 1px solid purple;
+  outline-offset: -.5rem;
+  color: #222;
+}
+<p>.zoom-margin-spacing-668 + .zoom-margin-spacing-668 {
+margin-top: min(128px, 25vh);
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content">
+<section class="zoom-margin-spacing-668">
+  <h3>Section 1</h3>
+</section>
+<section class="zoom-margin-spacing-668">
+  <h3>Section 2</h3>
+</section>
+<section class="zoom-margin-spacing-668">
+  <h3>Section 3</h3>
+</section>
+</div>
+</div>
+<p>This technique can potentially be used if you encounter overlap from absolute positioned elements as well.</p>
+<blockquote>
+<p>For more examples of how zoom can effect layout and some modern CSS solutions, check out the recording of CSS Cafe meetup talk about &quot;<a href="https://www.youtube.com/watch?v=dz6aFfme_hg">Modern CSS Solutions to (Previously) Complex Problems</a>&quot;</p>
+</blockquote>
+<p>In the next section we'll see how to query for touch devices. Using that can make for an excellent combo to help determine the context of a user and present an alternate layout for things like sticky navigation or custom scroll areas.</p>
+<h2 id="sizing-interactive-targets">Sizing Interactive Targets<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#sizing-interactive-targets">#</a></h2>
+<p>Our next area is to consider properly sizing interactive targets, where the term &quot;target&quot; comes from <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size.html">Success Criterion 2.5.5: Target Size</a>. From that criterion:</p>
+<blockquote>
+<p>&quot;<em>The intent of this success criterion is to ensure that target sizes are large enough for users to easily activate them, even if the user is accessing content on a small handheld touch screen device, has limited dexterity, or has trouble activating small targets for other reasons. For instance, mice and similar pointing devices can be hard to use for these users, and a larger target will help them activate the target.</em>&quot;</p>
+</blockquote>
+<p>Being introduced in WCAG 2.2 is <a href="https://www.w3.org/WAI/WCAG22/Understanding/pointer-target-spacing.html">Success Criterion 2.5.8: Pointer Target Spacing</a>. Together, the guidance indicates that generally interactive controls should either:</p>
+<ul>
+<li>have a minimum actual size of 44px; <em>or</em></li>
+<li>allowed a minimum target size - inclusive of spacing between the control and other elements - of 44px</li>
+</ul>
+<p><em>There are exceptions and additional examples located in the linked resources to help clarify this requirement. Adrian Roselli also provides <a href="https://adrianroselli.com/2019/06/target-size-and-2-5-5.html">an excellent overview and history</a>.</em></p>
+<p>In addition to this site, I maintain <a href="https://smolcss.dev/">SmolCSS.dev</a> which explores minimal modern CSS solutions to create layouts and components. The following is an excerpt from one of the demonstrations - &quot;<a href="https://smolcss.dev/#smol-avatar-list">Smol Avatar List Component</a>&quot;.</p>
+<p>It uses the CSS function <code>max()</code> to ensure that the default display of the avatar link column is <em>at least</em> <code>44px</code> regardless of the value that may be passed within the <code>--avatar-size</code> value.</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">.smol-avatar-list</span> <span class="token punctuation">{</span><br />  <span class="token property">--avatar-size</span><span class="token punctuation">:</span> 3rem<span class="token punctuation">;</span><br />  <span class="token property">--avatar-count</span><span class="token punctuation">:</span> 3<span class="token punctuation">;</span><br /><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token comment">/* Default to displaying most of the avatar to<br />  enable easier access on touch devices<br />  `max` ensures the WCAG touch target size is <br />  met or exceeded */</span><br />  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> <span class="token function">repeat</span><span class="token punctuation">(</span><br />    <span class="token function">var</span><span class="token punctuation">(</span>--avatar-count<span class="token punctuation">)</span><span class="token punctuation">,</span><br />    <span class="token function">max</span><span class="token punctuation">(</span>44px<span class="token punctuation">,</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--avatar-size<span class="token punctuation">)</span> / 1.15<span class="token punctuation">)</span><span class="token punctuation">)</span><br />  <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Then, when a hover-capable device that also is likely to take a &quot;fine&quot; input such as a mouse or stylus is detected, the solution allows the avatars to overlap. This allowance is due to an animation on <code>:hover</code> and <code>:focus</code> - two interactions not available for touch-only devices - that reveals the avatar fully and meets the target size in those states.</p>
+<p>This snippet shows the media query that allows that detection:</p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">any-hover</span><span class="token punctuation">:</span> hover<span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">any-pointer</span><span class="token punctuation">:</span> fine<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Allow avatars to overlap by shrinking<br />  grid cell width */</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Using device capability detection, we can offer experiences that allow meeting this criterion while also still allowing design flexibility.</p>
+<blockquote>
+<p><strong>Always test solutions</strong> with real devices based on data about your real users.</p>
+</blockquote>
+<h2 id="reducing-motion">Reducing Motion<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#reducing-motion">#</a></h2>
+<p>Some of your users may have vestibular disorders and are at risk of headaches or even seizures due to motion and flashing/blinking animations.</p>
+<p>There are three main criteria:</p>
+<ul>
+<li><a href="https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html">Success Criterion 2.3.1 Three Flashes or Below Threshold</a> - Web pages do not contain anything that flashes more than three times in any one second period, or the flash is below the general flash and red flash thresholds.</li>
+<li><a href="https://www.w3.org/WAI/WCAG22/Understanding/three-flashes">Success Criterion 2.3.2: Three Flashes</a> - Web pages do not contain anything that flashes more than three times in any one second period</li>
+<li><a href="https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions">Success Criterion 2.3.3: Animation from Interactions</a> - Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed.</li>
+</ul>
+<blockquote>
+<p>For more comprehensive information, Val Head is a leading expert and has written extensively about this criteria, including this <a href="https://css-tricks.com/accessible-web-animation-the-wcag-on-animation-explained/">CSS-Tricks article covering the motion-related WCAG criteria</a>.</p>
+</blockquote>
+<p>Modern CSS gives us a media feature query that we can use to test for a users OS-set preference about motion. While your base animations/transitions should meet the flash related thresholds as noted in WCAG criteria, you should prevent them entirely if a user prefers reduced motion.</p>
+<p>Here's a quick rule set to globally handle for this, courtesy of Andy Bell's <a href="https://piccalil.li/blog/a-modern-css-reset">Modern CSS Reset</a>.</p>
+<pre class="language-css"><code class="language-css"><span class="token comment">/* Remove all animations and transitions<br />for people that prefer not to see them */</span><br /><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-reduced-motion</span><span class="token punctuation">:</span> reduce<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token selector">*,<br />  *::before,<br />  *::after</span> <span class="token punctuation">{</span><br />    <span class="token property">animation-duration</span><span class="token punctuation">:</span> 0.01ms <span class="token important">!important</span><span class="token punctuation">;</span><br />    <span class="token property">animation-iteration-count</span><span class="token punctuation">:</span> 1 <span class="token important">!important</span><span class="token punctuation">;</span><br />    <span class="token property">transition-duration</span><span class="token punctuation">:</span> 0.01ms <span class="token important">!important</span><span class="token punctuation">;</span><br />    <span class="token property">scroll-behavior</span><span class="token punctuation">:</span> auto <span class="token important">!important</span><span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Animations are ran once, and any transitions will happen instantly. In some instances, you'll want to plan animations for this possibility to ensure they &quot;freeze&quot; on the desirable frame.</p>
+<p>This demo includes a gently pulsing circle unless a user has selected reduced motion.</p>
+<details false="">
+  <summary>CSS for "Demo of `prefers-reduced-motion`"</summary>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-reduced-motion</span><span class="token punctuation">:</span> reduce<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token selector">div</span> <span class="token punctuation">{</span><br />    <span class="token property">animation-duration</span><span class="token punctuation">:</span> 0.01ms <span class="token important">!important</span><span class="token punctuation">;</span><br />    <span class="token property">animation-iteration-count</span><span class="token punctuation">:</span> 1 <span class="token important">!important</span><span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+@keyframes pulse {
+  0% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1.25);
+  }
+}
+<p>.prefers-reduced-motion-13 {
+width: 3rem;
+height: 3rem;
+border-radius: 50%;
+border: 3px solid purple;
+animation: pulse 2000ms infinite alternate ease-in-out;
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content tdbc-demo--place-center">
+<div class="prefers-reduced-motion-13"></div>
+</div>
+</div>
+<p>You can test results of this media feature query within Chrome/Edge by opening dev tools and selecting the kebab menu (3 vertical dots), then &quot;More tools&quot; and &quot;Rendering&quot;. Then you can toggle settings in the section for &quot;Emulate CSS media feature prefers-reduced motion&quot;.</p>
+<img src="https://moderncss.dev/img/posts/27/chrome-prefers-reduced-motion.png" alt="preview of the dev tools panel for this setting as described in the previous text" width="400" />
+<h2 id="respecting-color-and-contrast-settings">Respecting Color and Contrast Settings<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#respecting-color-and-contrast-settings">#</a></h2>
+<p>Dark mode seems to be a fad, but for some users it's essential for ensuring they can read your content. While there are currently no guidelines instructing that both a dark and light mode for content is required, you can begin to be future-friendly by considering offering both modes.</p>
+<p>What <em>is</em> a requirement is that if you do offer dark mode that is continues to pass at least the standard color contrast guidelines available in <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum">Success Criterion 1.4.3: Contrast (Minimum)</a>.</p>
+<p>The minimum contrast ratios to meet are at least:</p>
+<ul>
+<li>4.5:1 for normal text</li>
+<li>3:1 for large text - defined as 18.66px <strong>and</strong> bold or larger, or 24px and larger</li>
+<li>3:1 for graphics and user interface components (such as form input borders)</li>
+</ul>
+<blockquote>
+<p><strong>Head's up</strong>: A new color contrast model is being considered for WCAG 3, but it will be a few years before it becomes the standard. You can learn more about the proposed Advanced Perceptual Contrast Algorithm (APCA) in the <a href="https://w3c.github.io/silver/guidelines/methods/Method-font-characteristic-contrast.html">WCAG 3 draft guidelines</a> (these may change over time until it is standard).</p>
+</blockquote>
+<p>Whether or not you provide dark and light mode, users of Windows 10 devices can select a system setting to enable <a href="https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696">High Contrast Mode</a>.</p>
+<p>In most cases, you should allow the user's settings in this mode to be applied. Occasionally, the application of the high contrast settings means colors that are important to understanding your interface will be removed.</p>
+<p>Three often critical properties that will usually be removed in Windows High Contrast Mode:</p>
+<ul>
+<li><code>box-shadow</code></li>
+<li><code>background-color</code></li>
+<li><code>background-image</code> unless it contains a <code>url()</code> value</li>
+</ul>
+<p>And two critical properties that will have their color swapped for the &quot;system color&quot; equivalent:</p>
+<ul>
+<li><code>color</code></li>
+<li><code>border-color</code></li>
+</ul>
+<blockquote>
+<p>You can <a href="https://www.w3.org/TR/css-color-adjust-1/#forced-colors-properties">review a full list of properties</a> affected by this &quot;forced color&quot; mode.</p>
+</blockquote>
+<p>Sometimes these properties can be compensated by using transparent alternates. For example, if you are using <code>box-shadow</code> as an alternate to <code>outline</code> in order to match <code>border-radius</code> on <code>:focus</code>, you should still include an <code>outline</code> with the color value set to <code>transparent</code> as the complement to retain a <code>:focus</code> style for forced color modes. This example is included in my <a href="https://moderncss.dev/css-button-styling-guide/">CSS button styling guide</a>. In a similar way, you can include a transparent border in place of <code>box-shadow</code> if the shadow was intended to communicate an important boundary.</p>
+<p>If you're using SVG icons, passing <code>currentColor</code> as the value of <code>fill</code> or <code>stroke</code> will help ensure they respond to the forced color settings.</p>
+<p>Or, you can use a special media feature query to assign colors from the <a href="https://www.w3.org/TR/css-color-4/#typedef-system-color">system color palette</a>. These respect user settings while allowing you to ensure your critical interface elements retain color.</p>
+<p>Here's an example of using simple CSS shapes and gradients as icons, and ensuring they retain color within a forced color mode. Within the <code>forced-colors</code> feature query, we only need to set the <code>color</code> property because we've set up the icons to use the <code>currentColor</code> value.</p>
+<details false="">
+  <summary>CSS for "Demo of forced-colors"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">.icon</span> <span class="token punctuation">{</span><br />  <span class="token property">width</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span><br />  <span class="token property">height</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span><br />  <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.filled</span> <span class="token punctuation">{</span><br />  <span class="token property">background-color</span><span class="token punctuation">:</span> currentColor<span class="token punctuation">;</span><br />  <span class="token property">border-radius</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.gradient</span> <span class="token punctuation">{</span><br />  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token function">repeating-linear-gradient</span><span class="token punctuation">(</span><br />    45deg<span class="token punctuation">,</span><br />    currentColor<span class="token punctuation">,</span><br />    currentColor 2px<span class="token punctuation">,</span><br />    <span class="token function">rgba</span><span class="token punctuation">(</span>255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 0<span class="token punctuation">)</span> 2px<span class="token punctuation">,</span><br />    <span class="token function">rgba</span><span class="token punctuation">(</span>255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 0<span class="token punctuation">)</span> 6px<br />  <span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">forced-colors</span><span class="token punctuation">:</span> active<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token selector">.icon</span> <span class="token punctuation">{</span><br />    // Required to enable colors<br />    <span class="token property">forced-color-adjust</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span><br /><br />    // User-preferred &amp;quot<span class="token punctuation">;</span>text&amp;quot<span class="token punctuation">;</span> color<br />    <span class="token property">color</span><span class="token punctuation">:</span> CanvasText<span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.icon-221 {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  color: blue;
+}
+<p>.filled-221 {
+background-color: currentColor;
+border-radius: 50%;
+}</p>
+<p>.gradient-221 {
+background-image: repeating-linear-gradient(
+45deg,
+currentColor,
+currentColor 2px,
+rgba(255, 255, 255, 0) 2px,
+rgba(255, 255, 255, 0) 6px
+);
+border: 1px solid;
+}</p>
+<p>@media screen and (forced-colors: active) {
+.icon-221 {
+// Required to enable colors
+forced-color-adjust: none;</p>
+<pre><code>// User-preferred &quot;text&quot; color
+color: CanvasText;
+</code></pre>
+<p>}
+}
+</style></p>
+<div class="tdbc-demo no-resize">
+<div class="tdbc-demo--content tdbc-demo--place-center">
+<p><span class="icon-221 filled-221"></span>
+<span class="icon-221 gradient-221"></span></p>
+</div>
+</div>
+<p>Using Windows High Contrast Mode, a likely outcome based on defaults would be that the blue becomes white due to the <code>CanvasText</code> color keyword while the page background becomes black.</p>
+<blockquote>
+<p>Review more about how this mode works with a more extensive example on the <a href="https://blogs.windows.com/msedgedev/2020/09/17/styling-for-windows-high-contrast-with-new-standards-for-forced-colors/">Microsoft Edge Blog</a></p>
+</blockquote>
+<h2 id="accessibility-learning-resources">Accessibility Learning Resources<a class="tdbc-anchor" href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/#accessibility-learning-resources">#</a></h2>
+<p>While we linked to success criteria and other resources throughout the examples, there is a lot more to learn!</p>
+<p>Here are some additional resources to learn more:</p>
+<ul>
+<li><a href="https://a11y.coffee/">a11y.coffee</a></li>
+<li><a href="https://solidstart.info/">solidstart.info</a></li>
+<li>This extensive guide about <a href="https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/">accessible front-end components from Smashing Magazine</a></li>
+<li>Search and explore the <a href="https://www.getstark.co/library">library of resources available from Stark</a></li>
+</ul>
+<p>I've created a variety of resources as well:</p>
+<ul>
+<li>An <a href="https://dev.to/5t3ph/introduction-to-web-accessibility-5cmp">intro to accessibility</a> from my beginner's webdev series</li>
+<li>Practice resolving issues with my <a href="https://github.com/5t3ph/a11y-fails">a11y fails project</a></li>
+<li>Listen to the two part Word Wrap podcast series (that I co-host) on <a href="https://wordwrap.dev/episodes/008/">common accessibility failures</a> and <a href="https://wordwrap.dev/episodes/009/">WCAG success criteria you may not be meeting</a></li>
+<li>Learn about handling stateful button contrast and generate an accessible palette with my web app <a href="https://buttonbuddy.dev/">ButtonBuddy</a></li>
+<li>Use the <a href="https://www.npmjs.com/package/a11y-color-tokens">a11y-color-tokens package</a> to speed up generating an accessible color palette</li>
+</ul>
+<blockquote>
+<p>I enjoy talking about accessibility and do my best to design accessible tutorials and callout any accessibility specifics. If you spot an error or want to suggest an improvement, <a href="https://twitter.com/5t3ph">message me on Twitter</a>.</p>
+</blockquote>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

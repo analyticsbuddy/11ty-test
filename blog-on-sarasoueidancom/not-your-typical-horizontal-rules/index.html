@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Not Your Typical Horizontal Rules</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Mar 25, 2021</strong></small>
+
+				<h1>Not Your Typical Horizontal Rules</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/horizontal-rules/">View <span class="inclusively-hidden">Not Your Typical Horizontal Rules</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p class="deck">The HTML <code>&lt;hr&gt;</code> element adds a horizontal rule (or line) wherever you place it. A horizontal rule is used to provide a visual break and divide content. Like other HTML elements, horizontal rules can be styled using CSS (and SVG). This means that they don’t have to look like boring, plain horizontal lines. You can get a little creative with them, adding a nice little personal touch to your content and designs.</p>
+<hr>
+<p>If you’re a frequent reader of this blog, then you’ve most likely already seen what a horizontal rule looks like on here. In fact, if you haven’t seen it before, then you might have <em>just</em> done that. The birds-on-a-wire illustration above this very paragraph is a styled <code>&lt;hr&gt;</code> element.</p>
+<div class="reader-mode-only">
+    <p class="reader-mode-only"><em>If you're reading this article in a reading app or a Web browser's reader mode, then the above horizontal rule will not appear with my custom styles, and you'll just see a horizontal line. Here is a picture of what the horizontal rule looks like:</em></p>
+    <img src="../../images/hr.png" alt="The horizontal rule style I am using on my Web site. It is a vector illustration of a few bird silhouettes standing on a curvey horizontal black wire.">
+    </em>
+</div>
+<p>Prior to creating this horizontal rule style, my horizontal rules looked as boring as you could possibly imagine. Until one day, I looked at that boring line and imagined a bunch of birds sitting on it <small><em>(because, well, BIRDS!)</em></small>. And then it clicked! I got an SVG image of a bunch of birds (silhouettes) on a wire, modified it to look like I wanted it to, and used it to style my <code>&lt;hr&gt;</code> elements to look like what you can see above.</p>
+<p>In this post, I&rsquo;ll go over how I did it, and how my horizontal rules can possibly be improved further, so that they adapt to various contexts, while remaining semantic and accessible.</p>
+<h2 id="semantics-and-accessibility">Semantics and accessibility</h2>
+<p>An HTML horizontal rule is, <strong>by definition, not just a visual divider.</strong> It has semantics and plays a meaningful role in the context of its surrounding content:</p>
+<blockquote>
+<p>The HTML <code>&lt;hr&gt;</code> element represents a paragraph-level thematic break, e.g. a scene change in a story, or a transition to another topic within a section of a reference book.</p>
+</blockquote>
+<p>The <code>hr</code> element has <a href="https://www.w3.org/TR/html-aria/#dfn-implicit-aria-semantics">an implicit role</a> of <code>separator</code>. As such, <code>&lt;hr&gt;</code> is understood and announced by screen readers. A <code>hr</code> is announced as “Horizontal Splitter” by VoiceOver on macOS. The <code>hr</code> is also displayed as a horizontal line by reading apps and reader modes, where your CSS is typically stripped out and HTML semantics are used to determine how an element is styled by the reading app.</p>
+<p>What’s interesting is that a horizontal rule has an implicit orientation which is <code>horizontal</code> by default. This means that if you&rsquo;re using <em>vertical</em> rules to split content, you can inform screen readers that the rule is vertical by setting the <code>aria-orientation</code> attribute value to <code>vertical</code>:</p>
+<pre class="language-html"><code>&lt;hr aria-orientation="vertical"&gt;
+&lt;!-- Note that you needn’t & shouldn’t explicitly set `role="separator"` on the `hr` element because its semantics are implicit --&gt;
+</code></pre>
+<p>VoiceOver on macOS announces horizontal rules with a vertical orientation as “Vertical Splitter”.</p>
+<p>In addition to separating paragraphs in an article, horizontal rules can be used for separating groups of menu items in a menu, for example. They can also be interactive.</p>
+<p><strong>Further reading:</strong></p>
+<ul>
+<li><a href="https://www.w3.org/TR/wai-aria-1.1/#separator">ARIA spec for <code>separator</code></a></li>
+</ul>
+<p>Since horizontal rules are semantic elements announced by screen readers, then <strong>unless you’re using a horizontal rule to <em>semantically</em> divide content</strong>, you should hide it from screen readers using <code>aria-hidden=&quot;true&quot;</code>. In other words: use <code>aria-hidden=&quot;true&quot;</code> to hide decorational horizontal lines. Do <em>not</em> hide them if they are providing semantic, thematic content breaks.</p>
+<h2 id="styling-hrs-with-css">Styling <code>&lt;hr&gt;</code>s with CSS</h2>
+<p>Like other empty HTML elements, the <code>&lt;hr&gt;</code> element can be limitedly styled using CSS. For example, you can change its width and height, border, and background color, as well as use gradients or apply a background image, etc. And even though it&rsquo;s a content-less element, it seems that you can even create <a href="(https://css-tricks.com/examples/hrs/)">simple <code>hr</code> styles</a> using <code>::before</code> and <code>::after</code> pseudo-elements, too.</p>
+<p>To create the birds-on-a-wire horizontal rules used on this site, all I did was set the dimensions of the <code>hr</code>, and apply the SVG image as a background image in CSS:</p>
+<pre class="language-css"><code>
+hr {
+    width: ..;
+    height: ..;
+    background-image: url("data:image/svg+xml,...");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    /* .. */
+}
+</code></pre>
+<p>There’s nothing too fancy going on in the CSS. But the above styles have irked me ever since I wrote them. Generally, I try to avoid using background images for anything that’s not purely decoration. And the horizontal rules, as mentioned earlier, are <em>not</em> pure decoration. I also prefer to avoid using SVGs as background images and tend to inline them whenever I can so that I can take full advantage of their stylability with CSS.</p>
+<p><strong>An SVG implemented as a background image cannot be styled from its containing (or referencing) stylesheet.</strong> I want the <code>hr</code> to be adaptive. I want to be able to customize it for different themes, and have the ability to modify and control its color(s) via CSS whenever I want. I also want to style it so that it remains accessible in user-controlled environments <small>(such as Windows High Contrast Mode, for example)</small>. And while I don’t plan on animating the horizontal rules on this blog, I’d still like to have the option to add a subtle animation should I ever want to. After all, SVGs are handy because they are so powerful and flexible—they’re about more than crisp lines and illustrations.</p>
+<p>To style the horizontal rule to match various themes, I could possibly change the background image on the <code>hr</code> for each theme. This would work. But if the images are inlined in the CSS, then I&rsquo;ll end with a larger CSS file. And if they&rsquo;re not inlined, I&rsquo;ll end up with multiple requests to multiple images, which isn&rsquo;t great for performance. Not to mention having to create and maintain multiple images, which is not the best workflow for something that could be simpler.</p>
+<p>Additionally, in Windows High Contrast Mode, we have no control over the active theme colors. So if I want to make sure the horizontal rule always has enough contrast with the background, then I’ll need to be able to change and control its colors in my CSS, which I can&rsquo;t do if if the SVG is a background image. This means that I might end with a black horizontal rule on a black background, for example.</p>
+<p><small><em>(On the other hand, if you don’t really care about the horizontal rule&rsquo;s styles in WHCM and you just want it to remain properly accessible, you could just strip away the background image and let WHCM style the <code>hr</code> the way it would do by default.)</em></small></p>
+<p>I could just use a background image on the <code>&lt;hr&gt;</code> and stop at that point. But if if I want the horizontal rule to be truly adaptive, then I need a little more flexibility that the <code>&lt;hr&gt;</code> element itself doesn&rsquo;t provide&hellip;</p>
+<h2 id="a-more-flexible-and-adaptive-implementation-with-inline-svg-and-aria">A more flexible and adaptive implementation with inline SVG and ARIA</h2>
+<p>The best way to get the full flexibility of an SVG is by inlining it. But the <code>&lt;hr&gt;</code> element is content-less — it has no opening and closing tags within which you can place other elements.</p>
+<p>The only way to work around the limitations of <code>&lt;hr&gt;</code> while preserving semantics for screen reader users is to use a <code>div</code> and provide the semantics of an <code>hr</code> using ARIA. Yes, I am cringing at the idea as I type this. But hear me out. I think it&rsquo;s worth exploring and going down this road if you want to get creative with your horizontal rules while also making sure they remain visually accessible and customizable in various contexts and environments.</p>
+<p>The alternative approach to creating flexible horizontal rules would essentially look like this:</p>
+<pre class="language-html">
+<code>&lt;div role="separator"&gt;
+    &lt;!-- hide the SVG from screen readers to avoid them announcing it --&gt;
+    &lt;svg aria-hidden="true" focusable="false" width="..." height="..." viewBox="..."&gt;
+        &lt;!-- svg content --&gt;
+    &lt;/svg&gt;
+&lt;/div&gt;</code>
+</pre>
+<p>Or, as my friend <a href="https://scottohara.me">Scott</a> pointed out, the <code>separator</code> role could be directly applied to the <code>svg</code>, in which case there’s no need to hide the SVG with <code>aria-hidden</code> anymore:</p>
+<pre class="language-html">
+<code>&lt;svg role="separator" width="794px" height="51px" viewBox="0 0 794 51" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+    &lt;!-- svg content --&gt;
+&lt;/svg&gt;</code>
+</pre>
+<p>Using the above markup:</p>
+<ul>
+<li>we create a semantic horizontal rule that is understood and properly announced by screen readers, and</li>
+<li>the illustration, being an inline SVG now, becomes easier to style and control with CSS.</li>
+</ul>
+<p>For convenience, the above horizontal rule markup could be wrapped in a custom component, or separated into a template partial or a shortcode, so that it can be more efficiently inserted where a <code>&lt;hr&gt;</code> would otherwise go.</p>
+<p>With the SVG inlined, I can use CSS custom properties to control what the SVG looks like in different contexts. For example, with <a href="https://tympanus.net/codrops/2015/07/16/styling-svg-use-content-css/">CSS custom properties sprinkled inside the SVG</a>, I could then control that content using CSS, modifying and changing its colors. For example, in Windows High Contrast Mode, I could set the color of the SVG to whatever is the current text color:</p>
+<pre class="language-css">
+<code>/* IE and Legacy Edge */
+@media screen and (-ms-high-contrast: active) {
+    div[role="separator"] svg {
+        --hr-color: windowText;
+    }
+}
+/* Using the new standards for forced colors, currently supported in Chromium Edge */
+@media screen and (forced-colors: active) {
+  div[role="separator"] svg {
+        --hr-color: CanvasText;
+    }
+}
+</code></pre>
+<p>That way, the horizontal rule will always have enough contrast with the background behind it.</p>
+<p>If the content of the SVG is multi-colored, you can define and set values for multiple variables in the same manner, thus creating different versions—or themes—of the horizontal rule for different contexts or environments.</p>
+<p><strong>Further reading:</strong></p>
+<ul>
+<li><a href="https://tympanus.net/codrops/2015/07/16/styling-svg-use-content-css/">Styling SVG <code>&lt;use&gt;</code> Content with CSS</a>, in which I elaborate more about theming SVG images using CSS custom properties</li>
+<li><a href="https://blogs.windows.com/msedgedev/2020/09/17/styling-for-windows-high-contrast-with-new-standards-for-forced-colors/">Styling for Windows high contrast with new standards for forced colors</a> <small>(Hat tip: <a href="https://twitter.com/aardrian/status/1375201979849408514?s=20">Adrian Roselli</a>)</small></li>
+</ul>
+<p>Using this technique:</p>
+<ul>
+<li>The horizontal rule is styleable and customizable using CSS.</li>
+<li>It can be animated with CSS and/or JavaScript.</li>
+<li>It will display like it is intended to (birds on a wire) even in environments where my CSS is stripped off, such as reading apps. Because the it is now an <em>image</em>, it will be displayed just the way it is, as opposed to an <code>&lt;hr&gt;</code> that would be displayed and styled by the reading app.</li>
+<li>Using the high contrast media query, it can be adapted to always remain accessible with whatever user theme is currently active.</li>
+</ul>
+<p>Here is a video of me changing the color of my birds-on-a-wire horizontal rule in realtime using Chrome devtools. This is made possible by using inline SVG and CSS custom properties to apply the color to the SVG content:</p>
+<figure>
+    <div class="l-aspect-ratio" style="padding-top: 130%;">
+        <iframe src="https://player.vimeo.com/video/528984771?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="400" height="300" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="theming with inline SVG and CSS custom properties"></iframe>
+    </div>
+</figure>
+<h2 id="closing-thoughts">Closing Thoughts</h2>
+<p>Just like using inline SVG for icons is the best practice to ensure the icons remain adaptive and accessible, SVG can similarly provide better resilience for horizontal rules when you want to get more creative with them. Whether or not you use this technique, it&rsquo;s good to have in your knowledge base, just in case you ever need it.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

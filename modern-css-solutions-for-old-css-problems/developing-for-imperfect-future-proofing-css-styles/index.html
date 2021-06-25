@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Developing For Imperfect: Future Proofing CSS Styles</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Mar 28, 2021</strong></small>
+
+				<h1>Developing For Imperfect: Future Proofing CSS Styles</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/modern-css-solutions-for-old-css-problems/">All from Modern CSS Solutions for Old CSS Problems</a> <strong><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/">View <span class="inclusively-hidden">Developing For Imperfect: Future Proofing CSS Styles</span> on moderncss.dev</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>How do we plan future-proof styles in a world with an infinite degree of device and user ability variance? Let's explore how things can break and how modern CSS provides solutions.</p>
+<p>This episode will cover handling for:</p>
+<ul>
+<li>variable content length and overflow</li>
+<li>unpredictable media sizes</li>
+<li>internationalization</li>
+<li>accessibility-related user settings</li>
+</ul>
+<div class="tdbc-card tdbc-card--teaser tdbc-card--ad">
+	<div class="tdbc-card__content">
+		&nbsp;
+	</div>
+</div>
+<p>We'll explore creating a robust comment thread component. Here's our starting point - an exact mimic of the layout you received from design, good job!</p>
+<details>
+  <summary>CSS for "Initial Comment Thread"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">.comment-list</span> <span class="token punctuation">{</span><br />  <span class="token property">list-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span><br />  <span class="token property">padding</span><span class="token punctuation">:</span> 0.5rem<span class="token punctuation">;</span><br />  <span class="token property">margin</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token property">grid-gap</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment .comment-list</span> <span class="token punctuation">{</span><br />  <span class="token property">grid-column-start</span><span class="token punctuation">:</span> 2<span class="token punctuation">;</span><br />  <span class="token property">grid-column-end</span><span class="token punctuation">:</span> -1<span class="token punctuation">;</span><br />  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment</span> <span class="token punctuation">{</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> 64px 1fr<span class="token punctuation">;</span><br />  <span class="token property">grid-gap</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment-body</span> <span class="token punctuation">{</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span><br />  <span class="token property">grid-gap</span><span class="token punctuation">:</span> .5rem<span class="token punctuation">;</span><br />  <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment-meta</span> <span class="token punctuation">{</span><br />  <span class="token property">color</span><span class="token punctuation">:</span> #767676<span class="token punctuation">;</span><br />  <span class="token property">font-size</span><span class="token punctuation">:</span> .875rem<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment-body a</span> <span class="token punctuation">{</span><br />  <span class="token property">color</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment-meta a</span> <span class="token punctuation">{</span><br />  <span class="token property">color</span><span class="token punctuation">:</span> mediumvioletred<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.comment-list-677 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-677 .comment-list-677 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-677 {
+display: grid;
+grid-template-columns: 64px 1fr;
+grid-gap: 1rem;
+}</p>
+<p>.comment-body-677 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-677 {
+color: #767676;
+font-size: .875rem;
+}</p>
+<p>.comment-body-677 a {
+color: inherit;
+}</p>
+<p>.comment-meta-677 a {
+color: mediumvioletred;
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-677">
+  <li class="comment-677">
+    <span class="comment-avatar"><img alt="@baywriter avatar" src="https://moderncss.dev/img/posts/26/avatar1.png" /></span>
+    <div class="comment-body-677">
+      <small class="comment-meta-677"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter</a> <em>15 mins ago</em></small>
+      <p>Lemon drops danish soufflé gummies dragée apple pie. Pudding gummi bears gingerbread cotton candy toffee. Caramels halvah sweet roll lollipop chocolate.</p>
+    </div>
+  </li>
+  <li class="comment-677">
+    <span class="comment-avatar"><img alt="@michelle avatar" src="https://moderncss.dev/img/posts/26/avatar2.png" /></span>
+    <div class="comment-body-677">
+      <small class="comment-meta-677"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle</a> <em>1 hour ago</em></small>
+      <p>Lemon drops danish soufflé gummies dragée apple pie. Pudding gummi bears gingerbread cotton candy toffee. Caramels halvah sweet roll lollipop chocolate.</p>
+    </div>
+    <ul class="comment-list-677">
+      <li class="comment-677">
+        <span class="comment-avatar"><img alt="@claudia87 avatar" src="https://moderncss.dev/img/posts/26/avatar3.png" /></span>
+        <div class="comment-body-677">
+          <small class="comment-meta-677"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Lemon drops danish soufflé gummies dragée apple pie. Pudding gummi bears gingerbread cotton candy toffee. Caramels halvah sweet roll lollipop chocolate.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>But if you resize it, you'll already notice a few problems, particularly with overflow.</p>
+<p><small><em>Avatar illustrations are part of the <a href="https://blush.design/collections/women-power">Women Power</a> collection on Blush by Sara Pelaez</em>.</small></p>
+<h2 id="responsive-planning">Responsive Planning<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#responsive-planning">#</a></h2>
+<p>When you can't precisely plan around content, plan for flexibility. Rather than setting absolutes, we can use CSS functions to choose the best value relative to the current context.</p>
+<p>In our <code>.comment</code> styles, we set a precise pixel value for the avatar. Instead, we can use the CSS function <code>min</code> to select the <em>minimum computed value</em> between a list of options.</p>
+<details open="">
+  <summary>CSS for "Updated Avatar Grid Column"</summary>
+<pre class="language-css"><code class="language-css"><span class="highlight-line"><span class="token selector">.comment</span> <span class="token punctuation">{</span></span><br /><del class="highlight-line highlight-line-remove">  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> 64px 1fr<span class="token punctuation">;</span></del><br /><ins class="highlight-line highlight-line-add">  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> <span class="token function">min</span><span class="token punctuation">(</span>64px<span class="token punctuation">,</span> 15%<span class="token punctuation">)</span> 1fr<span class="token punctuation">;</span></ins><br /><span class="highlight-line"><span class="token punctuation">}</span></span><br /><span class="highlight-line"></span></code></pre>
+</details>
+<style>
+.comment-list-784 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-784 .comment-list-784 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-784 {
+display: grid;
+grid-template-columns: min(64px, 15%) 1fr;
+grid-gap: 1rem;
+}</p>
+<p>.comment-body-784 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-784 {
+color: #767676;
+font-size: .875rem;
+}</p>
+<p>.comment-body-784 a {
+color: inherit;
+}</p>
+<p>.comment-meta-784 a {
+color: mediumvioletred;
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-784">
+  <li class="comment-784">
+    <span class="comment-avatar"><img alt="@baywriter avatar" src="https://moderncss.dev/img/posts/26/avatar1.png" /></span>
+    <div class="comment-body-784">
+      <small class="comment-meta-784"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter</a> <em>15 mins ago</em></small>
+      <p>Lemon drops danish soufflé gummies dragée apple pie. Pudding gummi bears gingerbread cotton candy toffee. Caramels halvah sweet roll lollipop chocolate.</p>
+    </div>
+  </li>
+  <li class="comment-784">
+    <span class="comment-avatar"><img alt="@michelle avatar" src="https://moderncss.dev/img/posts/26/avatar2.png" /></span>
+    <div class="comment-body-784">
+      <small class="comment-meta-784"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle</a> <em>1 hour ago</em></small>
+      <p>Lemon drops danish soufflé gummies dragée apple pie. Pudding gummi bears gingerbread cotton candy toffee. Caramels halvah sweet roll lollipop chocolate.</p>
+    </div>
+    <ul class="comment-list-784">
+      <li class="comment-784">
+        <span class="comment-avatar"><img alt="@claudia87 avatar" src="https://moderncss.dev/img/posts/26/avatar3.png" /></span>
+        <div class="comment-body-784">
+          <small class="comment-meta-784"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Lemon drops danish soufflé gummies dragée apple pie. Pudding gummi bears gingerbread cotton candy toffee. Caramels halvah sweet roll lollipop chocolate.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>In this case, the impact is that the avatar will never exceed <code>64px</code> for larger viewports. And for smaller viewports <em>or</em> within narrower containers, it will be computed as <code>15%</code> of the total comment width.</p>
+<p>As this example shows, sometimes we can turn over layout choices to the browser to make contextually versus define precise values within media queries.</p>
+<blockquote class="promo"><p><em>Hey there!</em> Register for my CSS workshop in July with Smashing Conference: <a href="https://smashingconf.com/online-workshops/workshops/stephanie-eckles">Level-Up With Modern&nbsp;CSS</a></p></blockquote>
+<h2 id="always-expect-more">Always Expect More<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#always-expect-more">#</a></h2>
+<p>Whether characters or elements, always expect more than the original design has planned.</p>
+<p>Our avatar update has already improved things. But we're still viewing the component with &quot;happy path&quot; content from our designer that doesn't reflect real-world data. Notably, the user names and comment lengths are relatively short.</p>
+<p>Let's update our demo data to have a bit more variance and &quot;real&quot; avatars:</p>
+<style>
+.comment-list-796 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-796 .comment-list-796 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-796 {
+display: grid;
+grid-template-columns: min(64px, 15%) 1fr;
+grid-gap: 1rem;
+}</p>
+<p>.comment-body-796 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-796 {
+color: #767676;
+font-size: .875rem;
+}</p>
+<p>.comment-body-796 a {
+color: inherit;
+}</p>
+<p>.comment-meta-796 a {
+color: mediumvioletred;
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-796">
+  <li class="comment-796">
+    <span class="comment-avatar"><img alt="@baywriter_cactusmom avatar" src="https://moderncss.dev/img/posts/26/avatarr1.jpeg" /></span>
+    <div class="comment-body-796">
+      <small class="comment-meta-796"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter_cactusmom</a> <em>15 mins ago</em></small>
+      <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
+    </div>
+  </li>
+  <li class="comment-796">
+    <span class="comment-avatar"><img alt="@michelle_n_catz@superremail.co.uk avatar" src="https://moderncss.dev/img/posts/26/avatarr2.jpeg" /></span>
+    <div class="comment-body-796">
+      <small class="comment-meta-796"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle_n_catz@superremail.co.uk</a> <em>1 hour ago</em></small>
+      <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+      <p>Have you seen <a href="https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/">https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/</a>? Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.</p>
+    </div>
+    <ul class="comment-list-796">
+      <li class="comment-796">
+        <span class="comment-avatar"><img alt="@claudia87_author avatar" src="https://moderncss.dev/img/posts/26/avatarr3.jpeg" /></span>
+        <div class="comment-body-796">
+          <small class="comment-meta-796"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87_author</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>
+          <p>Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>Not as pretty as our mockup mimic 😊</p>
+<p>Now, if you've been following along and testing our component via resizing, you'll see we have the possibility of content overflow.</p>
+<p>Let's resolve it first for the <code>.comment-meta</code>, which is the <code>small</code> tag containing the username and date.</p>
+<p>We will update the layout method to allow the username and date to line up on wider viewports and stack on smaller viewports. Simple flex behavior allows this since child elements will be their max-width when there's room and flow to a new row when the containing element reduces below that max-width.</p>
+<details open="">
+  <summary>CSS for "Update Comment Meta Layout"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">.comment-meta</span> <span class="token punctuation">{</span><br />  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span><br />  <span class="token property">flex-wrap</span><span class="token punctuation">:</span> wrap<span class="token punctuation">;</span><br />  <span class="token property">gap</span><span class="token punctuation">:</span> 0.5rem<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.comment-list-261 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-261 .comment-list-261 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-261 {
+display: grid;
+grid-template-columns: min(64px, 15%) 1fr;
+grid-gap: 1rem;
+}</p>
+<p>.comment-body-261 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-261 {
+color: #767676;
+font-size: .875rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+}</p>
+<p>.comment-body-261 a {
+color: inherit;
+}</p>
+<p>.comment-meta-261 a {
+color: mediumvioletred;
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-261">
+  <li class="comment-261">
+    <span class="comment-avatar"><img alt="@baywriter_cactusmom avatar" src="https://moderncss.dev/img/posts/26/avatarr1.jpeg" /></span>
+    <div class="comment-body-261">
+      <small class="comment-meta-261"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter_cactusmom</a> <em>15 mins ago</em></small>
+      <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
+    </div>
+  </li>
+  <li class="comment-261">
+    <span class="comment-avatar"><img alt="@michelle_n_catz@superremail.co.uk avatar" src="https://moderncss.dev/img/posts/26/avatarr2.jpeg" /></span>
+    <div class="comment-body-261">
+      <small class="comment-meta-261"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle_n_catz@superremail.co.uk</a> <em>1 hour ago</em></small>
+      <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+      <p>Have you seen <a href="https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/">https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/</a>? Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.</p>
+    </div>
+    <ul class="comment-list-261">
+      <li class="comment-261">
+        <span class="comment-avatar"><img alt="@claudia87_author avatar" src="https://moderncss.dev/img/posts/26/avatarr3.jpeg" /></span>
+        <div class="comment-body-261">
+          <small class="comment-meta-261"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87_author</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>
+          <p>Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>While <a href="https://caniuse.com/flexbox-gap">flexbox <code>gap</code> support</a> is gaining, in this case, the degraded behavior is simply very slightly closer elements, so it isn't too detrimental not to provide a fallback.</p>
+<p>Go ahead and test this version and see how the dates bump to a new line when there isn't enough space for their full width.</p>
+<h3 id="preventing-content-overflow">Preventing Content Overflow<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#preventing-content-overflow">#</a></h3>
+<p>In the demo data, the longer email in the second comment eventually causes overflow scroll on smaller viewports. So does the extended URL in the comment body.</p>
+<p>The fix could be scoped to only the link elements if we'd like. However, due to the nature of a comment thread, it seems to make sense to be extra-preventative about overflow content in this context So we'll apply two properties to the top-level <code>.comment</code> in order to cascade to all the content within.</p>
+<details open="">
+  <summary>CSS for "Preventing Content Overflow"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">.comment</span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Help prevent overflow of long words/names/URLs */</span><br />  <span class="token property">word-break</span><span class="token punctuation">:</span> break-word<span class="token punctuation">;</span><br />  <span class="token comment">/* Optional, not supported for all languages */</span><br />  <span class="token property">hyphens</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.comment a</span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Remove from links to prevent perceiving false hyphens */</span><br />  <span class="token property">hyphens</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.comment-list-474 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-474 .comment-list-474 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-474 {
+display: grid;
+grid-template-columns: min(64px, 15%) 1fr;
+grid-gap: 1rem;
+word-break: break-word;
+hyphens: auto;
+}</p>
+<p>.comment-body-474 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-474 {
+color: #767676;
+font-size: .875rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+}</p>
+<p>.comment-body-474 a {
+color: inherit;
+hyphens: none;
+}</p>
+<p>.comment-meta-474 a {
+color: mediumvioletred;
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-474">
+  <li class="comment-474">
+    <span class="comment-avatar"><img alt="@baywriter_cactusmom avatar" src="https://moderncss.dev/img/posts/26/avatarr1.jpeg" /></span>
+    <div class="comment-body-474">
+      <small class="comment-meta-474"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter_cactusmom</a> <em>15 mins ago</em></small>
+      <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
+    </div>
+  </li>
+  <li class="comment-474">
+    <span class="comment-avatar"><img alt="@michelle_n_catz@superremail.co.uk avatar" src="https://moderncss.dev/img/posts/26/avatarr2.jpeg" /></span>
+    <div class="comment-body-474">
+      <small class="comment-meta-474"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle_n_catz@superremail.co.uk</a> <em>1 hour ago</em></small>
+      <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+      <p>Have you seen <a href="https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/">https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/</a>? Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.</p>
+    </div>
+    <ul class="comment-list-474">
+      <li class="comment-474">
+        <span class="comment-avatar"><img alt="@claudia87_author avatar" src="https://moderncss.dev/img/posts/26/avatarr3.jpeg" /></span>
+        <div class="comment-body-474">
+          <small class="comment-meta-474"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87_author</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>
+          <p>Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>Notice we removed the possibility of <code>hyphens</code> from links. In this case, the full links are visible like in our example, and someone tries to write it down or read it aloud.</p>
+<blockquote>
+<p>CSS-inserted hyphens are not included if a user copies the text. As noted, <code>hyphens</code> are also not consistently available for all languages in all browsers. You can <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens#browser_compatibility">review <code>hyphens</code> support on MDN</a>.</p>
+</blockquote>
+<p>With <code>word-break: break-word</code>, any text string <em>may</em> be broken onto a new line once the containing element doesn't have room for its full-width. When <code>hyphens</code> are supported, the bonus effect is reducing a &quot;ragged edge&quot; from odd spaces caused by broken words.</p>
+<p>Optionally, you may want to update links to use <code>word-break: break-all;</code> to prevent an empty space if the browser decides to move the link to a new line before applying the break. You can see our current solution on smaller viewports currently leaves a space before the long exposed link.</p>
+<p>Try out resizing the component now, and perhaps even pop open dev tools to inspect and toggle on and off these properties to see the difference in their effects.</p>
+<blockquote class="promo"><p><strong>Would you like CSS tips in your inbox?</strong> <a href="https://moderncss.dev/newsletter/">Join my newsletter</a> for article updates, CSS tips, and front-end resources!</p></blockquote>
+<h2 id="handling-variable-media-dimensions">Handling Variable Media Dimensions<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#handling-variable-media-dimensions">#</a></h2>
+<p>Now let's deal with those avatars.</p>
+<p>First, we set <code>border-radius</code> to create a circle appearance. Then we ensure the image fills the grid column with <code>width: 100%</code>. Following that, we turn the image into its own container and allow the image content to fill but not exceed the <code>img</code> dimensions with <code>object-fit: cover</code>. We end the rule with a <a href="https://caniuse.com/mdn-css_properties_aspect-ratio">cutting-edge property of <code>aspect-ratio</code></a> to ensure a perfect square.</p>
+<details open="">
+  <summary>CSS for "Updated Avatar Dimensions"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">.comment img</span> <span class="token punctuation">{</span><br />  <span class="token property">border-radius</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span><br />  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span><br />  <span class="token property">object-fit</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span><br />  <span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token atrule"><span class="token rule">@supports</span> <span class="token keyword">not</span> <span class="token punctuation">(</span><span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 1<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token selector">.comment-avatar</span> <span class="token punctuation">{</span><br />    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span><br />    <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span><br />    <span class="token property">padding-bottom</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token selector">.comment-avatar img</span> <span class="token punctuation">{</span><br />    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span><br />    <span class="token property">height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.comment-list-528 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-528 .comment-list-528 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-528 {
+display: grid;
+grid-template-columns: min(64px, 15%) 1fr;
+grid-gap: 1rem;
+word-break: break-word;
+hyphens: auto;
+}</p>
+<p>.comment-body-528 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-528 {
+color: #767676;
+font-size: .875rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+}</p>
+<p>.comment-body-528 a {
+color: inherit;
+hyphens: none;
+}</p>
+<p>.comment-meta-528 a {
+color: mediumvioletred;
+}</p>
+<p>.comment-avatar-528 img {
+border-radius: 50%;
+width: 100%;
+object-fit: cover;
+aspect-ratio: 1;
+}</p>
+<p>@supports not (aspect-ratio: 1) {
+.comment-avatar-528 {
+position: relative;
+height: 0;
+padding-bottom: 100%;
+}</p>
+<p>.comment-avatar-528 img {
+position: absolute;
+height: 100%;
+}
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-528">
+  <li class="comment-528">
+    <span class="comment-avatar-528"><img alt="@baywriter_cactusmom avatar" src="https://moderncss.dev/img/posts/26/avatarr1.jpeg" /></span>
+    <div class="comment-body-528">
+      <small class="comment-meta-528"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter_cactusmom</a> <em>15 mins ago</em></small>
+      <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
+    </div>
+  </li>
+  <li class="comment-528">
+    <span class="comment-avatar-528"><img alt="@michelle_n_catz@superremail.co.uk avatar" src="https://moderncss.dev/img/posts/26/avatarr2.jpeg" /></span>
+    <div class="comment-body-528">
+      <small class="comment-meta-528"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle_n_catz@superremail.co.uk</a> <em>1 hour ago</em></small>
+      <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+      <p>Have you seen <a href="https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/">https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/</a>? Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.</p>
+    </div>
+    <ul class="comment-list-528">
+      <li class="comment-528">
+        <span class="comment-avatar-528"><img alt="@claudia87_author avatar" src="https://moderncss.dev/img/posts/26/avatarr3.jpeg" /></span>
+        <div class="comment-body-528">
+          <small class="comment-meta-528"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87_author</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>
+          <p>Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>We follow that rule with a feature detection fallback rule - <code>@supports not (aspect-ratio: 1)</code> - for browsers that do <em>not</em> support <code>aspect-ratio</code>. This fallback is an older technique that relies on padding to ensure a perfect square ratio of the image's parent and then ensures the <code>img</code> fills that area.</p>
+<blockquote>
+<p>Previous Modern CSS tutorials have covered <code>object-fit</code>, such as <a href="https://moderncss.dev/css-only-full-width-responsive-images-2-ways/">CSS-Only Full-Width Responsive Images 2 Ways</a>. You may also enjoy this <a href="https://egghead.io/lessons/css-apply-aspect-ratio-sizing-to-images-with-css-object-fit">3 min video demonstrating <code>object-fit</code></a>.</p>
+</blockquote>
+<h2 id="breaking-behavior-to-test">Breaking Behavior To Test<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#breaking-behavior-to-test">#</a></h2>
+<p>We've covered the scenarios we could detect fairly easily by resizing our browser/the component container. And adding more real-world data helped us define better avatar styles.</p>
+<p>There are a few more items we need to explicitly test for: internationalization (i18n) and a few relevant WCAG success criteria for accessibility.</p>
+<blockquote>
+<p><strong>Terminology check</strong>: WCAG stands for the &quot;<a href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines</a>,&quot; a set of standards intended to help create more accessible and inclusive experiences. <em><a href="https://www.w3.org/WAI/WCAG22/Understanding/understanding-techniques">Success Criteria</a></em> are guidance that is broadly applicable to current and future web technologies in order to assist in creating experiences that are accessible.</p>
+</blockquote>
+<h3 id="internationalization-i18n">Internationalization (i18n)<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#internationalization-i18n">#</a></h3>
+<p>Yes, the comments are silly nonsense (courtesy of <a href="http://www.cupcakeipsum.com/">cupcake ipsum</a> and <a href="https://www.cipsum.com/">corporate ipsum</a>). However, for something like a comment thread component that's purpose is to intake and display user-submitted content, it's a great idea to stress-test by trialing some translations.</p>
+<p>The first comment is German, the second is Estonian, and the third is Arabic.</p>
+<details open="">
+  <summary>CSS for "RTL Text Styling"</summary>
+<pre class="language-css"><code class="language-css"><span class="token selector">.comment</span> <span class="token punctuation">{</span><br />  <span class="token property">text-align</span><span class="token punctuation">:</span> start<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details>
+<style>
+.comment-list-208 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-208 .comment-list-208 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-208 {
+display: grid;
+grid-template-columns: min(64px, 15%) 1fr;
+grid-gap: 1rem;
+word-break: break-word;
+hyphens: auto;
+text-align: start;
+}</p>
+<p>.comment-body-208 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-208 {
+color: #767676;
+font-size: .875rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+}</p>
+<p>.comment-body-208 a {
+color: inherit;
+hyphens: none;
+}</p>
+<p>.comment-meta-208 a {
+color: mediumvioletred;
+}</p>
+<p>.comment-avatar-208 img {
+border-radius: 50%;
+width: 100%;
+object-fit: cover;
+aspect-ratio: 1;
+}</p>
+<p>@supports not (aspect-ratio: 1) {
+.comment-avatar-208 {
+position: relative;
+height: 0;
+padding-bottom: 100%;
+}</p>
+<p>.comment-avatar-208 img {
+position: absolute;
+height: 100%;
+}
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-208">
+  <li lang="de" class="comment-208">
+    <span class="comment-avatar-208"><img alt="@baywriter_cactusmom avatar" src="https://moderncss.dev/img/posts/26/avatarr1.jpeg" /></span>
+    <div class="comment-body-208">
+      <small class="comment-meta-208"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter_cactusmom</a> <em>Vor 15 Minuten</em></small>
+      <p>Podcasting des operativen Änderungsmanagements innerhalb von Workflows, um ein Framework zu erstellen. Schalten Sie nahtlose Leistungsindikatoren offline, um den Long Tail zu maximieren.</p>
+    </div>
+  </li>
+  <li lang="et" class="comment-208">
+    <span class="comment-avatar-208"><img alt="@michelle_n_catz@superremail.co.uk avatar" src="https://moderncss.dev/img/posts/26/avatarr2.jpeg" /></span>
+    <div class="comment-body-208">
+      <small class="comment-meta-208"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle_n_catz@superremail.co.uk</a> <em>1 tund tagasi</em></small>
+      <p>Kasutage agaraid raamistikke, et pakkuda põhjalikku ülevaadet kõrgetasemeliste ülevaadete jaoks. Iteratiivsed lähenemised ettevõtte strateegiale soodustavad koostöömõtlemist, et edendada üldist väärtuspakkumist.</p>
+      <p>Kasvata orgaaniliselt terviklikku maailmavaadet häirivast innovatsioonist töökoha mitmekesisuse ja mõjuvõimu suurendamise kaudu.</p>
+    </div>
+    <ul class="comment-list-208">
+      <li lang="ar" dir="rtl" class="comment-208">
+        <span class="comment-avatar-208"><img alt="@claudia87_author avatar" src="https://moderncss.dev/img/posts/26/avatarr3.jpeg" /></span>
+        <div class="comment-body-208">
+          <small class="comment-meta-208"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87_author</a> <em>31 أكتوبر 2021 الساعة 6:54 مساءً</em></small>
+          <p>سيؤدي الانغماس في تقنية النانو على طول طريق المعلومات السريع إلى إغلاق الحلقة حول التركيز فقط على المحصلة النهائية</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>Thanks to our previous work on handling overflow, our comment thread is gracefully handling the change in content languages.</p>
+<p>On the third one that is in Arabic, the browser is handling the content direction switch firstly due to placing the attribute <code>dir=&quot;rtl&quot;</code> on the <code>.comment</code> list element. Interestingly, the browser intelligently switches the order of the <code>grid-template-columns</code> without our needing to do anything extra. Flexbox will also flip according to this attribute. Older styles that use floats would not flip and would require an additional override.</p>
+<p>We've defined just one extra property: <code>text-align: start</code>. This is called a <em><a href="https://rtlstyling.com/posts/rtl-styling#css-logical-properties">logical property</a></em> and in the case of RTL being defined it flips the text and becomes equivalent to <code>text-align: right</code>. While <a href="https://caniuse.com/css-logical-props">support is still gaining for logical properties</a>, you may need to include a fallback. Since we're using <code>grid-gap</code> for spacing throughout, no update is needed there. If we were using margins that were affected, we could again use logical properties to help do the conversion when needed.</p>
+<p>Since I am not an RTL (right-to-left) styling expert, I will point you to this fantastic resource if you would like to <a href="https://rtlstyling.com/posts/rtl-styling/">learn more about RTL styling</a>.</p>
+<h3 id="wcag-success-criterion-1410---reflow">WCAG Success Criterion 1.4.10 - Reflow<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#wcag-success-criterion-1410---reflow">#</a></h3>
+<p>Reflow is the term for supporting desktop zoom up to 400%. On a 1280px wide resolution at 400%, the viewport content is equivalent to 320 CSS pixels wide.</p>
+<p>Zooming on a desktop eventually triggers what we usually think of as &quot;responsive design&quot; behavior. In fact, if you are using media queries or other viewport-based layout methods, you will see those begin to take hold as you zoom in.</p>
+<p>The trouble with handling this success criterion is usually two-fold:</p>
+<ul>
+<li>there is no <code>zoom</code> media query to adjust for any issues</li>
+<li>the aspect ratio of a desktop using zoom is different than the mobile portrait mode we usually plan responsive design around</li>
+</ul>
+<p>The aspect ratio difference, in particular, can cause issues with overlap. It also means solutions that rely on only viewport units or percentages appear either too large or too small within a zoom context.</p>
+<p>However, viewport units used in combination with other units can actually help solve zoomed layout issues as well and gap-fill the problem of not having a dedicated <code>zoom</code> media query.</p>
+<p>If we zoom our component to 400%, the avatar column begins to grow a bit large within that context. We'd like it to take up a relatively similar size column as we perceive it at standard zoom.</p>
+<p>Recall that we originally applied <code>min</code> to the avatar's grid column, which was intended to resize the avatar for smaller containers and viewports via a percentage width. Fortunately, the <code>min</code> function can take more than two values!</p>
+<p>Now, this type of fix can take some trial and error, but to my eye, adding <code>10vw</code> as an additional value provided the desired adjustment. It also slightly reduced the avatar for true mobile viewports but was a worthwhile trade-off.</p>
+<p>The benefit of retaining the percentage width is that our component continues to be responsive to its parent container as well. If we removed it, we would not see a reduction until the viewport units began to take effect, which may objectively be too late.</p>
+<details open="">
+  <summary>CSS for "Update Column Minimum Allowed Widths"</summary>
+<pre class="language-css"><code class="language-css"><span class="highlight-line"><span class="token selector">.comment</span> <span class="token punctuation">{</span></span><br /><del class="highlight-line highlight-line-remove">  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> <span class="token function">min</span><span class="token punctuation">(</span>64px<span class="token punctuation">,</span> 15%<span class="token punctuation">)</span> 1fr<span class="token punctuation">;</span></del><br /><ins class="highlight-line highlight-line-add">  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> <span class="token function">min</span><span class="token punctuation">(</span>64px<span class="token punctuation">,</span> 15%<span class="token punctuation">,</span> 10vw<span class="token punctuation">)</span> 1fr<span class="token punctuation">;</span></ins><br /><span class="highlight-line"><span class="token punctuation">}</span></span><br /><span class="highlight-line"></span></code></pre>
+</details>
+<style>
+.comment-list-261 {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+<p>.comment-261 .comment-list-261 {
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0;
+}</p>
+<p>.comment-261 {
+display: grid;
+grid-template-columns: min(64px, 15%, 10vw) 1fr;
+grid-gap: 1rem;
+word-break: break-word;
+hyphens: auto;
+}</p>
+<p>.comment-body-261 {
+display: grid;
+grid-gap: .5rem;
+color: #444;
+}</p>
+<p>.comment-meta-261 {
+color: #767676;
+font-size: .875rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+}</p>
+<p>.comment-body-261 a {
+color: inherit;
+hyphens: none;
+}</p>
+<p>.comment-meta-261 a {
+color: mediumvioletred;
+}</p>
+<p>.comment-avatar-261 img {
+border-radius: 50%;
+width: 100%;
+object-fit: cover;
+aspect-ratio: 1;
+}</p>
+<p>@supports not (aspect-ratio: 1) {
+.comment-avatar-261 {
+position: relative;
+height: 0;
+padding-bottom: 100%;
+}</p>
+<p>.comment-avatar-261 img {
+position: absolute;
+height: 100%;
+}
+}
+</style></p>
+<div class="tdbc-demo">
+<div class="tdbc-demo--content">
+<ul class="comment-list-261">
+  <li class="comment-261">
+    <span class="comment-avatar-261"><img alt="@baywriter_cactusmom avatar" src="https://moderncss.dev/img/posts/26/avatarr1.jpeg" /></span>
+    <div class="comment-body-261">
+      <small class="comment-meta-261"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@baywriter_cactusmom</a> <em>15 mins ago</em></small>
+      <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
+    </div>
+  </li>
+  <li class="comment-261">
+    <span class="comment-avatar-261"><img alt="@michelle_n_catz@superremail.co.uk avatar" src="https://moderncss.dev/img/posts/26/avatarr2.jpeg" /></span>
+    <div class="comment-body-261">
+      <small class="comment-meta-261"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@michelle_n_catz@superremail.co.uk</a> <em>1 hour ago</em></small>
+      <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+      <p>Have you seen <a href="https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/">https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/</a>? Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.</p>
+    </div>
+    <ul class="comment-list-261">
+      <li class="comment-261">
+        <span class="comment-avatar-261"><img alt="@claudia87_author avatar" src="https://moderncss.dev/img/posts/26/avatarr3.jpeg" /></span>
+        <div class="comment-body-261">
+          <small class="comment-meta-261"><a href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#">@claudia87_author</a> <em>October 31, 2021 at 6:54 PM</em></small>
+          <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>
+          <p>Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
+<p>If you are using a desktop browser, bump up your zoom to 400%. Then open dev tools (recommended not to place it as a sidebar for this test) and find this demo. Select one of the <code>.comment</code> list items and adjust the <code>10vw</code> by using your arrow keys to see when it &quot;wins&quot; versus the other values. Then, swap to a mobile emulator and view whether your adjustment positively or negatively impacted the avatar in that view.</p>
+<p>Resolving zoom layout issues takes some patience, but <code>min</code> is one of the best modern CSS tools I've found to assist with this challenge.</p>
+<h3 id="wcag-success-criterion-1412---text-spacing">WCAG Success Criterion 1.4.12 - Text Spacing<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#wcag-success-criterion-1412---text-spacing">#</a></h3>
+<p>Another criterion you may not be aware of or already be testing for is <em>Text Spacing</em>.</p>
+<p>According to the <a href="https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html">text spacing understanding documentation</a>, your content should be flexible for user settings, including:</p>
+<ul>
+<li>Line height (line spacing) to at least 1.5 times the font size</li>
+<li>Spacing following paragraphs to at least 2 times the font size</li>
+<li>Letter spacing (tracking) to at least 0.12 times the font size</li>
+<li>Word spacing to at least 0.16 times the font size</li>
+</ul>
+<p>Luckily, there is a <a href="https://dylanb.github.io/bookmarklets.html">text spacing bookmarklet</a> you can grab that will apply styles to test this criterion.</p>
+<p>If you're unfamiliar with a bookmarklet, you can click the link and drag it to your bookmark bar. In this case, the bookmarklet contains a tiny script that will apply the text spacing styles to all elements on the page you're viewing to allow you to test this criterion.</p>
+<p>Applying the bookmarklet test to our comment thread component, we, fortunately, encounter no issues thanks to our previous efforts.</p>
+<blockquote>
+<p>You may have difficulties with this criterion if you try to define content boxes with absolute dimensions, or rely on CSS truncation methods, or force inline dimension styles with JavaScript. If the content is cut-off or overflows, you need to resolve it to meet this criterion.</p>
+</blockquote>
+<h2 id="final-demo">Final Demo<a class="tdbc-anchor" href="https://moderncss.dev/developing-for-imperfect-future-proofing-css-styles/#final-demo">#</a></h2>
+<form action="https://codepen.io/pen/define" method="POST" target="_blank">
+        <input type="hidden" name="data" value="{&quot;title&quot;:&quot;ModernCSS - Comment Thread Component&quot;,&quot;description&quot;:&quot;Generated from: https://ModernCSS.dev/developing-for-imperfect-future-proofing-css-styles/&quot;,&quot;tags&quot;:[&quot;moderncss&quot;],&quot;editors&quot;:&quot;110&quot;,&quot;layout&quot;:&quot;left&quot;,&quot;html&quot;:&quot;<!-- ModernCSS - Comment Thread Component\nGenerated from: https://ModernCSS.dev/developing-for-imperfect-future-proofing-css-styles/ -->\n<ul class=\&quot;comment-list\&quot;>\n  <li class=\&quot;comment\&quot;>\n    <span class=\&quot;comment-avatar\&quot;><img alt=\&quot;@baywriter_cactusmom avatar\&quot; src=\&quot;https://moderncss.dev/img/posts/26/avatarr1.jpeg\&quot; /></span>\n    <div class=\&quot;comment-body\&quot;>\n      <small class=\&quot;comment-meta\&quot;><a href=\&quot;#\&quot;>@baywriter_cactusmom</a> <em>15 mins ago</em></small>\n      <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>\n    </div>\n  </li>\n  <li class=\&quot;comment\&quot;>\n    <span class=\&quot;comment-avatar\&quot;><img alt=\&quot;@michelle_n_catz@superremail.co.uk avatar\&quot; src=\&quot;https://moderncss.dev/img/posts/26/avatarr2.jpeg\&quot; /></span>\n    <div class=\&quot;comment-body\&quot;>\n      <small class=\&quot;comment-meta\&quot;><a href=\&quot;#\&quot;>@michelle_n_catz@superremail.co.uk</a> <em>1 hour ago</em></small>\n      <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>\n      <p>Have you seen <a href=\&quot;https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/\&quot;>https://moderncss.dev/3-css-grid-techniques-to-make-you-a-grid-convert/</a>? Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.</p>\n    </div>\n    <ul class=\&quot;comment-list\&quot;>\n      <li class=\&quot;comment\&quot;>\n        <span class=\&quot;comment-avatar\&quot;><img alt=\&quot;@claudia87_author avatar\&quot; src=\&quot;https://moderncss.dev/img/posts/26/avatarr3.jpeg\&quot; /></span>\n        <div class=\&quot;comment-body\&quot;>\n          <small class=\&quot;comment-meta\&quot;><a href=\&quot;#\&quot;>@claudia87_author</a> <em>October 31, 2021 at 6:54 PM</em></small>\n          <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>\n          <p>Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>\n        </div>\n      </li>\n    </ul>\n  </li>\n</ul>\n&quot;,&quot;html_pre_processor&quot;:&quot;none&quot;,&quot;css&quot;:&quot;\n/* Box sizing rules */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n/* Remove default margin */\nbody,\nh1,\nh2,\nh3,\nh4,\np {\n  margin: 0;\n}\n\n/* Set core body defaults */\nbody {\n  min-height: 100vh;\n  text-rendering: optimizeSpeed;\n  line-height: 1.5;\n  font-family: system-ui, sans-serif;\n}\n\n/* Make images easier to work with */\nimg {\n  display: block;\n  max-width: 100%;\n}\n\n/***\n 🟣 ModernCSS Demo Styles\n */\n\n.comment-list {\n  list-style: none;\n  padding: 0.5rem;\n  margin: 0;\n  display: grid;\n  grid-gap: 1.5rem;\n}\n\n.comment .comment-list {\n  grid-column-start: 2;\n  grid-column-end: -1;\n  padding: 0;\n}\n\n.comment {\n  display: grid;\n  grid-template-columns: min(64px, 15%, 10vw) 1fr;\n  grid-gap: 1rem;\n  word-break: break-word;\n  hyphens: auto;\n}\n\n.comment-body {\n  display: grid;\n  grid-gap: .5rem;\n  color: #444;\n}\n\n.comment-meta {\n  color: #767676;\n  font-size: .875rem;\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n\n.comment-body a {\n  color: inherit;\n  hyphens: none;\n}\n\n.comment-meta a {\n  color: mediumvioletred;\n}\n\n.comment-avatar img {\n  border-radius: 50%;\n  width: 100%;\n  object-fit: cover;\n  aspect-ratio: 1;\n}\n\n@supports not (aspect-ratio: 1) {\n  .comment-avatar {\n    position: relative;\n    height: 0;\n    padding-bottom: 100%;\n  }\n\n  .comment-avatar img {\n    position: absolute;\n    height: 100%;\n  }\n}\n&quot;,&quot;css_pre_processor&quot;:&quot;scss&quot;,&quot;css_starter&quot;:&quot;neither&quot;,&quot;css_prefix&quot;:&quot;autoprefixer&quot;,&quot;head&quot;:&quot;<meta name=&apos;viewport&apos; content=&apos;width=device-width, initial-scale=1&apos;>&quot;}" />
+        <button class="tdbc-button" type="submit" data-name="Comment Thread Component" aria-label="Open Comment Thread Component in CodePen"><span class="tdbc-button__icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M32 10.909l-0.024-0.116-0.023-0.067c-0.013-0.032-0.024-0.067-0.040-0.1-0.004-0.024-0.020-0.045-0.027-0.067l-0.047-0.089-0.040-0.067-0.059-0.080-0.061-0.060-0.080-0.060-0.061-0.040-0.080-0.059-0.059-0.053-0.020-0.027-14.607-9.772c-0.463-0.309-1.061-0.309-1.523 0l-14.805 9.883-0.051 0.053-0.067 0.075-0.049 0.060-0.067 0.080c-0.027 0.023-0.040 0.040-0.040 0.061l-0.067 0.080-0.027 0.080c-0.027 0.013-0.027 0.053-0.040 0.093l-0.013 0.067c-0.025 0.041-0.025 0.081-0.025 0.121v9.996c0 0.059 0.004 0.12 0.013 0.18l0.013 0.061c0.007 0.040 0.013 0.080 0.027 0.115l0.020 0.067c0.013 0.036 0.021 0.071 0.036 0.1l0.029 0.067c0 0.013 0.020 0.053 0.040 0.080l0.040 0.053c0.020 0.013 0.040 0.053 0.060 0.080l0.040 0.053 0.053 0.053c0.013 0.017 0.013 0.040 0.040 0.040l0.080 0.056 0.053 0.040 0.013 0.019 14.627 9.773c0.219 0.16 0.5 0.217 0.76 0.217s0.52-0.080 0.76-0.24l14.877-9.875 0.069-0.077 0.044-0.060 0.053-0.080 0.040-0.067 0.040-0.093 0.021-0.069 0.040-0.103 0.020-0.060 0.040-0.107v-10c0-0.067 0-0.127-0.021-0.187l-0.019-0.060 0.059 0.004zM16.013 19.283l-4.867-3.253 4.867-3.256 4.867 3.253-4.867 3.253zM14.635 10.384l-5.964 3.987-4.817-3.221 10.781-7.187v6.424zM6.195 16.028l-3.443 2.307v-4.601l3.443 2.301zM8.671 17.695l5.964 3.987v6.427l-10.781-7.188 4.824-3.223v-0.005zM17.387 21.681l5.965-3.973 4.817 3.227-10.783 7.187v-6.427zM25.827 16.041l3.444-2.293v4.608l-3.444-2.307zM23.353 14.388l-5.964-3.988v-6.44l10.78 7.187-4.816 3.224z"></path>
+    </svg></span> Open in CodePen</button>
+        </form>
+<p>You may choose the &quot;Open in CodePen&quot; option to generate a new CodePen that includes the final styles created for this component. Use it as an opportunity to better explore the various updates we applied, including:</p>
+<ul>
+<li>responsive grid column sizing with <code>min</code></li>
+<li>flexbox for variable width content reflow</li>
+<li><code>word-break</code> and <code>hyphens</code> to handle content overflow</li>
+<li>combining units within <code>min</code> to account for various viewport sizes as well as zoom</li>
+</ul>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

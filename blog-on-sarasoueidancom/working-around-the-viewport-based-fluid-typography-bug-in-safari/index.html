@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Working around the viewport-based fluid typography bug in Safari</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 15, 2021</strong></small>
+
+				<h1>Working around the viewport-based fluid typography bug in Safari</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/safari-fluid-typography-bug-fix/">View <span class="inclusively-hidden">Working around the viewport-based fluid typography bug in Safari</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p class="deck">
+I came cross a CSS bug in Safari today that seems to be more common than I expected. This article is a writeup of the issue I faced and the current possible work-around(s).
+</p>
+<aside class="note" role="note">
+    <strong>Note:</strong>  Less than 72 hours after I wrote this article and filed <a href="https://bugs.webkit.org/show_bug.cgi?id=224614">the bug report</a>, the issue has been marked as resolved fixed! So you can expect this bug to disappear in upcoming releases of Safari. 🎉
+</aside>
+<h2 id="the-bug">The bug</h2>
+<p><a href="https://twitter.com/janpersiel">Jan Persiel</a>—who I’m currently collaborating on a client project with—reported that the type scale we have set up in our pattern library was not working the way it is supposed to. More specifically, in Safari on macOS, the fluid text wasn&rsquo;t really fluid—resizing the viewport did nothing to the font size, even though the latter is supposed to respond to the change in viewport width.</p>
+<p>I am using a fluid typography system and scale that I&rsquo;ve been using for almost two years with no issues to be mentioned. Instead of writing it from scratch like I did for <a href="https://www.slicemachine.dev/">Prismic’s Slice Machine in 2019</a>, I generated the CSS code for the type scale using the excellent <a href="https://utopia.fyi/type/calculator?c=320,21,1.2,1140,24,1.25,5,2,&amp;s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l">Utopia</a> generator. So I was perplexed at first, unsure what was happening.</p>
+<p>Following is <a href="https://codepen.io/SaraSoueidan/pen/ba0c0e9728d52dc131563da193270da4">a Codepen</a> including a reduced test case. Open this demo in Safari and try resizing the browser to see the text <em>not</em> respond to the viewport width changes.</p>
+<iframe height="356" style="width: 100%;" scrolling="no" title="Safari Viewport-based scalable typography... bug?" src="https://codepen.io/SaraSoueidan/embed/ba0c0e9728d52dc131563da193270da4?height=356&theme-id=3617&default-tab=css,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/SaraSoueidan/pen/ba0c0e9728d52dc131563da193270da4'>Safari Viewport-based scalable typography... bug?</a> by Sara Soueidan
+  (<a href='https://codepen.io/SaraSoueidan'>@SaraSoueidan</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+<p>Unsure what was causing the buggy behavior, I started double-checking my own code at first, making sure no weird syntax issues were in the CSS file. I kept checking and tweaking stuff, but nothing worked. So I started googling.</p>
+<p>I came across <a href="https://css-tricks.com/snippets/css/fluid-typography/">this article on CSS-Tricks from 2017</a> about creating fluid typography using <a href="https://twitter.com/MikeRiethmuller">Mike Riethmuller</a>’s <a href="https://www.smashingmagazine.com/2016/05/fluid-typography/">responsive type</a> <a href="https://www.madebymike.com.au/writing/precise-control-responsive-typography/">formula</a> (which I believe is the base of all fluid typography formulas we know today).</p>
+<p>Reading through the comments I found <a href="https://css-tricks.com/snippets/css/fluid-typography/#comment-1607219">Mike’s comment</a> in which he noted that <q>there’s a bug in some versions of Safari (and IE11) that means it won’t be calculated on resize</q>. Similarly, Chris had also mentioned the same buggy behavior in <a href="https://css-tricks.com/viewport-sized-typography/">another article from 2012</a> (!) (emphasis mine):</p>
+<blockquote>
+<p>When the browser window is resized, the font doesn’t adjust itself according to the new viewport size. [..] Perhaps not a huge disaster as it’s pretty much just us design nerds that go around adjusting browser windows, but still. <strong>The font does adjust on a fresh page load.</strong></p>
+</blockquote>
+<p>Indeed, refreshing the page on different viewport sizes would render the text in the font size intended for that viewport size. But that was not enough. It was clearly a bug, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=124331">one that has been reported and supposedly fixed</a>.</p>
+<h2 id="the-workaround">The workaround</h2>
+<p>Responses to <a href="https://css-tricks.com/snippets/css/fluid-typography/#comment-1607139">the comment on the first CSS-Tricks article</a> included a few &ldquo;fixes&rdquo; to work around the buggy behavior in Safari. And Chris also mentions in his other article that causing a repaint on the element (using jQuery in his article) would help &ldquo;fix&rdquo; the issue.</p>
+<p>I tried all of the workarounds mentioned. The only one that worked for me was the “<code>font-size: 1vw</code> on the parent hack”. I set the font size to <code>1vw</code> on the root element. That did make the text size respond to viewport size changes, but it had a clear and obvious side effect on the size of the text across the pattern library.</p>
+<p>What I ended up doing is setting <code>min-height: 1vw</code> on the body element, which should be enough to cause a repaint but have no side effects on the remaining styles whatsoever:</p>
+<pre class="language-css"><code>
+body {
+    min-height: 1vw;
+}</code></pre>
+<aside class="note" role="note">
+<strong>Note:</strong>  After filing the bug report, I learned that this buggy behavior is exclusive to viewport units used inside <code>calc()</code> functions. So even though the above fixes for the previous bug work around this one too, the cause of the issue is different in this case.
+</aside>
+<h2 id="a-better-workaround-targeting-safari-only">A better workaround targeting Safari only</h2>
+<p>Unsurprisingly, I&rsquo;m not the only one who has come across this buggy behavior. Folks on Twitter responded to <a href="https://twitter.com/SaraSoueidan/status/1382711354499473411?s=20">my tweet</a> reporting that they have had the same issue with their responsive type scales in Safari.</p>
+<p>Among the replies to my tweet, <a href="https://twitter.com/ausi">Martin Auswöger</a> suggested a smarter way to &ldquo;fix&rdquo; Safari’s bug using the (currently Webkit-only) <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/doc/uid/TP30001266--webkit-marquee-increment"><code>-webkit-marquee-increment</code> property</a>. By setting the property to any value using <code>vw</code> as a unit, the text would scale again on resize. Martin was kind enough to create a <a href="https://codepen.io/ausi/pen/WNRyOrY">reduced test case</a> that I included in <a href="https://bugs.webkit.org/show_bug.cgi?id=224614">the bug report I filed</a>. Here is the demo including Martin’s fix:</p>
+<p class="codepen" data-height="356" data-theme-id="3617" data-default-tab="css,result" data-user="SaraSoueidan" data-slug-hash="QWdxMdy" data-preview="true" style="height: 356px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Reduced test case + workaround for Safari's fluid typography bug">
+  <span>See the Pen <a href="https://codepen.io/SaraSoueidan/pen/QWdxMdy">
+  Reduced test case + workaround for Safari's fluid typography bug</a> by Sara Soueidan (<a href="https://codepen.io/SaraSoueidan">@SaraSoueidan</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+&nbsp;
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

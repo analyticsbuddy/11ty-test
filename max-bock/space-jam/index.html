@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Space Jam</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 4, 2021</strong></small>
+
+				<h1>Space Jam</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/max-bock/">All from Max Böck</a> <strong><a href="https://mxb.dev/blog/space-jam/">View <span class="inclusively-hidden">Space Jam</span> on mxb.dev</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p class="lead">The iconic 1996 "Space Jam" <a href="https://www.spacejam.com/">website</a> was recently relaunched to promote the new movie. Thankfully, the developers still <a href="https://www.spacejam.com/1996/">kept the old site</a> around to preserve its intergalactic legacy.</p>
+<p>It’s not often that a website stays up mostly unchanged for 25 years. So out of curiosity, I ran a quick check on both sites.</p>
+<p>Unsurprisingly, the new site is a lot heavier than the original: with <strong>4.673KB vs. 120KB</strong>, the new site is about <strong>39 times the size</strong> of the old one. That’s because the new site has a trailer video, high-res images and a lot more Javascript:</p>
+<figure class="extend">
+    <img src="https://mxb.dev/blog/space-jam/sizes.png" alt="byte size comparison of the 1996 and 2021 space jam websites">
+    <figcaption>The new site has gained some weight</figcaption>
+</figure>
+<p>This is keeping with the general trend of websites growing heavier every year, with the <a href="https://httparchive.org/reports/page-weight">average site</a> weighing in at around 1.900KB now.</p>
+<p>But since our connection speeds and device capabilities are significantly better now - that’s fine. Everything is way faster now than it was back in the days of Michael Jordan’s first Looney Tunes adventure.</p>
+<p>Is it though? Let’s find out.</p>
+<h2 id="h-party-like-it%E2%80%99s-1996"><a class="heading-anchor" href="#h-party-like-it%E2%80%99s-1996" aria-hidden="true">#</a> Party like it’s 1996</h2>
+<p>1996 was a different time. The Spice Girl’s “Wannabe” was in anti-shock discmans everywhere, and the most common network connection was 56k dial-up modems. So of course the original developers had a smaller performance budget to work with, and the site is much lighter. Fair enough - so how long did it take to load the original Space Jam site back then?</p>
+<p>I ran a <a href="https://webpagetest.org/result/210404_BiDcBV_b347ef65fef0d8e8615d0196f93d631a/">webpagetest</a> with a simulated '96 connection: dial-up on an average desktop computer. Dial-up had a maximum speed of 56 kbit/s, but in reality it came in at something around <strong>40-50 kbit/s</strong>.</p>
+<p>Here’s how that looked (fire up the <a href="https://www.youtube.com/watch?v=iHW1ho8L7V8">dial-up noise</a> in another tab for the full experience):</p>
+<video width="408" height="384" controls="" muted="">
+    <source src="https://mxb.dev/blog/space-jam/1996.mp4" type="video/mp4">
+</video>
+<p class="u-align-center">
+    <a href="https://webpagetest.org/result/210404_BiDcBV_b347ef65fef0d8e8615d0196f93d631a/">Test Summary</a> | 
+    <a href="https://webpagetest.org/video/compare.php?tests=210404_BiDcBV_b347ef65fef0d8e8615d0196f93d631a-r%3A1-c%3A0&highlightLCP=1&thumbSize=200&ival=500&end=visual">Film Strip View</a>
+</p>
+<p>We can see the first content (the “press box shuttle” menu item) after <strong>4 seconds</strong>. The other menu items -all separate GIF images- come in slowly after that. Since the HTML renders as soon as it is parsed, you could theoretically already click on the items before the rest of the page has finished though. The whole site is done after <strong>28.1 seconds</strong> in this test.</p>
+<h2 id="h-back-to-the-future-2021"><a class="heading-anchor" href="#h-back-to-the-future-2021" aria-hidden="true">#</a> Back to the Future: 2021</h2>
+<p>Now let’s look at the current, futuristic state of the web. Luckily we don’t use dial-up anymore. The most common connection these days is a mobile 3G network, and the most common device is an Android phone (a Moto G4 in this test). A typical 3G connection comes in at around <strong>1.5 Mbp/s</strong>, so it is roughly <strong>30 times faster</strong> than dial-up. This shouldn’t take long:</p>
+<video width="408" height="592" controls="" muted="">
+    <source src="https://mxb.dev/blog/space-jam/2021.mp4" type="video/mp4">
+</video>
+<p class="u-align-center">
+    <a href="https://webpagetest.org/result/210404_BiDc1N_ab2991b56a23742f37e661115c39b551/">Test Summary</a> | 
+    <a href="https://webpagetest.org/video/compare.php?tests=210404_BiDc1N_ab2991b56a23742f37e661115c39b551-r:1-c:0">Film Strip View</a>
+</p>
+<p>Funnily enough, the first meaningful paint also shows up after about <strong>4 seconds</strong>. It’s not <em>actual</em> content though, it’s the loading screen, informing us that we’ve now loaded 0% of the site.</p>
+<p>We reach 100% at 12 seconds, but the first real piece of content is not rendered until <strong>21.5 seconds</strong>: it’s a youtube video in a modal window. The site is finally ready after <strong>26.8 seconds</strong>, although actually playing the video would take some more loading time.</p>
+<h2 id="h-results"><a class="heading-anchor" href="#h-results" aria-hidden="true">#</a> Results</h2>
+<p>Right. So after 25 years of technological progress, after bringing 4.7 billion people in the world online, after we just landed a fifth robot on Mars, visiting the Space Jam website is now <strong>1.3 seconds faster</strong>. That seems… underwhelming.</p>
+<p>__</p>
+<p>I know that this is just a movie promo site. And of course the requirements for a website are different now - people expect rich content. But I think this speaks to a larger point:</p>
+<p><share-highlight aria-label="Share this"><mark>Although connection speeds and devices keep getting better and better, the web is actually getting slower. We see the increasing bandwidth as an invitation to use more and more stuff in our websites. More images, more videos, more JavaScript.</mark></share-highlight></p>
+<p>We just keep filling the available <em>space, jamming</em> up the pipes in the process so nothing actually gets faster. Well, at least the dial-up sound is gone now.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

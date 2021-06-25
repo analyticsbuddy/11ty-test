@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Design for reading: tips for optimizing content for Reader modes and reading apps</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>May 10, 2021</strong></small>
+
+				<h1>Design for reading: tips for optimizing content for Reader modes and reading apps</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/tips-for-reader-modes/">View <span class="inclusively-hidden">Design for reading: tips for optimizing content for Reader modes and reading apps</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p class="deck">Our content will not always look the way we expect it or want it to. Many apps, tools, and environments that people use to browse the Web strip our content of our CSS and apply their own styles to it. And unless we always keep that in mind, we risk creating incomplete or even broken experiences for users of those technologies or tools.</p>
+<p>You might be reading this very blog post in a reading app right now, or maybe even listening to it being read out loud to you. In either case, the visual style enhancements I have applied to the content don’t really matter much anymore. My CSS isn&rsquo;t enhancing your experience. My content—the HTML markup—though, <em>defines</em> your experience and can <a href="https://medium.com/@mandy.michael/building-websites-for-safari-reader-mode-and-other-reading-apps-1562913c86c9">either make it or break it</a>.</p>
+<p>Reader modes and Forced Color modes are two common environments where content is typically stripped of our CSS. So a question I think we should constantly be asking ourselves is: <strong>Is our content still understandable without CSS? Or are we relying too much on visual styles to put ideas across?</strong> Does the HTML layer alone provide a decent and sufficient experience to our users? Is our CSS truly the enhancement it is meant to be, <strong>or are we relying too much on our own preferences rather than our users’ to communicate our ideas?</strong></p>
+<p>The more I consume content in reading apps, the more I am reminded of the importance and the power of progressive enhancement as a strategy to create resilient and malleable experiences that work for everyone, regardless of how they choose to consume our content. The more we think about the Web <a href="https://adactio.com/articles/16251">in layers</a>, the more robust experiences we can design.</p>
+<p>Designing for reading, there are a few things we can learn and do to improve our users' reading experience (<em>and</em> other users' experiences as well!):</p>
+<h2 id="1-if-your-idea-requires-css-to-visualize-provide-a-markup-only-alternative">1. If your idea requires CSS to visualize, provide a markup-only alternative.</h2>
+<p>In my previous article about <a href="https://sarasoueidan.com/blog/horizontal-rules/">creating creative yet accessible horizontal rules</a>, I discussed how I created the birds-on-a-wire horizontal rule style that I use on this Web site.</p>
+<p>After the article&rsquo;s introduction was a horizontal rule, and a paragraph that read:</p>
+<blockquote>
+<p>If you’re a frequent reader of this blog, then you’ve most likely already seen what a horizontal rule looks like on here. In fact, if you haven’t seen it before, then you might have just done that. The birds-on-a-wire illustration above this very paragraph is a styled <code>&lt;hr&gt;</code> element.</p>
+</blockquote>
+<p>The horizontal rule above that specific paragraph was sort of as a “live demo” for the ideas and code discussed in the article. That horizontal rule is styled in my style sheet to look like a bunch of cute birds on a wire.</p>
+<img src="../../images/hr.png" alt="The horizontal rule style I am using on my Web site. It is a vector illustration of a few bird silhouettes standing on a curvey horizontal black wire.">
+<p>Knowing that some readers will be reading the article in an RSS app or even their favorite browser&rsquo;s Reader mode, I provided an alternative or &ldquo;fallback&rdquo; piece of content that would only show up for said users when my own CSS is stripped away.</p>
+<figure>
+    <img style="max-width: 400px; display: block; margin: 0 auto;" src="../../images/reader-only-text.png" alt="Screenshot of what the article reads like in Reeder app with the fallback reader-only text. Above the fallback text is a horizontal line, which is the horizontal rule the text is referring to, and it is rendered as a simple line by Reeder app.">
+    <figcaption>
+        <p>In <a href="https://reederapp.com/">Reeder app</a>, horizontal rules are displayed as plain horizontal lines, so my “live demo” would not be accessible to them. As such, I’ve provided alternative text that reads: <em>"If you're reading this article in a reading app or a Web browser's reader mode, then the above horizontal rule will not appear with my custom styles applied, and you'll just see a horizontal line. Here is a picture of what the horizontal rule looks like"</em>. <br> The paragraph is followed by <em>an image</em> of the birds-on-a-wire horizontal rule style.</p>
+        <p>Notice how in the screenshot the reader-only piece of text appears in an Italic font style. Using the <code>em</code>phasis HTML element I am able to visually distinguish that part of the article from the surrounding text in the reading app.</p>
+    </figcaption>
+</figure>
+<p>Yes, my readers could easily just click through the article&rsquo;s title and check the horizontal rule styles on my Web site, <strong>but they shouldn&rsquo;t have to.</strong> They shouldn&rsquo;t have to switch contexts just to check out a visual style that I can easily provide them with inside their preferred reading environment.</p>
+<!-- Our readers should be able to access and consume our content the way they want to. And it is our job to create experiences that are inclusive of as many users as possible. When We build Web sites, we should try to make the content as usable and understandable without CSS as possible. -->
+<p>Today, inside my global <code>utilities</code> style sheet, I have a <code>reader-mode-only</code> utility class (that I will probably rename later to something more generic). I use that class to provide alternative content to my readers that would otherwise require my CSS to be understood. That content would always be present by default when my visual styles are not. And when the content is accessed or viewed in an environment where my CSS <em>is</em> used, the <code>reader-mode-only</code> content is hidden with a simple <code>display: none;</code>.</p>
+<hr>
+<p>The idea here is to <em>improve</em> the user experience. This technique should never be used to shove unwanted content <small>(such as ads, ugh!)</small> down our reader&rsquo;s throats. I know we&rsquo;d ideally want people to come visit our sites, but we should respect their choices, especially since our design choices might be questionable—are we presenting too many distractions on the page? are the fonts we&rsquo;re using unreadable? is the text contrast sufficient? There might be many reasons why our readers might prefer reading our content in Reader modes. Instead of questioning our user&rsquo;s preferences, we should reconsider our design decisions.</p>
+<p><em><strong>Or not!</strong></em> Many people—<em>myself included!</em>—use RSS because it&rsquo;s a very convenient way to stay up to date with content. The fact that our readers are subscribed to our blogs is but a greater incentive to make sure we provide them with the quality content <em>and experience</em> that they are expecting from us. And if you do have unwanted elements showing up for them when they shouldn&rsquo;t, make sure you “clean them up”. More on that in the third section.</p>
+<h2 id="2-html-is-for-content-css-is-for-visual-styles-keep-content-where-it-belongs-in-the-markup">2. HTML is for content. CSS is for visual styles. Keep content where it belongs: in the markup.</h2>
+<p>I was reading through <a href="https://www.smashingmagazine.com/2017/12/prototyping-driven-process/">a Smashing Magazine article</a> in Reeder app when I reached what seemed like a sudden change of topic in the middle of the article. What read as part of the article was actually not. What I&rsquo;m referring to is Smashing Magazine&rsquo;s custom &ldquo;ads&rdquo; (or content callouts) that appear in the middle of each of their articles.</p>
+<img src="../../images/smashing-inline-ad.png" alt="A screenshot of a Smashing Magazine article showing their custom ads in the middle of the article, interrupting the actual article content.">
+<p>These custom ads/callouts that highlight Smashing products typically appear in the middle of an article. With Smashing&rsquo;s CSS applied, this section stands out from the rest of the article, and is preceded with heads-up text that says <em><q>More after jump! Continue reading below! ↓</q></em>. These styles make the callout section distinguishable from the rest of the article, so you can easily skip over that section and continue reading the article without your focus being affected much.</p>
+<p>In Safari Reader Mode, however, the experience is not as subtle.</p>
+<p>The heads-up text that precedes the callout section <strong>is not real text.</strong> It&rsquo;s pseudo-content—literally <em>fake</em> content—created and added to the callout section via CSS using a <code>::before</code> pseudo-element.</p>
+<img src="../../images/smashing-pseudo-content.png" alt="The heads-up text appears as a ::before pseudo-element in the Safari devtools and is applied to a using CSS to the callout section.">
+<p>And since Reader Mode strips the content of CSS, that piece of text is not rendered, and the callout section no longer looks like a callout section. Instead, it just appears in the middle of the content as part of the content and interrupts the reading flow.</p>
+<p><img src="../../images/smashing-ad-in-reader-mode.png" alt="Screenshot showing the callout section appearing unstyled in Safari Reader Mode. The section is indistinguishable from the rest of the article content." /></p>
+<p class="note">It's worth noting that I noticed this issue while browsing and reading Smashing articles in Reeder app more than a year ago. But the callout section no longer shows up in Reeder app. I'm not sure why that is. That's why I am using Safari Reader mode to demonstrate the issue.</p>
+<p>Similarly, the Summary section at the beginning of the article has a <em>“Quick Summary”</em> label that is also generated in CSS. Below the summary is what looks like a horizontal rule separating it from the rest of the content, but that rule is actually just a bottom border style applied to it in CSS. Both the label and the summary disappear in Reader Mode and reading apps.</p>
+<figure>
+<img src="../../images/smashing-summary-with-css.png" alt="Screenshot of the article summary as it appears in the browser with CSS enabled: it starts with a label that says 'Quick summary' and has a bottom border separating it from the rest of the article content.">
+<figcaption>
+The Smashing article summary as it appears in the browser with CSS on.</figcaption>
+</figure>
+<figure>
+<img src="../../images/smashing-summary-in-reader-mode.png" alt="Screenshot of the article summary as it appears in Safari Reader mode: without a label and without a horizontal line separating it from the rest of the article content. Above the summary is also the author bio, which is preceding all of the article content, including the summary.">
+<figcaption>
+The Smashing article summary as it appears in Safari Reader mode with basic reader mode styles applied to the semantic HTML elements. (I find it intriguing that Safari Reader Mode styles the Summary so that it's italicized, even though there is no semantic markup (such as an <code>em</code> element) to suggest that it should be.)</figcaption>
+</figure>
+<p>In order to ensure readers always get a proper reading experience, provide real content in HTML, and leave CSS pseudo-elements for decorational content that is not required for the core reading experience.</p>
+<hr>
+<p>You may have noticed something else happening in the last screenshot: instead of starting with the core content of it, the article starts with the (truncated) author bio. The bio clearly does not belong there, and yet <em>there</em> it is.</p>
+<p>Furthermore, the callout section—which is <em>essentially</em> an ad section—also <strong>does not belong in a distraction-free reading environment</strong>. The main reason people use reading apps and Reader modes is to &ldquo;declutter&rdquo; the UI so they can have a &ldquo;quieter&rdquo; and more focused reading experience. We can do better to improve their experiences even further with just a tiny bit of HTML sparkle. ✨</p>
+<h2 id="3-keep-the-core-experience-clutter--and-distraction-free-hide-non-core-content-by-default-and-show-it-with-css-when-its-ok-to-do-so">3. Keep the core experience clutter- and distraction-free: Hide non-core content by default and show it with CSS when it’s OK to do so.</h2>
+<p>The reason the author bio and callout sections are displayed even in Reader Mode is because they are markup up as part of the main <code>&lt;article&gt;</code>.</p>
+<p>Reader Mode is meant to strip away all parts of a document and only present an article’s text and basic images in a clean and uncluttered format, to improve the user’s reading experience. In order to do that, <strong>Reader looks for content within an <code>&lt;article&gt;</code> tag, and displays it.</strong></p>
+<p><small>(Note that if Safari does&rsquo;t find content represented within the proper HTML elements, the Reader Mode button doesn’t even show up at all.)</small></p>
+<blockquote>
+<p>“It’s important to ensure that Reader draws out the key parts of your web page by using semantic markup to reinforce the meaning and purpose of elements in the document […] we indicate which parts of the page are the most important by wrapping it in an <code>article</code> tag.
+Specifically, enclosing these header elements inside the <code>article</code> ensure that they all appear in Reader” <br> – <a href="https://developer.apple.com/videos/play/wwdc2018/239/">https://developer.apple.com/videos/play/wwdc2018/239/</a></p>
+</blockquote>
+<p>If you View-Source on Smashing Magazine articles, you&rsquo;ll find that the author bio and the callout section are both included in the main <code>&lt;article&gt;</code> wrapper. And that&rsquo;s why they show up in Reader Mode.</p>
+<p class="note">I've noticed some inconsistencies in the way Reader Mode displays article content, even within the context of the same Web site. For example, not <em>all</em> content inside an <code>article</code> is displayed in Reader Mode. For example, the article meta information doesn't show up even though it's part of the <code>article</code>. Moreover, The drop caps illustration would sometimes show up and other time it wouldn't. I'm not sure what the reason behind that is, and why some elements show up and others don't.</p>
+<p>If you can move content such as author biographies, ads, and other pieces that are not part of the article&rsquo;s core content <em>out of the <code>article</code></em>, then do so. This will ensure that they don&rsquo;t show up and clutter the user&rsquo;s reading experience in Reader Mode and some reading apps.</p>
+<p>If you can&rsquo;t move the clutter out of the article, <strong>you can hide it from Reader Mode using the HTML <code>hidden</code> attribute.</strong></p>
+<p>The <code>hidden</code> attribute is the HTML equivalent of CSS’s <code>display: none</code>. You can use it to hide content when CSS is not available. It comes in handy in a lot of scenarios which I will detail in another article. But for now, suffice it to say that by hiding the non-core pieces of content with the <code>hidden</code> attribute, you are making sure that they are hidden even in environments where your CSS doesn&rsquo;t work and they shouldn&rsquo;t be present.</p>
+<p>Since the <code>hidden</code> attribute has a very low specificity, you can override it in your CSS using a simple <code>display: block/flex/grid/etc.</code>. So, when your reader is accessing and reading your content on, say, your Web site, you can display those elements and style them in a way that does not negatively affect their reading experience.</p>
+<p>Flexbox is used to lay out the contents of the Smashing callout section. So the <code>hidden</code> attribute can be applied to the section in the HTML, and it can be overridden in the CSS with a <code>display: flex</code>.</p>
+<p>Here is a video recording of me first applying the <code>hidden</code> attribute to the callout section in Safari&rsquo;s Reader Mode. You can see that the section is removed as soon as the attribute is applied. When the CSS is enabled, I re-apply the <code>hidden</code> attribute, thus hiding the section once again. Then, I apply a <code>display: flex</code> to the section in the CSS panel, which overrides the <code>hidden</code> attribute and shows the section again with the necessary styling applied to it.</p>
+<p><video class="video-gif" controls autoplay loop muted playsinline
+src="../../videos/smashing-hidden-attribute.mp4"
+width="100%">
+Sorry, your browser doesn&rsquo;t support embedded videos.
+</video></p>
+<p>By leveraging the nature and <em>weakness</em> of the <code>hidden</code> attribute—by using it the way it was meant to be used—we can drastically improve our user&rsquo;s reading experience in their preferred reading environments.</p>
+<h2 id="outro">Outro</h2>
+<p>We have a tendency to always make an assumption about how
+our readers are reading our content—probably in the browser, with our fancy styles applied to it.
+But if we make a habit out of thinking about the Web in layers and CSS as an enhancement on top of the content
+layer, then we can start optimizing and enhancing our users' reading experiences regardless of their context.</p>
+<p>Thinking about the different ways in which users access the Web only shines light on the importance of a progressively enhanced approach to building for the Web. The more we think about the Web in layers and try to improve the experience of one layer before moving to the next, the more resilient experiences we can create. That&rsquo;s what the essence of progressive enhancement is about.</p>
+<p>HTML is powerful as it is. And if marked up right, it forms a solid foundation for a more inclusive and resilient Web. CSS is a fantastic tool that enables us to further enhance an experience on top of HTML, so long as our design decisions don&rsquo;t break HTML&rsquo;s inherent semantics and accessibility.</p>
+<p>The <code>hidden</code> atribute is one of HTML&rsquo;s underrated features. I&rsquo;ll dive more into it and demonstrate more practical use cases for it in an upcoming article. Stay tuned. And thank you for reading.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

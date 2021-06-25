@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Smol Focus Styles</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Jun 10, 2021</strong></small>
+
+				<h1>Smol Focus Styles</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/smolcss/">All from SmolCSS</a> <strong><a href="https://smolcss.dev/#smol-focus-styles">View <span class="inclusively-hidden">Smol Focus Styles</span> on smolcss.dev</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<form action="https://codepen.io/pen/define" method="POST" target="_blank">
+        <input type="hidden" name="data" value="{&quot;title&quot;:&quot;SmolCSS - Smol Focus Styles&quot;,&quot;description&quot;:&quot;Generated from: https://SmolCSS.dev/#smol-focus-styles&quot;,&quot;tags&quot;:[&quot;utility&quot;,&quot;smolcss&quot;],&quot;editors&quot;:&quot;110&quot;,&quot;layout&quot;:&quot;left&quot;,&quot;html&quot;:&quot;<!-- SmolCSS - Smol Focus Styles\nGenerated from: https://SmolCSS.dev/#smol-focus-styles -->\n<ul data-component class=\&quot;smol-focus-styles\&quot;>\n  <li><a href=\&quot;javascript:;\&quot;>A link</a></li>\n  <li><a href=\&quot;javascript:;\&quot;>A link customized to dashed style</a></li>\n  <li><button type=\&quot;button\&quot;>A button</button></li>\n  <li><button type=\&quot;button\&quot;>A large button</button></li>\n  <li>\n    <label for=\&quot;smol-focus-input\&quot;>Customized outline color</label>\n    <input id=\&quot;smol-focus-input\&quot; type=\&quot;text\&quot;>\n  </li>\n  <li>\n    <label for=\&quot;smol-focus-textarea\&quot;>Fully customized</label>\n    <textarea id=\&quot;smol-focus-textarea\&quot; rows=\&quot;3\&quot;></textarea>\n  </li>\n</ul>\n&quot;,&quot;html_pre_processor&quot;:&quot;none&quot;,&quot;css&quot;:&quot;\n/* Box sizing rules */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n/* Remove default margin */\nbody,\nh1,\nh2,\nh3,\nh4,\np {\n  margin: 0;\n}\n\n/* Set core body defaults */\nbody {\n  min-height: 100vh;\n  text-rendering: optimizeSpeed;\n  line-height: 1.65;\n  padding: 2rem;\n  background-color: #f5f2f7;\n  color: #29344B;\n  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;\n}\n\n/***\n 🟣 SmolCSS Snippet Styles\n */\n\n\n/* For \&quot;real-world\&quot; usage, you do not need to scope\nthese custom properties */\n.smol-focus-styles :is(a, button, input, textarea) {\n  /* Using max() ensures at least a value of 2px, \n  while allowing the possibility of scaling \n  relative to the component */\n  --outline-unit: max(2px, 0.08em);\n  --outline-style: solid;\n  --outline-color: currentColor;\n}\n\n/* Base :focus styles for fallback purposes */\n.smol-focus-styles :is(a, button, input, textarea):focus {\n  outline: var(--outline-unit) var(--outline-style) var(--outline-color);\n  outline-offset: var(--outline-unit);\n}\n\n/* Remove base :focus styles when :focus-visible is available */\n.smol-focus-styles :is(a, button, input, textarea):focus:not(:focus-visible) {\n  outline: none;\n}\n\n/* Final :focus-visible styles */\n.smol-focus-styles :is(a, button, input, textarea):focus-visible {\n  outline: var(--outline-unit) var(--outline-style) var(--outline-color);\n  outline-offset: var(--outline-unit);\n}\n\n/* Demonstration of customizing */\n.smol-focus-styles li:nth-of-type(2) a {\n  --outline-style: dashed;\n}\n\n.smol-focus-styles input {\n  --outline-color: red;\n}\n\n.smol-focus-styles textarea {\n  --outline-unit: 0.25em;\n  --outline-style: dotted;\n  --outline-color: green;\n}\n\n.smol-focus-styles li:nth-of-type(4) button {\n  font-size: 2.5rem;\n}\n\n\n\n/* Additional demo styles from SmolCSS.dev\n   Not all styles may be needed for this pen */\nbody > ul {\n  list-style: none;\n  margin: 0;\n\n  &:not([data-padding-unset]) {\n    padding: 0;\n  }\n}\n\n[class*=\&quot;smol\&quot;]:not([data-component]) > *:not([data-unstyled]) {\n  display: grid;\n  padding: 1rem;\n  background-color: #E0D4F6;\n  color: #675883;\n  font-size: clamp(1.5rem, 4vw, 2rem);\n  font-weight: bold;\n  text-align: center;\n  border-radius: 0.15em;\n  border: 1px dashed;\n\n  &:not([data-text]) {\n    place-content: center;\n  }\n\n  &[data-text] {\n    font-size: 1.15rem;\n    text-align: left;\n  }\n}\n\n[data-container-style] {\n  outline: 2px dotted #29344B;\n}&quot;,&quot;css_pre_processor&quot;:&quot;scss&quot;,&quot;css_starter&quot;:&quot;neither&quot;,&quot;css_prefix&quot;:&quot;autoprefixer&quot;,&quot;head&quot;:&quot;<meta name=&apos;viewport&apos; content=&apos;width=device-width, initial-scale=1&apos;>&quot;}" />
+        <button type="submit" data-name="Smol Focus Styles" aria-label="Open Smol Focus Styles in CodePen"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M32 10.909l-0.024-0.116-0.023-0.067c-0.013-0.032-0.024-0.067-0.040-0.1-0.004-0.024-0.020-0.045-0.027-0.067l-0.047-0.089-0.040-0.067-0.059-0.080-0.061-0.060-0.080-0.060-0.061-0.040-0.080-0.059-0.059-0.053-0.020-0.027-14.607-9.772c-0.463-0.309-1.061-0.309-1.523 0l-14.805 9.883-0.051 0.053-0.067 0.075-0.049 0.060-0.067 0.080c-0.027 0.023-0.040 0.040-0.040 0.061l-0.067 0.080-0.027 0.080c-0.027 0.013-0.027 0.053-0.040 0.093l-0.013 0.067c-0.025 0.041-0.025 0.081-0.025 0.121v9.996c0 0.059 0.004 0.12 0.013 0.18l0.013 0.061c0.007 0.040 0.013 0.080 0.027 0.115l0.020 0.067c0.013 0.036 0.021 0.071 0.036 0.1l0.029 0.067c0 0.013 0.020 0.053 0.040 0.080l0.040 0.053c0.020 0.013 0.040 0.053 0.060 0.080l0.040 0.053 0.053 0.053c0.013 0.017 0.013 0.040 0.040 0.040l0.080 0.056 0.053 0.040 0.013 0.019 14.627 9.773c0.219 0.16 0.5 0.217 0.76 0.217s0.52-0.080 0.76-0.24l14.877-9.875 0.069-0.077 0.044-0.060 0.053-0.080 0.040-0.067 0.040-0.093 0.021-0.069 0.040-0.103 0.020-0.060 0.040-0.107v-10c0-0.067 0-0.127-0.021-0.187l-0.019-0.060 0.059 0.004zM16.013 19.283l-4.867-3.253 4.867-3.256 4.867 3.253-4.867 3.253zM14.635 10.384l-5.964 3.987-4.817-3.221 10.781-7.187v6.424zM6.195 16.028l-3.443 2.307v-4.601l3.443 2.301zM8.671 17.695l5.964 3.987v6.427l-10.781-7.188 4.824-3.223v-0.005zM17.387 21.681l5.965-3.973 4.817 3.227-10.783 7.187v-6.427zM25.827 16.041l3.444-2.293v4.608l-3.444-2.307zM23.353 14.388l-5.964-3.988v-6.44l10.78 7.187-4.816 3.224z"></path>
+    </svg> Open in CodePen</button>
+        </form>
+<p>Focus styles are incredibly important for the accessibility of your application. But, it can be difficult to manage them across changing contexts.</p>
+<p>The following solution takes advantage of custom properites and <code>:is()</code> to set reasonable defaults for interactive elements. Then, individual instances can override each setting by simply providing an alternate value for the custom property.</p>
+<p>This solution sets <code>currentColor</code> as the <code>outline-color</code> which works in many contexts. One that it might not is for buttons, in which case you could update <code>--outline-color</code> to use the same color as the button background, for example.</p>
+<p>Additionally, this demonstrates one of the newly available CSS pseudo-class selectors: <code>focus-visible</code>. This selector is intended to only display focus styles when the browser detects that they should be visible (you may encounter the term &quot;heuristics&quot;). For now, we've setup some fallbacks so that a focus style is presented even when a browser doesn't support <code>:focus-visible</code> quite yet.</p>
+<p><strong>Note</strong>: Due to using <code>:focus-visible</code>, you may not see focus styles on the links and buttons unless you tab to them.</p>
+<blockquote>
+<p>Make sure your focus styles have appropriate contrast! If you're working on buttons, <a href="https://buttonbuddy.dev/">generate an accessible color palette with ButtonBuddy</a></p>
+</blockquote>
+<style>
+<p>/* For &quot;real-world&quot; usage, you do not need to scope
+these custom properties <em>/
+.smol-focus-styles :is(a, button, input, textarea) {
+/</em> Using max() ensures at least a value of 2px,
+while allowing the possibility of scaling
+relative to the component */
+--outline-unit: max(2px, 0.08em);
+--outline-style: solid;
+--outline-color: currentColor;
+}</p>
+<p>/* Base :focus styles for fallback purposes */
+.smol-focus-styles :is(a, button, input, textarea):focus {
+outline: var(--outline-unit) var(--outline-style) var(--outline-color);
+outline-offset: var(--outline-unit);
+}</p>
+<p>/* Remove base :focus styles when :focus-visible is available */
+.smol-focus-styles :is(a, button, input, textarea):focus:not(:focus-visible) {
+outline: none;
+}</p>
+<p>/* Final :focus-visible styles */
+.smol-focus-styles :is(a, button, input, textarea):focus-visible {
+outline: var(--outline-unit) var(--outline-style) var(--outline-color);
+outline-offset: var(--outline-unit);
+}</p>
+<p>/* Demonstration of customizing */
+.smol-focus-styles li:nth-of-type(2) a {
+--outline-style: dashed;
+}</p>
+<p>.smol-focus-styles input {
+--outline-color: red;
+}</p>
+<p>.smol-focus-styles textarea {
+--outline-unit: 0.25em;
+--outline-style: dotted;
+--outline-color: green;
+}</p>
+<p>.smol-focus-styles li:nth-of-type(4) button {
+font-size: 2.5rem;
+}</p>
+</style>
+<details>
+  <summary>CSS for "Smol Focus Styles"</summary>
+<pre class="language-css"><code class="language-css"><br /><span class="token comment">/* For "real-world" usage, you do not need to scope<br />these custom properties */</span><br /><span class="token selector">.smol-focus-styles :is(a, button, input, textarea)</span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Using max() ensures at least a value of 2px, <br />  while allowing the possibility of scaling <br />  relative to the component */</span><br />  <span class="token property">--outline-unit</span><span class="token punctuation">:</span> <span class="token function">max</span><span class="token punctuation">(</span>2px<span class="token punctuation">,</span> 0.08em<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">--outline-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span><br />  <span class="token property">--outline-color</span><span class="token punctuation">:</span> currentColor<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token comment">/* Base :focus styles for fallback purposes */</span><br /><span class="token selector">.smol-focus-styles :is(a, button, input, textarea):focus</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-unit<span class="token punctuation">)</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-style<span class="token punctuation">)</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-color<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-unit<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token comment">/* Remove base :focus styles when :focus-visible is available */</span><br /><span class="token selector">.smol-focus-styles :is(a, button, input, textarea):focus:not(:focus-visible)</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token comment">/* Final :focus-visible styles */</span><br /><span class="token selector">.smol-focus-styles :is(a, button, input, textarea):focus-visible</span> <span class="token punctuation">{</span><br />  <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-unit<span class="token punctuation">)</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-style<span class="token punctuation">)</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-color<span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token property">outline-offset</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--outline-unit<span class="token punctuation">)</span><span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token comment">/* Demonstration of customizing */</span><br /><span class="token selector">.smol-focus-styles li:nth-of-type(2) a</span> <span class="token punctuation">{</span><br />  <span class="token property">--outline-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.smol-focus-styles input</span> <span class="token punctuation">{</span><br />  <span class="token property">--outline-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.smol-focus-styles textarea</span> <span class="token punctuation">{</span><br />  <span class="token property">--outline-unit</span><span class="token punctuation">:</span> 0.25em<span class="token punctuation">;</span><br />  <span class="token property">--outline-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span><br />  <span class="token property">--outline-color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /><br /><span class="token selector">.smol-focus-styles li:nth-of-type(4) button</span> <span class="token punctuation">{</span><br />  <span class="token property">font-size</span><span class="token punctuation">:</span> 2.5rem<span class="token punctuation">;</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</details><div data-layout="" class="demo no-resize">
+<ul data-component="" class="smol-focus-styles">
+  <li><a href="javascript:;">A link</a></li>
+  <li><a href="javascript:;">A link customized to dashed style</a></li>
+  <li><button type="button">A button</button></li>
+  <li><button type="button">A large button</button></li>
+  <li>
+    <label for="smol-focus-input">Customized outline color</label>
+    <input id="smol-focus-input" type="text" />
+  </li>
+  <li>
+    <label for="smol-focus-textarea">Fully customized</label>
+    <textarea id="smol-focus-textarea" rows="3"></textarea>
+  </li>
+</ul>
+</div><footer>
+<p>Learn more about <code>:focus-visible</code> in my Smashing <a href="https://www.smashingmagazine.com/2021/04/guide-supported-modern-css-pseudo-class-selectors/">article on newly supported CSS pseudo-class selectors</a>. You can also find more <a href="https://moderncss.dev/modern-css-upgrades-to-improve-accessibility/">tips on how CSS impacts accessibility</a> on ModernCSS.</p>
+</footer>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

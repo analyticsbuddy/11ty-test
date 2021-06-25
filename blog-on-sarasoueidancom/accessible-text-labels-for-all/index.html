@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Accessible Text Labels For All</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Mar 17, 2021</strong></small>
+
+				<h1>Accessible Text Labels For All</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/blog-on-sarasoueidancom/">All from Blog on SaraSoueidan.com</a> <strong><a href="https://sarasoueidan.com/blog/accessible-text-labels/">View <span class="inclusively-hidden">Accessible Text Labels For All</span> on sarasoueidan.com</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>My talk <em><strong>Applied Accessibility: Practical Tips for Creating more Accessible Front-Ends</strong></em> is now <a href="https://youtu.be/Mv_RlmAm4nc">available to watch online</a>. This blog post is an extended transcript for a section of the talk, in which I discuss how to create more descriptive button (and/or link) text labels that improve the e-commerce experience for screen reader users, whilst making sure those buttons don&rsquo;t fail WCAG success criteria. This, in turn, ensures that the buttons remain usable by another category of users: those using voice commands to navigate the Web. The concepts covered are applicable to all kinds of text labels, including form control labels.</p>
+<hr>
+<h2 id="quick-overview-of-the-voiceover-rotor-on-macos-and-how-it-can-be-used-to-display-contents-on-a-page">Quick overview of the VoiceOver Rotor on macOS and how it can be used to display contents on a page</h2>
+<p><a href="https://www.apple.com/voiceover/info/guide/_1121.html">VoiceOver</a> (VO) is the built-in screen reader on macOS. VoiceOver users can navigate the Web using what is known as the Web Rotor.</p>
+<p>The VoiceOver Web Rotor is a quick way to explore and navigate a web page. It is like power commands but for screen reader users. It increases their efficiency and facilitates their browsing the web.</p>
+<p>With VoiceOver open, the rotor can be activated with the keyboard shortcut <kbd>ctrl</kbd> + <kbd>option</kbd> + <kbd>U</kbd>. Once open, the rotor will be visible as a heads up display in the middle of the screen. It then presents all items of a particular type in a list.</p>
+<p>Inside the rotor, there are several lists—or menus— that the user can use to explore and navigate the content on the page. Using the rotor is an easy way to hear, for example, all the links on a page. The user can then jump to any link they want. There is also a headings menu that allows the user to jump to a particular heading on the page.</p>
+<figure>
+    <div class="l-aspect-ratio wide">
+        <iframe src="https://player.vimeo.com/video/524890417?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="100%" height="auto" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="VoiceOver Demo 2 with Audio"></iframe>
+    </div>
+    <figcaption>In this video, I am demoing the VoiceOver Web Rotor to navigate and explore sections on an A List Apart page. Pressing the right and left arrow inside the rotor shows the different menus available, and gives a quick overview of the different types of content on the page.</figcaption>
+</figure>
+<p>Using the rotor, and if the document is using semantic markup and proper sectioning elements (such as <code>nav</code>, <code>header</code>, <code>main</code>, <code>footer</code>, <code>aside</code>, and so on), the user can move from one area of the page to another without having to go through the content in each section. And it is <em>very</em> important for them to be able to do so.</p>
+<p>Note that <strong>the document structure in the rotor is defined by the document structure in your HTML</strong>. So, if you don’t provide a heading, it won’t show up in the rotor and so the document hierarchy for screen reader users will be affected. If you don’t use a landmark, it won’t show up in the rotor and the user won’t be able to jump to it to use it.</p>
+<h3 class="h5">Useful Reading: </h3>
+<ul>
+<li><a href="https://kb.iu.edu/d/atgb">Voiceover Basics</a></li>
+<li><a href="https://etc.usf.edu/techease/4all/vision/how-do-i-use-webrotor-in-voiceover/">Using the Web Rotor to Navigate a Web Page with VoiceOver</a></li>
+</ul>
+<hr>
+<p>We mentioned earlier that the rotor contains different menus, including Headings menu, Landmarks menu, a Links menu, and a Form Controls menu. Knowing how a screen reader user might navigate a page opens up the possibility to optimize our interfaces and improve their user experience even more.</p>
+<h2 id="exploring-e-commerce-product-listings-using-the-voiceover-web-rotor">Exploring e-commerce product listings using the VoiceOver Web rotor</h2>
+<p>A common design in e-commerce Web sites is displaying a list of products on a page, each with its own <em><strong>Add to Cart</strong></em> button, allowing the user to quickly add items to their cart.</p>
+<p>To demonstrate, here is the <a href="https://www.yeti.com/en_US/bottles">Yeti Web site</a>, showcasing a list of reusable bottles. Each bottle comes with its own <em>Add to Cart</em> button. Some also have a Customization option. The following video is a demo of me exploring the page using the VoiceOver Web Rotor:</p>
+<figure>
+<div class="l-aspect-ratio wide">
+    <iframe src="https://player.vimeo.com/video/524924279?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="400" height="300" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="VO Rotor Form Controls Menu demo"></iframe>
+</div>
+<figcaption></figcaption>
+</figure>
+<p>When you navigate this page using VoiceOver, and use the Form Controls menu, you’ll get a list of all form controls on the page, including the <em>Add to Cart</em> buttons.</p>
+<p>Quickly scanning these buttons you can tell that they provide very little value, as there is no way to tell which product each button corresponds to. How does a user know which button they want to go to and press if they don’t know which product it corresponds to?</p>
+<p>You may have already guessed that one way we could improve the navigation is by adding screen <a href="https://sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/#hiding-content-in-css-and-html">visually-hidden, reader-only text</a> that would add the name of the product to its corresponding button.</p>
+<p>So, technically, the solution <em>could</em> look something like this:</p>
+<pre class="language-html"><code>&lt;button type=".." class=“.."&gt;
+    Add &lt;span class="visually-hidden"&gt;PRODUCT_NAME&lt;/span&gt; to Cart
+&lt;/button&gt;
+&lt;!-- P.S. Don’t do this --&gt;</code></pre>
+<p>You include the product name in the button’s text label string, so then when the Form Controls menu displays the list of buttons, each button would be clearly labelled to indicate which bottle it is referring to.</p>
+<p>This is a good solution for a screen reader user navigating using Form Controls, but <strong>you do <em>not</em> want to do this</strong> because <strong>even though it improves the experience of some screen reader users, it excludes users of other assistive technologies</strong> and makes these buttons inaccessible to them, and a pain to use&hellip;</p>
+<h2 id="talking-your-way-through-web-browsing-with-voice-commands">Talking your way through Web browsing with voice commands</h2>
+<p>Inserting visually hidden text in the middle of a visible string of text on a button like that prevents users browsing and navigating using voice commands from interacting with the button.</p>
+<p>A popular example of Voice recognition software used to browse the Web is <a href="https://www.nuance.com/dragon/business-solutions/dragon-professional-individual.html">Dragon Naturally Speaking</a>. It is software that allows you to use your computer and browse the web using voice commands. It comes with a full usage manual that details how to use it to perform different tasks on your computer and on the Web. Such software is useful for a lot of people, including but not limited to people with disabilities who can’t use their hands, for example, or power users who want to get things done faster (because voice dictation is faster than typing).</p>
+<p>Seeing it in action is the best way to get an idea of how it’s used.
+So, to quickly demonstrate how it is used on the Web, <a href="https://www.levelaccess.com/">Level Access</a> created <a href="https://www.youtube.com/watch?v=kJKQmTumFP0&amp;ab_channel=LevelAccess">a video demoing Dragon Naturally Speaking to fill out a form on a page</a>. The following video is a short clip from their video which you can find and <a href="https://www.youtube.com/watch?v=kJKQmTumFP0&amp;ab_channel=LevelAccess">watch in full on Youtube</a>.</p>
+<p><small>Note: Note that when he says “go to sleep” or “wake up” he’s basically pausing Dragon and reactivating it by telling it to sleep and wake up.</small></p>
+<figure>
+<div class="l-aspect-ratio wide">
+<iframe src="https://player.vimeo.com/video/524959505?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="936" height="540" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Dragon Naturally Speaking demo excerpt"></iframe>
+</div>
+<figcaption></figcaption>
+</figure>
+<p>When the dragon user (in the video) wants to select a form control, <strong>he speaks out the visual text label of that control</strong>. This is one of many reasons why <strong>visual labels are important in user interfaces</strong>.</p>
+<p>So when we have a series of <strong><em>Add to Cart</em></strong> buttons, a dragon user <strong>will speak the label of the button in order to interact with it</strong>. This is why adding text in the middle of the string makes it inaccessible. The content in the middle of the string would break the visible label. The user would be telling dragon to interact with a button whose label is not what it visually appears to be. This is why this would fail the <a href="https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html">WCAG Success Criterion 2.5.3: Label in Name</a>: <q>For user interface components with labels that include text or images of text, the name contains the text that is presented visually. A best practice is to have the text of the label at the start of the name.</q></p>
+<p>The following two paragraphs are from the Success Criterion’s page (emphasis mine):</p>
+<blockquote>
+<p>The intent of this Success Criterion is to ensure that the words which visually label a component are also the words associated with the component programmatically. This helps ensure that people with disabilities can rely on visible labels as a means to interact with the components.</p>
+<p>Most controls are accompanied by a visible text label. Those same controls have a programmatic name, also known as the Accessible Name. <strong>Users typically have a much better experience if the words and characters in the visible label of a control match or are contained within the accessible name.</strong> When these match, speech-input users (i.e., users of speech recognition applications) can navigate by speaking the visible text labels of components, such as menus, links, and buttons, that appear on the screen. <strong>Sighted users who use text-to-speech (e.g., screen readers) will also have a better experience if the text they hear matches the text they see on the screen.</strong></p>
+<cite><a href="https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html">WCAG Success Criterion 2.5.3</a></cite>
+</blockquote>
+<h2 id="improving-the-experience-for-screen-reader-users-whilst-keeping-it-accessible-to-speech-input-users">Improving the experience for screen reader users whilst keeping it accessible to speech-input users</h2>
+<p>We still want to improve the experience for screen reader users, but we can’t insert the product name into the button’s visible label. We can’t fix the experience for a group of people and end up breaking it for another group. Challenges like these make you scratch your head and think of alternative solutions.</p>
+<p>It turns out, there is a middle ground here. We <em>can</em> still add the product name to the button, improving the user experience for screen reader users, <em>without</em> breaking the visible name of the button, <strong>by <em>appending</em> it to the end of the button’s name, instead of inserting it in the middle.</strong></p>
+<pre class="language-html"><code>&lt;button type=".." class=“.."&gt;
+    Add to Cart &lt;span class="visually-hidden"&gt;, PRODUCT_NAME&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+<p>By appending the text to the end of the visible name, the visible name is left intact, and the Web Rotor Form Controls menu will show a list of <em><strong>Add to cart</strong></em> buttons with the names of the products they are referring to appended to them.</p>
+<p>As for the voice control user, when they say “<em>click Add to Cart</em>”, Dragon is going to label the <em>Add to Cart</em> buttons with numbers, like we saw with the checkbox and radio button examples in the video, and then the user can speak out the number of the button they want to click. This works because Voice commands work by saying the name of the input you want to interact with, as long as the name is not “broken” or interrupted by content in the markup.</p>
+<p>So whenever you need to add additional text to a visible label, it best come after what&rsquo;s visually shown.</p>
+<p>Similarly, always ensure the accessible name (announced by screen readers) matches the visual label as much as possible. This means that you’ll also want to avoid adding a label using <code>aria-label</code> that does not match the text label that is shown on a control.</p>
+<h2 id="closing-thoughts-provide-visual-labels-whenever-possible">Closing thoughts: Provide visual labels whenever possible</h2>
+<p>Knowing how voice control users navigate the Web can also inspire more visual improvements to our components.</p>
+<p>If the user needs to see a visible label to interact with a control, then what about controls that don’t have any visible labels? What about components that have label-less controls, such as dot navigations (typically used in sliders and carousels)? If a user wants to interact with the dots in a dot navigation, they can’t speak their accessible name because they don’t have a visible one they can see. So they are left with two other ways to navigate: using voice commands to tab through the control, or using the mouse grid, which is the most tedious and least favorable option.</p>
+<p>It should be obvious by now that the best practice is to always have a visible label for UI controls. But if that’s not possible at all, then the next possible option is to <em>show</em> a label on focus (and hover, too, maybe). Showing labels <em>on focus</em> is particularly important because a Dragon user can tell Dragon to <strong>Tab</strong> to the next control, but they can’t tell it to hover over it (what’s it going to hover if it has no label to indicate what it is?)</p>
+<p>Other visual elements that would be more accessible when associated with a visible label are <a href="https://www.sarasoueidan.com/blog/accessible-icon-buttons/">icon buttons</a>. Similar to the dot navigation buttons, if you can’t add a visible label, try showing one when the user interacts with the button.</p>
+<p>Thank you for reading.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

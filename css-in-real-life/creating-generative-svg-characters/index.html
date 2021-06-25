@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Creating Generative SVG Characters</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>May 8, 2021</strong></small>
+
+				<h1>Creating Generative SVG Characters</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/css-in-real-life/">All from CSS In Real Life</a> <strong><a href="https://css-irl.info/creating-generative-svg-characters/">View <span class="inclusively-hidden">Creating Generative SVG Characters</span> on css-irl.info</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<figure>
+  <img src="https://css-irl.info/creating-generative-svg-characters.jpg" alt="A grid of six multicoloured SVG people" />
+</figure>
+<p>I came across <a href="https://twitter.com/georgedoescode">George Francis’</a> work recently, and am completely in love with his generative SVG characters — especially the googly eyes! What I particularly love about these is that they underline how generative art doesn’t have to be serious — it can be playful, whimsical and fun.</p>
+<p>George also has a <a href="https://georgefrancis.dev/">brand new website</a>, which includes some exceptionally well-written tutorials on how you can get started with generative SVG art. Reading <a href="https://georgefrancis.dev/writing/generative-svg-blob-characters/">this one on generative SVG blob characters</a>, it struck me as an ideal approach for a little generative project I had in mind.</p>
+<h2>The project</h2>
+<p>Recently I helped my 5-year-old son with a craft project to create some character cards. He’s not particularly keen on drawing, so getting him engaged in creative activities requires a bit of thought. We had a selection of coloured card (a palette of five or six colours). I drew shapes (circles, squares or triangles), and he would cut them out and stick them on a background, for the head and body of each character. Then he would draw on the eyes, mouth and limbs with a felt-tip pen.</p>
+<figure>
+  <img src="https://css-irl.info/creating-generative-svg-characters-01.jpg" alt="A grid of six multicoloured paper people" />
+</figure>
+<p>The premise was simple, and lends itself perfectly to generative art. Take some fixed parameters (a limited colour palette, a fixed background size, a small set of shapes), and add in a few random elements — in this case the cutting, sticking and drawing skills of a 5-year-old! It resulted in a lovely set of artworks, which I thought would be really fun to try and produce generatively.</p>
+<h2>The generative version</h2>
+<p>Until I ready George’s tutorial, I had the vague idea that I would use SVG to create the generative characters. George’s art inspired me to get started, and the tutorial provided loads of useful tips that made the process <em>so</em> much easier than if I’d attempted it on my own.</p>
+<h3>SVG.js</h3>
+<p><a href="https://svgjs.com/">SVG.js</a> is a useful JS library for creating and positioning SVG elements, such as circles, rectangles, lines and polygons. It saves tons of time compared to creating an element and appending it to the DOM manually. I’ll definitely be reaching for this again in the future.</p>
+<h3>A handy random function</h3>
+<p>George’s <code>random()</code> function is super handy as it allows you to specify whether you want an integer or a floating point value:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">random</span><span class="token punctuation">(</span><span class="token parameter">min<span class="token punctuation">,</span> max<span class="token punctuation">,</span> float <span class="token operator">=</span> <span class="token boolean">false</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br />  <span class="token keyword">const</span> val <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>max <span class="token operator">-</span> min<span class="token punctuation">)</span> <span class="token operator">+</span> min<br /><br />  <span class="token keyword">if</span> <span class="token punctuation">(</span>float<span class="token punctuation">)</span> <span class="token punctuation">{</span><br />    <span class="token keyword">return</span> val<br />  <span class="token punctuation">}</span><br /><br />  <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><br /><span class="token punctuation">}</span></code></pre>
+<p>I ended up using this all over the place to generate randomised properties of the characters.</p>
+<h3>Drawing the polygon</h3>
+<p>The heads and bodies of the characters are (vaguely) circular. To get the <em>x</em> and <em>y</em> path co-ordinates we can use some trigonometric functions (<code>Math.cos()</code> and <code>Math.sin()</code>) to plot these. Using George’s code, here’s how we would plot a regular polygon with 16 points:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> size <span class="token operator">=</span> <span class="token number">300</span><br /><span class="token keyword">const</span> xPosition <span class="token operator">=</span> <span class="token number">100</span><br /><span class="token keyword">const</span> yPosition <span class="token operator">=</span> <span class="token number">100</span><br /><span class="token keyword">const</span> numPoints <span class="token operator">=</span> <span class="token number">16</span><br /><br /><span class="token comment">// step used to place each point at equal distances</span><br /><span class="token keyword">const</span> angleStep <span class="token operator">=</span> <span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token constant">PI</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">/</span> numPoints<br /><br /><span class="token comment">// keep track of our points</span><br /><span class="token keyword">const</span> points <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><br /><br /><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> numPoints<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br />  <span class="token comment">// x &amp; y coordinates of the current point</span><br />  <span class="token keyword">const</span> x <span class="token operator">=</span> xPosition <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>i <span class="token operator">*</span> angleStep<span class="token punctuation">)</span> <span class="token operator">*</span> size<br />  <span class="token keyword">const</span> y <span class="token operator">=</span> xPosition <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>i <span class="token operator">*</span> angleStep<span class="token punctuation">)</span> <span class="token operator">*</span> size<br /><br />  <span class="token comment">// push the point to the points array</span><br />  points<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> x<span class="token punctuation">,</span> y <span class="token punctuation">}</span><span class="token punctuation">)</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Try changing the variables in the following demo to change the polygon’s position, size and number of points.</p>
+<p class="codepen" data-height="383" data-theme-id="dark" data-default-tab="js,result" data-user="michellebarker" data-slug-hash="MWpYRLd" style="height: 383px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="SVG polygon">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/MWpYRLd">
+  SVG polygon</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+<p>In the tutorial, George use the <code>random()</code> function to add an element of variation to the polygon points, resulting in irregular shapes.</p>
+<h3>Instantiating with a class</h3>
+<p>I use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">classes</a> a lot in my JS at work to create reusable component behaviours that can be instantiated at will. But not so much in my creative coding projects. Creating a class, as George does in this tutorial, is a great approach here. We can just instantiate it anywhere we want to add one of our generative characters.</p>
+<h2>Adaptations</h2>
+<p>While George’s code provided a great foundation to work with, I ended up making a few adaptations for my needs.</p>
+<h3>Colours</h3>
+<p>In my code, instead of fully randomising the colours, I wanted to have a limited palette from which to choose — just like having a selection of coloured card. So rather than generating colours randomly, I used a function to shuffle the array of colours and pick the first three. This ensures we get three different colour, rather than using the same colour twice within each character.</p>
+<h3>Shapes</h3>
+<p>George uses a <code>spline()</code> function to draw a smooth line the polygon shapes. This is great for creating the “blob” shapes that George uses, but for my characters I wanted to keep the jagged edges reminiscent of the real-life cut-out figures, so I didn’t end up using this function.</p>
+<p>I also mixed up the shapes a bit to better reflect the real-life variations, by adding a trapezium shape into the mix — so each character will have a body shape based on either a regular polygon or a trapezium.</p>
+<p>Here’s the full demo:</p>
+<p class="codepen" data-height="439" data-theme-id="dark" data-default-tab="result" data-user="michellebarker" data-slug-hash="ZEeYPbK" style="height: 439px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Generative SVG paper people">
+  <span>See the Pen <a href="https://codepen.io/michellebarker/pen/ZEeYPbK">
+  Generative SVG paper people</a> by Michelle Barker (<a href="https://codepen.io/michellebarker">@michellebarker</a>)
+  on <a href="https://codepen.io/">CodePen</a>.</span>
+</p>
+&nbsp;
+<p>Of course, you can read the <a href="https://georgefrancis.dev/writing/generative-svg-blob-characters/">full article</a>, which I thoroughly recommend if you want to get started with your own generative SVG project.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

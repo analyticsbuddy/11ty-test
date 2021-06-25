@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Debugging Media Queries: A Dev Tools Wish List</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Mar 2, 2021</strong></small>
+
+				<h1>Debugging Media Queries: A Dev Tools Wish List</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/css/">CSS</a></span>
+
+ <a href="/css-in-real-life/">All from CSS In Real Life</a> <strong><a href="https://css-irl.info/debugging-media-queries-a-dev-tools-wish-list/">View <span class="inclusively-hidden">Debugging Media Queries: A Dev Tools Wish List</span> on css-irl.info</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<p>The <a href="https://www.w3.org/TR/mediaqueries-5/">Level 5 Media Queries specification</a> brings us the ability to detect a whole load of different user preferences from within our CSS file, and serve up styles accordingly. Current support for the various media queries within the specification is mixed, but there are some that already have widespread support and are safe to use right now. For instance, we can detect whether a user has their system preferences set to dark mode using the <code>prefers-color-scheme</code> media query:</p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-color-scheme</span><span class="token punctuation">:</span> dark<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Styles */</span><br /><span class="token punctuation">}</span></code></pre>
+<p>Or detect a preference for reduced motion — useful for making our sites more inclusive by restricting animations for users who suffer from motion sickness or vestibular disorders and change their system preferences accordingly.</p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-reduced-motion</span><span class="token punctuation">:</span> reduce<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Styles */</span><br /><span class="token punctuation">}</span></code></pre>
+<p>On a Mac you can enable reduced motion by going to <em>System Preferences &gt; Accessibility</em> and selecting the “Reduced motion” option.</p>
+<p>Here’s a lesser-know media query I like a lot:</p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">hover</span><span class="token punctuation">:</span> hover<span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br />  <span class="token comment">/* Styles */</span><br /><span class="token punctuation">}</span></code></pre>
+<p>This detects the ability of the user’s primary pointing device to hover on the page. I’m using this in my current website redesign, to serve up slightly different styles for non-mouse users, or those browsing with touch-screen devices.</p>
+<h2>Debugging media queries</h2>
+<p>With an increasing number of user preferences to detect, we don’t just have to consider that our website will look different at different screen sizes. It’s conceivable that how it look to the user might depend on a whole host of preferences.</p>
+<p>Rather than having to test our sites by repeatedly switching our settings at a system level, it would be great if browser dev tools had the ability to toggle various user preferences on and off. Firefox recently added a dark mode toggle to their dev tools. You can find it under the ‘Rules’ panel in the inspector — try toggling light and dark mode on this site to see it in action!</p>
+<figure>
+  <img src="https://css-irl.info/debugging-media-queries-a-dev-tools-wish-list-01.jpg" alt="Screenshot of the dark and light mode buttons within the Firefox inspector" />
+</figure>
+<p>I’d love to see a similar thing for the above features too, and even for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@supports">feature queries</a> — which allow us to test for browser support within our CSS file, and provide fallback styles for browsers that don’t support the feature in question. It would certainly make it much easier to test all the possible appearances a website could have! The fact is, there are a whole lot of different ways people can browse the web, and there’s a good chance the way your site looks could vary widely. A solid starting point is to build with resilient, semantic HTML, and go from there.</p>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Layout Templating</title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	
+		<nav class="background-primary">
+			<a href="/">Steph&#39;s Favorite RSS</a>
+			<small><em>Fetching results since Feb 25, 2021</em></small>
+		</nav>
+	
+
+	<header >
+			
+		<div class="container container--item">
+				<small><strong>Apr 16, 2021</strong></small>
+
+				<h1>Layout Templating</h1>
+				<p class="header-meta">
+
+<span class="category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true" width="24"><defs/><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> <a href="/category/eleventy/">Eleventy</a></span>
+
+ <a href="/11ty-rocks/">All from 11ty Rocks!</a> <strong><a href="https://11ty.rocks/tips/layout-templating/">View <span class="inclusively-hidden">Layout Templating</span> on 11ty.rocks</a></strong></p>
+			
+		</div>
+	</header>
+	<main>
+	<article class="container item-article background-light">
+<h2 id="body-classes-for-pages-and-layouts" tabindex="-1"><a class="tdbc-anchor" href="https://11ty.rocks/tips/layout-templating/#body-classes-for-pages-and-layouts">#</a>Body Classes for Pages and Layouts</h2>
+<p>A trick I originally learned from WordPress templates is to add a class on the body to identify the page being viewed. This helps you have page-specific style rules.</p>
+<p>The <code>{{ page.fileSlug }}</code> is an Eleventy provided data variable that will be the original file name without the extension.</p>
+<blockquote>
+<p>This will be the file name only, not the path. So <code>/blog/post-one.md</code> would render <code>post-one</code>.</p>
+</blockquote>
+<p>Our logic includes the class of &quot;home&quot; when there is no <code>fileSlug</code> available since the the main <code>index</code> will not compute a <code>fileSlug</code>.</p>
+<pre class="language-js"><code class="language-js"><span class="token operator">&lt;</span>body<br />  <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"page--{% if page.fileSlug %}{{ page.fileSlug }}{% else %}home{% endif %}"</span><span class="token operator">></span></code></pre>
+<p>You may also add the layout in a similar way:</p>
+<pre class="language-js"><code class="language-js"><span class="token operator">&lt;</span>body <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"layout--{{ layout }}"</span><span class="token operator">></span></code></pre>
+<blockquote>
+<p>Note: If layouts are chained, then <code>{{ layout }}</code> will render out the <em>lowest</em> layout in the chain. So if <code>blog.njk</code> chains to <code>base.njk</code>, it will select <code>blog</code>.</p>
+</blockquote>
+</article>
+	</main>
+	<footer class="background-primary">
+		<p><a href="https://github.com/5t3ph/eleventy-rss-reader">eleventy-rss-reader</a> created by <a href="https://twitter.com/5t3ph">Stephanie Eckles</a></p>
+	</footer>
+
+	
+	<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+	
+</body>
+</html>
